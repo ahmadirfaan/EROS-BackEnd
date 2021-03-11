@@ -1,15 +1,14 @@
 package com.enigma.reimbursment.online.models.request.login;
 
 public class LoginRequest {
-    private String Username;
+    private String username;
     private String password;
 
     public String getUsername() {
-        return Username;
+        return username;
     }
 
-    public void setUsername(String username) {
-        Username = username;
+    public void setUsername(String username) { this.username = username;
     }
 
     public String getPassword() {
