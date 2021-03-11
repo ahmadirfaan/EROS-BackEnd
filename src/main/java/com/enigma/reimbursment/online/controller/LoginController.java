@@ -26,12 +26,9 @@ public class LoginController {
 
     @PostMapping
     public ResponseMessage<LoginResponse> login (@RequestBody @Valid LoginRequest model) {
-        System.out.println(model);
         Login entity = loginService.findByUsernameAndPassword(model.getUsername(),model.getPassword());
-        System.out.println(entity);
 
         LoginResponse data = modelMapper.map(entity,LoginResponse.class);
-        System.out.println(data);
 
         return ResponseMessage.success(data);
     }
