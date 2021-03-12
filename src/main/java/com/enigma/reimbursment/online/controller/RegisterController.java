@@ -1,10 +1,12 @@
 package com.enigma.reimbursment.online.controller;
 
+import com.enigma.reimbursment.online.entities.Admin;
 import com.enigma.reimbursment.online.entities.Login;
 import com.enigma.reimbursment.online.entities.Role;
-import com.enigma.reimbursment.online.models.request.register.RegisterRequest;
+import com.enigma.reimbursment.online.models.request.register.RegisterAdminRequest;
 import com.enigma.reimbursment.online.models.response.ResponseMessage;
 import com.enigma.reimbursment.online.models.response.login.LoginResponse;
+import com.enigma.reimbursment.online.services.AdminService;
 import com.enigma.reimbursment.online.services.LoginService;
 import com.enigma.reimbursment.online.services.RoleService;
 import org.modelmapper.ModelMapper;
@@ -26,24 +28,29 @@ public class RegisterController {
     private RoleService roleService;
 
     @Autowired
+    private AdminService adminService;
+
+    @Autowired
     private ModelMapper modelMapper;
 
-    @PostMapping
-    public ResponseMessage<LoginResponse> add (@RequestBody @Valid RegisterRequest model) {
-        System.out.println(model);
-        Login entity = modelMapper.map(model, Login.class);
+    @PostMapping("/admin")
+    public ResponseMessage<LoginResponse> register_admin (@RequestBody @Valid RegisterAdminRequest model) {
 
-        Role role = roleService.findById(model.getRole().getId());
-        entity.setRole(role);
-        System.out.println(entity);
+        /* Save data register to table login */
+        Login login = modelMapper.map(model, Login.class);
+        Role role = roleService.findById(model.getRoleId());
+        login.setRole(role);
+        login = loginService.save(login);
 
-        entity = loginService.save(entity);
-        System.out.println(entity);
 
-        LoginResponse data = modelMapper.map(entity,LoginResponse.class);
-        System.out.println(data);
+        /* Save data register to table admin */
+        Admin admin = new Admin();
+        admin.setLogin(login);
+        admin.setName(model.getName());
+        adminService.save(admin);
 
-        return ResponseMessage.success(data);
+        LoginResponse response = modelMapper.map(login, LoginResponse.class);
+        return ResponseMessage.success(response);
     }
 
 
