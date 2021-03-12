@@ -14,7 +14,8 @@ public class EmployeeContract extends AbstractEntity <Integer>{
     @GeneratedValue(generator = "id",strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "employee_id")
+    @OneToOne
+    @JoinColumn(name = "employee_id")
     private String employeeId;
 
     @Column(name = "type_contract")

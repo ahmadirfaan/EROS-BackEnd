@@ -1,14 +1,14 @@
 package com.enigma.reimbursment.online.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Table(name = "employee_address")
 @Entity
 public class EmployeeAddress {
 
-    @Column(name = "employee_id")
+    @Id
+    @OneToOne
+    @JoinColumn(name = "employee_id")
     private String employeeId;
 
     @Column(name = "ktp_address")
