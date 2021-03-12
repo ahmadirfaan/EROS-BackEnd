@@ -15,7 +15,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RequestMapping("roles")
+@RequestMapping("role")
 @RestController
 public class RoleController {
 
@@ -35,7 +35,7 @@ public class RoleController {
     }
 
     @PutMapping("/{id}")
-    public ResponseMessage<RoleResponse> edit(@PathVariable String id, @RequestBody RoleRequest model) {
+    public ResponseMessage<RoleResponse> edit(@PathVariable Integer id, @RequestBody RoleRequest model) {
         Role entity = roleService.findById(id);
         if(entity == null) {
             throw new EntityNotFondException();
@@ -48,19 +48,17 @@ public class RoleController {
     }
 
     @GetMapping("/{id}")
-    public ResponseMessage<RoleResponse> findById(@PathVariable String id) {
+    public ResponseMessage<RoleResponse> findById(@PathVariable Integer id) {
         Role entity = roleService.findById(id);
         if(entity == null) {
             throw new EntityNotFondException();
         }
         RoleResponse data = modelMapper.map(entity,RoleResponse.class);
         return ResponseMessage.success(data);
-
     }
 
     @GetMapping
     public ResponseMessage<List<RoleResponse>> findAll() {
-
        List<Role> entity = roleService.findAll();
        List<RoleResponse> data = entity.stream().map(e -> modelMapper.map(e,RoleResponse.class))
                .collect(Collectors.toList());
@@ -68,7 +66,7 @@ public class RoleController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseMessage<RoleResponse> removeById(@PathVariable  String id) {
+    public ResponseMessage<RoleResponse> removeById(@PathVariable Integer id) {
         Role entity = roleService.RemoveById(id);
         if(entity == null) {
             throw new EntityNotFondException();

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RoleService extends AbstractService<Role,String> {
+public class RoleService extends AbstractService<Role,Integer> {
 
     @Autowired
     protected RoleService(RoleRepository repository){

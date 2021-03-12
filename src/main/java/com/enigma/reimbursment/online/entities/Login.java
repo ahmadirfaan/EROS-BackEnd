@@ -12,7 +12,7 @@ public class Login extends AbstractEntity<String>{
     @GeneratedValue(generator = "id_login",strategy = GenerationType.IDENTITY)
     private String id;
 
-    private String username;
+    private String email;
 
     private String password;
 
@@ -38,12 +38,22 @@ public class Login extends AbstractEntity<String>{
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    @Override
+    public String toString() {
+        return "Login{" +
+                "id='" + id + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                '}';
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -54,16 +64,7 @@ public class Login extends AbstractEntity<String>{
         this.password = password;
     }
 
-    @Override
-    public String toString() {
-        return "Login{" +
-                "id='" + id + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", role=" + role +
-                '}';
-    }
-//    public Role getRole() {
+    //    public Role getRole() {
 //        return role;
 //    }
 

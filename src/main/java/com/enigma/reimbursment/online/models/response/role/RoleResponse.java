@@ -2,7 +2,7 @@ package com.enigma.reimbursment.online.models.response.role;
 
 public class RoleResponse {
     private String roleName;
-    private String id;
+    private Integer id;
 
     public String getRoleName() {
         return roleName;
@@ -12,11 +12,11 @@ public class RoleResponse {
         this.roleName = roleName;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 }
