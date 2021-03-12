@@ -3,16 +3,20 @@ package com.enigma.reimbursment.online.models.request.register;
 import com.enigma.reimbursment.online.entities.Role;
 
 public class RegisterRequest {
-    private String Username;
+    private String name;
+
+    private String username;
+
     private String password;
+
     private Role role;
 
     public String getUsername() {
-        return Username;
+        return username;
     }
 
     public void setUsername(String username) {
-        Username = username;
+        this.username = username;
     }
 
     public String getPassword() {
@@ -31,10 +35,18 @@ public class RegisterRequest {
         this.role = role;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "LoginRequest{" +
-                "Username='" + Username + '\'' +
+                "Username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
                 '}';

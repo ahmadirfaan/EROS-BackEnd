@@ -16,7 +16,6 @@ public class Login extends AbstractEntity<String>{
 
     private String password;
 
-//    private Role role;
 
     public Role getRole() {
         return role;

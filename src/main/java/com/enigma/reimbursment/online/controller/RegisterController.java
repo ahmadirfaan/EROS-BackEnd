@@ -4,7 +4,7 @@ import com.enigma.reimbursment.online.entities.Login;
 import com.enigma.reimbursment.online.entities.Role;
 import com.enigma.reimbursment.online.models.request.register.RegisterRequest;
 import com.enigma.reimbursment.online.models.response.ResponseMessage;
-import com.enigma.reimbursment.online.models.response.login.LoginResponse;
+import com.enigma.reimbursment.online.models.response.register.RegisterResponse;
 import com.enigma.reimbursment.online.services.LoginService;
 import com.enigma.reimbursment.online.services.RoleService;
 import org.modelmapper.ModelMapper;
@@ -29,7 +29,7 @@ public class RegisterController {
     private ModelMapper modelMapper;
 
     @PostMapping
-    public ResponseMessage<LoginResponse> add (@RequestBody @Valid RegisterRequest model) {
+    public ResponseMessage<RegisterResponse> add (@RequestBody @Valid RegisterRequest model) {
         System.out.println(model);
         Login entity = modelMapper.map(model, Login.class);
 
@@ -40,7 +40,7 @@ public class RegisterController {
         entity = loginService.save(entity);
         System.out.println(entity);
 
-        LoginResponse data = modelMapper.map(entity,LoginResponse.class);
+        RegisterResponse data = modelMapper.map(entity,RegisterResponse.class);
         System.out.println(data);
 
         return ResponseMessage.success(data);

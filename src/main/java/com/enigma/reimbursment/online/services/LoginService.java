@@ -5,8 +5,6 @@ import com.enigma.reimbursment.online.repositories.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class LoginService extends AbstractService<Login, String> {
@@ -20,17 +18,7 @@ public class LoginService extends AbstractService<Login, String> {
     }
 
     public Login findByUsernameAndPassword(String username, String password){
-        List<Login> users = loginRepository.findAll();
-        Login data = null;
-
-            for(Login user : users){
-                if(user.getUsername().equals(username) && user.getPassword().equals(password)){
-                    data = user;
-                }
-            }
-
-
-        return data;
+        return loginRepository.findByUsernameAndPassword(username, password);
     }
 
 
