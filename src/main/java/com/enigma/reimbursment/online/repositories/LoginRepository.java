@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface LoginRepository extends JpaRepository<Login,String> {
-
-    @Query(value = "SELECT * FROM login WHERE username =:username AND password =:password ", nativeQuery = true)
+    @Query(value = "SELECT * FROM login WHERE username = :username AND password = :password", nativeQuery = true)
     Login findByUsernameAndPassword(@Param("username") String username, @Param("password") String password);
 }
