@@ -14,5 +14,4 @@ public class RoleService extends AbstractService<Role,Integer> {
         super(repository);
     }
 
-
 }

@@ -1,5 +1,5 @@
 package com.enigma.reimbursment.online.enums;
 
-public enum StatusRegistrasiBenefit {
+public enum StatusRegistrationBenefit {
     ON_PROCESS,DONE
 }

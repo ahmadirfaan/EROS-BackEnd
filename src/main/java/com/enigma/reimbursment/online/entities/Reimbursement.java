@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "reimbursement")
+@Table
 public class Reimbursement extends AbstractEntity<String>{
     @Id
     @GenericGenerator(name="id_reimbursement",strategy = "uuid2")

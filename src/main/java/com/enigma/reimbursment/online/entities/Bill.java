@@ -9,8 +9,8 @@ import javax.persistence.*;
 public class Bill extends AbstractEntity<String>{
 
     @Id
-    @GenericGenerator(name = "id_bill", strategy = "uuid2")
-    @GeneratedValue(generator = "id_bill", strategy = GenerationType.IDENTITY)
+    @GenericGenerator(name = "id", strategy = "uuid2")
+    @GeneratedValue(generator = "id", strategy = GenerationType.IDENTITY)
     private String id;
 
     @Column(name = "bill_image")

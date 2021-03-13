@@ -5,7 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 
-@Table(name = "login")
+@Table
 @Entity
 public class Login extends AbstractEntity<String>{
     @Id

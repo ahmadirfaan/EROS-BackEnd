@@ -21,13 +21,11 @@ INSERT INTO `reimburse`.`login` (`id`, `created_date`, `email`, `password`, `id_
 INSERT INTO `reimburse`.`login` (`id`, `created_date`, `email`, `password`, `id_role`) VALUES ('7b225550-51a9-492c-beea-ce4d807f1eda', '2021-12-2', 'irfan@gmail.com', 'irfan', '2');
 INSERT INTO `reimburse`.`login` (`id`, `created_date`, `email`, `password`, `id_role`) VALUES ('6c1d0c8c-4296-4e67-a04b-3c3fdaa158b7', '2021-12-3', 'wulan@gmail.com', 'wulan', '3');
 INSERT INTO `reimburse`.`login` (`id`, `created_date`, `email`, `password`, `id_role`) VALUES ('b884462e-83e7-11eb-8dcd-0242ac130003', '2021-12-4', 'eka@gmail.com', 'eka', '4');
-INSERT INTO `reimburse`.`login` (`id`, `created_date`, `email`, `password`, `id_role`) VALUES ('d5d7796c-83e7-11eb-8dcd-0242ac130003', '2021-12-5', 'sch@gmail.com', 'sch', '5');
 
 INSERT INTO admin (id,created_date,name,id_login) VALUES ('f924cdd8-2d3c-4b35-8f5b-1a0ccc142c0b','2021-03-10','wisa','58b184ed-b256-4762-92cd-0c67206e0548');
 INSERT INTO admin (id,created_date,name,id_login) VALUES ('8b2558c0-2d0f-45e2-a063-617a9ab4f6c7','2021-03-11','irfan','7b225550-51a9-492c-beea-ce4d807f1eda');
 INSERT INTO admin (id,created_date,name,id_login) VALUES ('02564c68-c872-43ee-a67a-57d91de2b1b1','2021-03-12','wulan','6c1d0c8c-4296-4e67-a04b-3c3fdaa158b7');
 INSERT INTO admin (id,created_date,name,id_login) VALUES ('742cb4d1-060b-421d-bbbc-093d8113040e','2021-03-13','eka','b884462e-83e7-11eb-8dcd-0242ac130003');
-INSERT INTO admin (id,created_date,name,id_login) VALUES ('58b184ed-b256-4762-92cd-0c67206e0548','2021-03-14','sch','d5d7796c-83e7-11eb-8dcd-0242ac130003');
 
 
 

@@ -17,7 +17,7 @@ public class Employee extends AbstractEntity <String>{
 
     @OneToOne
     @JoinColumn(name = "id_login")
-    private Login idLogin;
+    private Login login;
 
     @Column
     private String fullname;
@@ -198,11 +198,11 @@ public class Employee extends AbstractEntity <String>{
     }
 
     public Login getIdLogin() {
-        return idLogin;
+        return login;
     }
 
-    public void setIdLogin(Login idLogin) {
-        this.idLogin = idLogin;
+    public void setIdLogin(Login login) {
+        this.login = login;
     }
 
     public String getFullname() {
@@ -362,7 +362,7 @@ public class Employee extends AbstractEntity <String>{
     public String toString() {
         return "Employee{" +
                 "id='" + id + '\'' +
-                ", idLogin='" + idLogin + '\'' +
+                ", login='" + login + '\'' +
                 ", fullname='" + fullname + '\'' +
                 ", gender='" + gender + '\'' +
                 ", nik='" + nik + '\'' +

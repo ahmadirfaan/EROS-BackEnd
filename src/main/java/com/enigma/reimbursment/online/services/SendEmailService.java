@@ -31,10 +31,13 @@ public class SendEmailService {
     public void sendEmailVerificationToken(String token, String to) throws MessagingException {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, "utf-8");
-        String message = "<h3>Click link below to activation your account.</h3>"+
+
+        String message = "" +
+                "<h3>Click link below to activation your account.</h3>"+
                 "<a href='http://localhost:8080/register/verification/"+token+"'>"+
                     "http://localhost:8080/register/verification/"+token+
                 "</a>";
+
         mimeMessageHelper.setTo(to);
         mimeMessageHelper.setSubject("Verification Email");
         mimeMessageHelper.setText(message, true);

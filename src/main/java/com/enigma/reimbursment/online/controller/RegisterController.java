@@ -88,7 +88,7 @@ public class RegisterController {
         /* Save data register to table employee */
         String verificationToken = generateVerificationToken();
         Employee employee = new Employee();
-        employee.setIdLogin(login.getId());
+        employee.setIdLogin(login);
         employee.setEmailVerificationToken(verificationToken);
         employeeService.save(employee);
 
