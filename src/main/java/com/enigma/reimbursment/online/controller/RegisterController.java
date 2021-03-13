@@ -42,7 +42,6 @@ public class RegisterController {
     private ModelMapper modelMapper;
 
 
-
     @PostMapping("/admin")
     public ResponseMessage<RegisterResponse> register_admin (@RequestBody @Valid RegisterAdminRequest request) {
 
@@ -51,7 +50,6 @@ public class RegisterController {
         Role role = roleService.findById(request.getRoleId());
         login.setRole(role);
         login = loginService.save(login);
-
 
         /* Save data register to table admin */
         Admin admin = new Admin();

@@ -15,14 +15,14 @@ public class SendEmailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    public void sendMail(String randomKey) throws MessagingException {
+    public void sendMail(String randomKey, String to) throws MessagingException {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, "utf-8");
         String message = "<h3>" +
                 randomKey +
                 "</h3>";
-        mimeMessageHelper.setTo("revenero@gmail.com");
-        mimeMessageHelper.setSubject("<subject>");
+        mimeMessageHelper.setTo(to);
+        mimeMessageHelper.setSubject("Forgot Password");
         mimeMessageHelper.setText(message, true);
         javaMailSender.send(mimeMessage);
     }

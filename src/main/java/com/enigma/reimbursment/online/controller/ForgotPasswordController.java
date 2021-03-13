@@ -1,18 +1,11 @@
 package com.enigma.reimbursment.online.controller;
 
-import com.enigma.reimbursment.online.entities.Employee;
-import com.enigma.reimbursment.online.entities.Login;
-import com.enigma.reimbursment.online.models.request.forgotPassword.ForgotPasswordRequest;
-import com.enigma.reimbursment.online.models.request.login.LoginRequest;
-import com.enigma.reimbursment.online.models.response.ResponseMessage;
-import com.enigma.reimbursment.online.models.response.login.LoginResponse;
+import com.enigma.reimbursment.online.models.model.forgotPassword.ForgotPasswordModel;
 import com.enigma.reimbursment.online.services.LoginService;
 import com.enigma.reimbursment.online.services.SendEmailService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
@@ -37,29 +30,41 @@ public class ForgotPasswordController {
     private SendEmailService sendEmailService;
 
 
-
     @PostMapping
-    public ResponseEntity<String> forgotPassword(@RequestBody @Valid ForgotPasswordRequest request) throws MessagingException {
-        Integer user = loginService.findByEmail(request.getEmail());
-        if (user != 0) {
-            sendEmailService.sendMail(getSaltString());
-            return ResponseEntity.ok("Success");
+    public ResponseEntity<ForgotPasswordModel> forgotPassword(@RequestBody @Valid ForgotPasswordModel request) throws MessagingException {
+
+        /* Find email in table login */
+        Integer result = loginService.findByEmail(request.getEmail());
+
+        if (result == 1) {
+            /* Send Mail */
+            sendEmailService.sendMail(randomString(), request.getEmail());
+
+            /* Set Response */
+            ForgotPasswordModel response = new ForgotPasswordModel();
+            response.setEmail(request.getEmail());
+            response.setStatus("Success");
+            return ResponseEntity.ok(response);
         } else {
-            return ResponseEntity.ok("Failed");
+            ForgotPasswordModel response = new ForgotPasswordModel();
+            response.setEmail(request.getEmail());
+            response.setStatus("Failed");
+            return ResponseEntity.ok(response);
         }
     }
 
 
-    protected String getSaltString() {
-        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-        StringBuilder salt = new StringBuilder();
+    protected String randomString() {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder stringBuilder = new StringBuilder();
         Random rnd = new Random();
-        while (salt.length() <= 5) { // length of the random string.
-            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
-            salt.append(SALTCHARS.charAt(index));
+
+        while (stringBuilder.length() <= 5) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * characters.length());
+            stringBuilder.append(characters.charAt(index));
         }
-        String saltStr = salt.toString();
-        return saltStr;
+
+        return stringBuilder.toString();
     }
 }
 
