@@ -38,7 +38,7 @@ public class ForgotPasswordController {
 
         if (result == 1) {
             /* Send Mail */
-            sendEmailService.sendMail(randomString(), request.getEmail());
+            sendEmailService.sendEmailForgotPassword(randomString(), request.getEmail());
 
             /* Set Response */
             ForgotPasswordModel response = new ForgotPasswordModel();
