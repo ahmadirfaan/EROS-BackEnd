@@ -9,14 +9,20 @@ import javax.persistence.*;
 public class Grade {
 
     @Id
-    @GenericGenerator(name="id_grade",strategy = "uuid2")
-    @GeneratedValue(generator = "id_grade",strategy = GenerationType.IDENTITY)
+    @GenericGenerator(name="id",strategy = "uuid2")
+    @GeneratedValue(generator = "id",strategy = GenerationType.IDENTITY)
     private String id;
+    @Column(name = "id_grade")
     private Integer numgrade;
+    @Column(name = "glasess_cost")
     private Integer glasessCost;
+    @Column(name = "give_birth_cost")
     private Integer giveBirthCost;
+    @Column(name = "hotel_cost")
     private Integer hotelCost;
+    @Column(name = "transportation_cost")
     private Integer transportationCost;
+    @Column(name = "meal_cost")
     private Integer mealCost;
 
     public String getId() {

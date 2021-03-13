@@ -1,5 +1,6 @@
 package com.enigma.reimbursment.online.entities;
 
+import com.enigma.reimbursment.online.enums.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -21,7 +22,7 @@ public class Employee extends AbstractEntity <String>{
     private String fullname;
 
     @Column
-    private String gender;
+    private Gender gender;
 
     @Column
     private String nik;
@@ -33,10 +34,10 @@ public class Employee extends AbstractEntity <String>{
     private String emergencyNumber;
 
     @Column(name = "employee_status")
-    private String employeeStatus;
+    private EmployeeStatus employeeStatus;
 
     @Column(name = "employee_type")
-    private String employeeType;
+    private EmployeeType employeeType;
 
     @Column
     private String npwp;
@@ -45,10 +46,10 @@ public class Employee extends AbstractEntity <String>{
     private String grade;
 
     @Column
-    private String religion;
+    private Religion religion;
 
     @Column(name = "blood_type")
-    private String  bloodType;
+    private BloodType  bloodType;
 
     @Column(name = "phone_number")
     private String phoneNumber;
@@ -66,7 +67,7 @@ public class Employee extends AbstractEntity <String>{
     private LocalDate dateOfBirth;
 
     @Column(name = "marital_status")
-    private String maritalStatus;
+    private MaritalStatus maritalStatus;
 
     @Column(name = "number_of_children")
     private Integer numberOfChildren;
@@ -133,11 +134,11 @@ public class Employee extends AbstractEntity <String>{
         this.fullname = fullname;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 
@@ -165,19 +166,19 @@ public class Employee extends AbstractEntity <String>{
         this.emergencyNumber = emergencyNumber;
     }
 
-    public String getEmployeeStatus() {
+    public EmployeeStatus getEmployeeStatus() {
         return employeeStatus;
     }
 
-    public void setEmployeeStatus(String employeeStatus) {
+    public void setEmployeeStatus(EmployeeStatus employeeStatus) {
         this.employeeStatus = employeeStatus;
     }
 
-    public String getEmployeeType() {
+    public EmployeeType getEmployeeType() {
         return employeeType;
     }
 
-    public void setEmployeeType(String employeeType) {
+    public void setEmployeeType(EmployeeType employeeType) {
         this.employeeType = employeeType;
     }
 
@@ -197,19 +198,19 @@ public class Employee extends AbstractEntity <String>{
         this.grade = grade;
     }
 
-    public String getReligion() {
+    public Religion getReligion() {
         return religion;
     }
 
-    public void setReligion(String religion) {
+    public void setReligion(Religion religion) {
         this.religion = religion;
     }
 
-    public String getBloodType() {
+    public BloodType getBloodType() {
         return bloodType;
     }
 
-    public void setBloodType(String bloodType) {
+    public void setBloodType(BloodType bloodType) {
         this.bloodType = bloodType;
     }
 
@@ -245,11 +246,11 @@ public class Employee extends AbstractEntity <String>{
         this.placeOfBirth = placeOfBirth;
     }
 
-    public String getMaritalStatus() {
+    public MaritalStatus getMaritalStatus() {
         return maritalStatus;
     }
 
-    public void setMaritalStatus(String maritalStatus) {
+    public void setMaritalStatus(MaritalStatus maritalStatus) {
         this.maritalStatus = maritalStatus;
     }
 
