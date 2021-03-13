@@ -1,5 +1,6 @@
 package com.enigma.reimbursment.online.controller;
 
+import com.enigma.reimbursment.online.entities.Login;
 import com.enigma.reimbursment.online.models.model.forgotPassword.ForgotPasswordModel;
 import com.enigma.reimbursment.online.services.LoginService;
 import com.enigma.reimbursment.online.services.SendEmailService;
@@ -34,11 +35,16 @@ public class ForgotPasswordController {
     public ResponseEntity<ForgotPasswordModel> forgotPassword(@RequestBody @Valid ForgotPasswordModel request) throws MessagingException {
 
         /* Find email in table login */
-        Integer result = loginService.findByEmail(request.getEmail());
+        Login login = loginService.findByEmail(request.getEmail());
 
-        if (result == 1) {
+        if (login != null) {
+            String newPassword = randomString();
+
             /* Send Mail */
-            sendEmailService.sendEmailForgotPassword(randomString(), request.getEmail());
+            sendEmailService.sendEmailForgotPassword(newPassword, request.getEmail());
+
+            /* Reset Password */
+            loginService.resetPassword(login.getId(), newPassword);
 
             /* Set Response */
             ForgotPasswordModel response = new ForgotPasswordModel();
@@ -59,7 +65,7 @@ public class ForgotPasswordController {
         StringBuilder stringBuilder = new StringBuilder();
         Random rnd = new Random();
 
-        while (stringBuilder.length() <= 5) { // length of the random string.
+        while (stringBuilder.length() <= 8) { // length of the random string.
             int index = (int) (rnd.nextFloat() * characters.length());
             stringBuilder.append(characters.charAt(index));
         }
