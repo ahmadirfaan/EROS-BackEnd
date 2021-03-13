@@ -1,10 +1,8 @@
-package com.enigma.reimbursment.online.models.convertes;
+package com.enigma.reimbursment.online.models.converter;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Component;
-
-import java.util.Locale;
 
 
 @Component

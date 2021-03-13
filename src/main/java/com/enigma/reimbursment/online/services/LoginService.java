@@ -20,7 +20,11 @@ public class LoginService extends AbstractService<Login, String> {
         return loginRepository.findByEmailAndPassword(email,password);
     }
 
-    public Integer findByEmail(String email){
+    public Login findByEmail(String email){
         return loginRepository.findByEmail(email);
+    }
+
+    public void resetPassword(String id, String password) {
+        loginRepository.resetPassword(id, password);
     }
 }

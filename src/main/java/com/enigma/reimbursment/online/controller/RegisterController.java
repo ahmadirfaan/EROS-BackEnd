@@ -9,18 +9,14 @@ import com.enigma.reimbursment.online.models.request.register.RegisterEmployeeRe
 import com.enigma.reimbursment.online.models.response.ResponseMessage;
 import com.enigma.reimbursment.online.models.response.login.LoginResponse;
 import com.enigma.reimbursment.online.models.response.register.RegisterResponse;
-import com.enigma.reimbursment.online.services.AdminService;
-import com.enigma.reimbursment.online.services.EmployeeService;
-import com.enigma.reimbursment.online.services.LoginService;
-import com.enigma.reimbursment.online.services.RoleService;
+import com.enigma.reimbursment.online.services.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
+import java.util.Random;
 
 @RequestMapping("/register")
 @RestController
@@ -40,6 +36,9 @@ public class RegisterController {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private SendEmailService sendEmailService;
 
 
     @PostMapping("/admin")
@@ -62,8 +61,22 @@ public class RegisterController {
     }
 
 
+    @GetMapping("/verification/{token}")
+    public ResponseMessage verification (@PathVariable String token) {
+        Employee employee = employeeService.checkVerificationEmailToken(token);
+
+        if (employee == null) {
+            return new ResponseMessage(400, "Verification token is not valid.");
+        } else {
+            employeeService.changeIsVerifiedEmail(token);
+            return new ResponseMessage(400, "Verification token is success.");
+        }
+
+    }
+
+
     @PostMapping("/employee")
-    public ResponseMessage<RegisterResponse> register_employee (@RequestBody @Valid RegisterEmployeeRequest model) {
+    public ResponseMessage<RegisterResponse> register_employee (@RequestBody @Valid RegisterEmployeeRequest model) throws MessagingException {
 
         /* Save data register to table login */
         Login login = modelMapper.map(model, Login.class);
@@ -73,13 +86,30 @@ public class RegisterController {
 
 
         /* Save data register to table employee */
+        String verificationToken = generateVerificationToken();
         Employee employee = new Employee();
         employee.setIdLogin(login.getId());
+        employee.setEmailVerificationToken(verificationToken);
         employeeService.save(employee);
+
+        /* Send Mail */
+        sendEmailService.sendEmailVerificationToken(verificationToken, model.getEmail());
 
         RegisterResponse response = modelMapper.map(login, RegisterResponse.class);
         return ResponseMessage.success(response);
     }
 
 
+    protected String generateVerificationToken() {
+        String characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder stringBuilder = new StringBuilder();
+        Random rnd = new Random();
+
+        while (stringBuilder.length() <= 20) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * characters.length());
+            stringBuilder.append(characters.charAt(index));
+        }
+
+        return stringBuilder.toString();
+    }
 }

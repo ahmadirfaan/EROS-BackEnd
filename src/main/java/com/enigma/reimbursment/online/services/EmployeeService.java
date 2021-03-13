@@ -9,8 +9,19 @@ import org.springframework.stereotype.Service;
 public class EmployeeService extends AbstractService<Employee,String> {
 
     @Autowired
+    EmployeeRepository employeeRepository;
+
+    @Autowired
     protected EmployeeService(EmployeeRepository repository){
         super(repository);
+    }
+
+    public Employee checkVerificationEmailToken(String token){
+        return employeeRepository.checkVerificationEmailToken(token);
+    }
+
+    public void changeIsVerifiedEmail(String token) {
+        employeeRepository.changeIsVerifiedEmail(token);
     }
 
 }
