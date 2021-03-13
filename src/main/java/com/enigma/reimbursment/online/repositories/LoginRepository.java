@@ -11,5 +11,5 @@ public interface LoginRepository extends JpaRepository<Login,String> {
     Login findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
 
     @Query(value = "SELECT COUNT(email) FROM login WHERE email = :email", nativeQuery = true)
-    Login findByEmail(@Param("email") String email);
+    Integer findByEmail(@Param("email") String email);
 }
