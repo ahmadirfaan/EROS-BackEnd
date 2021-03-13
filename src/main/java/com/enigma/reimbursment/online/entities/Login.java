@@ -3,6 +3,7 @@ package com.enigma.reimbursment.online.entities;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Table(name = "login")
 @Entity
@@ -12,10 +13,18 @@ public class Login extends AbstractEntity<String>{
     @GeneratedValue(generator = "id_login",strategy = GenerationType.IDENTITY)
     private String id;
 
+    @Column(unique=true)
     private String email;
 
     private String password;
 
+    @OneToOne
+    @JoinColumn(name = "id_role")
+    private Role role;
+
+
+
+    /* Getter & Setter */
 
     public Role getRole() {
         return role;
@@ -24,10 +33,6 @@ public class Login extends AbstractEntity<String>{
     public void setRole(Role role) {
         this.role = role;
     }
-    @OneToOne
-    @JoinColumn(name = "id_role")
-    private Role role;
-
 
     public String getId() {
         return id;
@@ -62,12 +67,4 @@ public class Login extends AbstractEntity<String>{
     public void setPassword(String password) {
         this.password = password;
     }
-
-    //    public Role getRole() {
-//        return role;
-//    }
-
-//    public void setRole(Integer role) {
-//        this.role = role;
-//    }
 }

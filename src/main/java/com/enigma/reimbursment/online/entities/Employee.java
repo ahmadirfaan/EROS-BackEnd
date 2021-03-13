@@ -83,6 +83,35 @@ public class Employee extends AbstractEntity <String>{
     @Column(name = "husband_name")
     private String husbandName;
 
+    @Column(name = "email_verification_token")
+    private String emailVerificationToken;
+
+    @Column(name = "is_verified_email")
+    private Boolean isVerifiedEmail;
+
+
+    /* Getter & Setter */
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public Integer getNumberOfChildren() {
+        return numberOfChildren;
+    }
+
+    public LocalDate getJoinDate() {
+        return joinDate;
+    }
+
+    public String getEmailVerificationToken() {
+        return emailVerificationToken;
+    }
+
+    public void setEmailVerificationToken(String emailVerificationToken) {
+        this.emailVerificationToken = emailVerificationToken;
+    }
+
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
@@ -95,16 +124,15 @@ public class Employee extends AbstractEntity <String>{
         this.joinDate = joinDate;
     }
 
-    public Boolean getVerified() {
-        return isVerified;
+    public Boolean getIsVerifiedEmail() {
+        return isVerifiedEmail;
     }
 
-    public void setVerified(Boolean verified) {
-        isVerified = verified;
+    public void setIsVerifiedEmail(Boolean verified) {
+        isVerifiedEmail = verified;
     }
 
-    @Column(name = "isVerified")
-    private Boolean isVerified;
+
 
 
     @Override
@@ -298,14 +326,15 @@ public class Employee extends AbstractEntity <String>{
                 ", accountNumber='" + accountNumber + '\'' +
                 ", accountName='" + accountName + '\'' +
                 ", placeOfBirth='" + placeOfBirth + '\'' +
-                ", dateOfBirth='" + dateOfBirth + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
                 ", maritalStatus='" + maritalStatus + '\'' +
-                ", numberOfChildren='" + numberOfChildren + '\'' +
-                ", joinDate='" + joinDate + '\'' +
+                ", numberOfChildren=" + numberOfChildren +
+                ", joinDate=" + joinDate +
                 ", biologicalMothersName='" + biologicalMothersName + '\'' +
                 ", wifeName='" + wifeName + '\'' +
                 ", husbandName='" + husbandName + '\'' +
-                ", isVerified='" + isVerified + '\'' +
+                ", emailVerificationToken='" + emailVerificationToken + '\'' +
+                ", isVerifiedEmail=" + isVerifiedEmail +
                 '}';
     }
 }

@@ -12,11 +12,18 @@ public class ResponseMessage <T>{
 
     private T data;
 
+    public ResponseMessage(int code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
+
     public ResponseMessage(int code, String message, T data) {
         this.code = code;
         this.message = message;
         this.data = data;
     }
+
 
     public int getCode() {
         return code;
