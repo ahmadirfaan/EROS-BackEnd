@@ -23,4 +23,5 @@ public class EmployeeService extends AbstractService<Employee,String> {
     public void changeIsVerifiedEmail(String token) {
         employeeRepository.changeIsVerifiedEmail(token);
     }
+
 }
