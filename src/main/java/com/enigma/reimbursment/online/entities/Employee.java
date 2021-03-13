@@ -15,8 +15,9 @@ public class Employee extends AbstractEntity <String>{
     @GeneratedValue(generator = "id",strategy = GenerationType.IDENTITY)
     private String id;
 
-    @Column(name = "id_login")
-    private String idLogin;
+    @OneToOne
+    @JoinColumn(name = "id_login")
+    private Login idLogin;
 
     @Column
     private String fullname;
@@ -90,8 +91,71 @@ public class Employee extends AbstractEntity <String>{
     @Column(name = "is_verified_email")
     private Boolean isVerifiedEmail;
 
+    @Column(name = "ktp_address")
+    private String ktpAddress;
+
+    @Column(name = "npwp_address")
+    private String npwpAddress;
+
+    @Column(name = "residence_address")
+    private String residenceAddress;
+
+    @Column(name = "postal_code_of_id_card")
+    private String postalCodeOfIdCard;
+
 
     /* Getter & Setter */
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Boolean getVerifiedEmail() {
+        return isVerifiedEmail;
+    }
+
+    public void setVerifiedEmail(Boolean verifiedEmail) {
+        isVerifiedEmail = verifiedEmail;
+    }
+
+    public String getKtpAddress() {
+        return ktpAddress;
+    }
+
+    public void setKtpAddress(String ktpAddress) {
+        this.ktpAddress = ktpAddress;
+    }
+
+    public String getNpwpAddress() {
+        return npwpAddress;
+    }
+
+    public void setNpwpAddress(String npwpAddress) {
+        this.npwpAddress = npwpAddress;
+    }
+
+    public String getResidenceAddress() {
+        return residenceAddress;
+    }
+
+    public void setResidenceAddress(String residenceAddress) {
+        this.residenceAddress = residenceAddress;
+    }
+
+    public String getPostalCodeOfIdCard() {
+        return postalCodeOfIdCard;
+    }
+
+    public void setPostalCodeOfIdCard(String postalCodeOfIdCard) {
+        this.postalCodeOfIdCard = postalCodeOfIdCard;
+    }
+
 
     public LocalDate getDateOfBirth() {
         return dateOfBirth;
@@ -133,24 +197,11 @@ public class Employee extends AbstractEntity <String>{
         isVerifiedEmail = verified;
     }
 
-
-
-
-    @Override
-    public String getId() {
-        return null;
-    }
-
-    @Override
-    public void setId(String s) {
-
-    }
-
-    public String getIdLogin() {
+    public Login getIdLogin() {
         return idLogin;
     }
 
-    public void setIdLogin(String idLogin) {
+    public void setIdLogin(Login idLogin) {
         this.idLogin = idLogin;
     }
 
