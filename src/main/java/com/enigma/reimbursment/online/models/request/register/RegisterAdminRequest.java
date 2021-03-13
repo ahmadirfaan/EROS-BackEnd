@@ -2,9 +2,9 @@ package com.enigma.reimbursment.online.models.request.register;
 
 
 public class RegisterAdminRequest {
-    private String username;
+    private String email;
     private String password;
-    private String roleId;
+    private Integer roleId;
     private String name;
 
 
@@ -16,12 +16,12 @@ public class RegisterAdminRequest {
         this.name = name;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -32,20 +32,20 @@ public class RegisterAdminRequest {
         this.password = password;
     }
 
-    public String getRoleId() {
+    public Integer getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(String roleId) {
+    public void setRoleId(Integer roleId) {
         this.roleId = roleId;
     }
 
     @Override
     public String toString() {
         return "RegisterAdminRequest{" +
-                "username='" + username + '\'' +
+                "email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", roleId=" + roleId +
+                ", roleId='" + roleId + '\'' +
                 ", name='" + name + '\'' +
                 '}';
     }

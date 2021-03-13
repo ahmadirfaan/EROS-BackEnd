@@ -25,12 +25,14 @@ public class LoginController {
     private ModelMapper modelMapper;
 
     @PostMapping
-    public ResponseMessage<LoginResponse> login (@RequestBody @Valid LoginRequest model) {
-        Login entity = loginService.findByUsernameAndPassword(model.getUsername(),model.getPassword());
+    public ResponseMessage<LoginResponse> login (@RequestBody @Valid LoginRequest request) {
+        Login login = loginService.findByEmailAndPassword(request.getEmail(),request.getPassword());
 
-        LoginResponse data = modelMapper.map(entity,LoginResponse.class);
-
-        return ResponseMessage.success(data);
+        LoginResponse response = new LoginResponse();
+        response.setEmail(login.getEmail());
+        response.setPassword(login.getPassword());
+        response.setRoleId(login.getRole().getId());
+        return ResponseMessage.success(response);
     }
 
 

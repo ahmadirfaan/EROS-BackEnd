@@ -12,8 +12,6 @@ public class ResponseMessage <T>{
 
     private T data;
 
-    private LocalDateTime timestap;
-
     public ResponseMessage(int code, String message, T data) {
         this.code = code;
         this.message = message;
@@ -42,14 +40,6 @@ public class ResponseMessage <T>{
 
     public void setData(T data) {
         this.data = data;
-    }
-
-    public LocalDateTime getTimestap() {
-        return timestap;
-    }
-
-    public void setTimestap(LocalDateTime timestap) {
-        this.timestap = timestap;
     }
 
     public static <T> ResponseMessage<T> success(T data) {

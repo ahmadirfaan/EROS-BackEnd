@@ -1,27 +1,24 @@
 package com.enigma.reimbursment.online.entities;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 
 @Table(name = "role")
 @Entity
-public class Role extends AbstractEntity <String>{
+public class Role extends AbstractEntity <Integer>{
 
     @Id
-    @GenericGenerator(name="id_role",strategy = "uuid2")
-    @GeneratedValue(generator = "id_role",strategy = GenerationType.IDENTITY)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @Column(name = "role_name")
     private String roleName;
 
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
