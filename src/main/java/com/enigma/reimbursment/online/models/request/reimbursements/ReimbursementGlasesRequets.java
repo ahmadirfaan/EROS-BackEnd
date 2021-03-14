@@ -23,4 +23,6 @@ public class ReimbursementGlasesRequets {
     public void setBorneCost(Integer borneCost) {
         this.borneCost = borneCost;
     }
+
+
 }
