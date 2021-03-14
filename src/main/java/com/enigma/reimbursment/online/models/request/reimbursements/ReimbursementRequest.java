@@ -1,24 +1,31 @@
 package com.enigma.reimbursment.online.models.request.reimbursements;
 
-import com.enigma.reimbursment.online.entities.Category;
-import com.enigma.reimbursment.online.entities.Employee;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 public class ReimbursementRequest {
 
-    private Date dateOfClaimSumbission;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private String dateOfClaimSubmission;
+    @Pattern(message = "input number only",regexp = "/^[0-9]+$/")
     private Integer claimFee;
-    private Date disbursmentDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private String disbursementDate;
     private Boolean statusReject;
     private Boolean statusOnHc;
     private Boolean statusOnFinance;
     private Boolean statusSuccess;
+    @Pattern(message = "input number only",regexp = "/^[0-9]+$/")
     private Integer borneCost;
+
     private String employeeId;
+    @NotBlank
+    @NotNull
+    private String categoryId;
 
     public String getEmployeeId() {
         return employeeId;
@@ -36,15 +43,12 @@ public class ReimbursementRequest {
         this.categoryId = categoryId;
     }
 
-    private String categoryId;
-
-
-    public Date getDateOfClaimSumbission() {
-        return dateOfClaimSumbission;
+    public String getDateOfClaimSubmission() {
+        return dateOfClaimSubmission;
     }
 
-    public void setDateOfClaimSumbission(Date dateOfClaimSumbission) {
-        this.dateOfClaimSumbission = dateOfClaimSumbission;
+    public void setDateOfClaimSubmission(String dateOfClaimSubmission) {
+        this.dateOfClaimSubmission = dateOfClaimSubmission;
     }
 
     public Integer getClaimFee() {
@@ -55,12 +59,12 @@ public class ReimbursementRequest {
         this.claimFee = claimFee;
     }
 
-    public Date getDisbursmentDate() {
-        return disbursmentDate;
+    public String getDisbursementDate() {
+        return disbursementDate;
     }
 
-    public void setDisbursmentDate(Date disbursmentDate) {
-        this.disbursmentDate = disbursmentDate;
+    public void setDisbursementDate(String disbursementDate) {
+        this.disbursementDate = disbursementDate;
     }
 
     public Boolean getStatusReject() {
@@ -103,6 +107,19 @@ public class ReimbursementRequest {
         this.borneCost = borneCost;
     }
 
-
-
+//    @Override
+//    public String toString() {
+//        return "ReimbursementRequest{" +
+//                "dateOfClaimSubmission='" + dateOfClaimSubmission + '\'' +
+//                ", claimFee=" + claimFee +
+//                ", disbursementDate='" + disbursementDate + '\'' +
+//                ", statusReject=" + statusReject +
+//                ", statusOnHc=" + statusOnHc +
+//                ", statusOnFinance=" + statusOnFinance +
+//                ", statusSuccess=" + statusSuccess +
+//                ", borneCost=" + borneCost +
+//                ", employeeId='" + employeeId + '\'' +
+//                ", categoryId='" + categoryId + '\'' +
+//                '}';
+//    }
 }

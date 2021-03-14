@@ -50,4 +50,13 @@ public class ReimbursementGlasses extends AbstractEntity<String> {
     public void setId(String id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "ReimbursementGlasses{" +
+                "id='" + id + '\'' +
+                ", reimbursementId=" + reimbursementId +
+                ", borneCost=" + borneCost +
+                '}';
+    }
 }

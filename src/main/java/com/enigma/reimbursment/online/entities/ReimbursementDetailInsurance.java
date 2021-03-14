@@ -43,4 +43,13 @@ public class ReimbursementDetailInsurance {
     public void setId(String id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "ReimbursementDetailInsurance{" +
+                "id='" + id + '\'' +
+                ", reimbursementId=" + reimbursementId +
+                ", typeOfInsurance='" + typeOfInsurance + '\'' +
+                '}';
+    }
 }

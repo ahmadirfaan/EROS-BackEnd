@@ -1,18 +1,12 @@
 package com.enigma.reimbursment.online.models.response.reimbursement;
 
-import com.enigma.reimbursment.online.entities.Category;
-import com.enigma.reimbursment.online.entities.Employee;
-
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.util.Date;
 
 public class ReimbursementResponse {
 
-    private Date dateOfClaimSumbission;
+    private Date dateOfClaimSubmission;
     private Integer claimFee;
-    private Date disbursmentDate;
+    private Date disbursementDate;
     private Boolean statusReject;
     private Boolean statusOnHc;
     private Boolean statusOnFinance;
@@ -30,12 +24,12 @@ public class ReimbursementResponse {
         this.categoryId = categoryId;
     }
 
-    public Date getDateOfClaimSumbission() {
-        return dateOfClaimSumbission;
+    public Date getDateOfClaimSubmission() {
+        return dateOfClaimSubmission;
     }
 
-    public void setDateOfClaimSumbission(Date dateOfClaimSumbission) {
-        this.dateOfClaimSumbission = dateOfClaimSumbission;
+    public void setDateOfClaimSubmission(Date dateOfClaimSubmission) {
+        this.dateOfClaimSubmission = dateOfClaimSubmission;
     }
 
     public Integer getClaimFee() {
@@ -46,12 +40,12 @@ public class ReimbursementResponse {
         this.claimFee = claimFee;
     }
 
-    public Date getDisbursmentDate() {
-        return disbursmentDate;
+    public Date getDisbursementDate() {
+        return disbursementDate;
     }
 
-    public void setDisbursmentDate(Date disbursmentDate) {
-        this.disbursmentDate = disbursmentDate;
+    public void setDisbursementDate(Date disbursementDate) {
+        this.disbursementDate = disbursementDate;
     }
 
     public Boolean getStatusReject() {

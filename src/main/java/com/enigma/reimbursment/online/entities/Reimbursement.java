@@ -1,8 +1,10 @@
 package com.enigma.reimbursment.online.entities;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 @Entity
@@ -13,12 +15,14 @@ public class Reimbursement extends AbstractEntity<String>{
     @GeneratedValue(generator = "id_reimbursement",strategy = GenerationType.IDENTITY)
     private String id;
 
-    @Column(name = "date_of_claim_sumbission")
-    private Date dateOfClaimSumbission;
+    @Column(name = "date_of_claim_submission")
+    private Date dateOfClaimSubmission;
+
     @Column(name = "claim_fee")
+//    @Pattern(message = "quantity must be a number",regexp="!/^[0-9]+$/.")
     private Integer claimFee;
-    @Column(name = "disbursment_date")
-    private Date disbursmentDate;
+    @Column(name = "disbursement_date")
+    private Date disbursementDate;
     @Column(name = "status_reject")
     private Boolean statusReject;
     @Column(name = "status_on_hc")
@@ -54,12 +58,12 @@ public class Reimbursement extends AbstractEntity<String>{
         this.categoryId = categoryId;
     }
 
-    public Date getDateOfClaimSumbission() {
-        return dateOfClaimSumbission;
+    public Date getDateOfClaimSubmission() {
+        return dateOfClaimSubmission;
     }
 
-    public void setDateOfClaimSumbission(Date dateOfClaimSumbission) {
-        this.dateOfClaimSumbission = dateOfClaimSumbission;
+    public void setDateOfClaimSubmission(Date dateOfClaimSumbission) {
+        this.dateOfClaimSubmission = dateOfClaimSumbission;
     }
 
     public Integer getClaimFee() {
@@ -70,12 +74,12 @@ public class Reimbursement extends AbstractEntity<String>{
         this.claimFee = claimFee;
     }
 
-    public Date getDisbursmentDate() {
-        return disbursmentDate;
+    public Date getDisbursementDate() {
+        return disbursementDate;
     }
 
-    public void setDisbursmentDate(Date disbursmentDate) {
-        this.disbursmentDate = disbursmentDate;
+    public void setDisbursementDate(Date disbursmentDate) {
+        this.disbursementDate = disbursmentDate;
     }
 
     public Boolean getStatusReject() {
@@ -127,4 +131,20 @@ public class Reimbursement extends AbstractEntity<String>{
     }
 
 
+    @Override
+    public String toString() {
+        return "Reimbursement{" +
+                "id='" + id + '\'' +
+                ", dateOfClaimSubmission=" + dateOfClaimSubmission +
+                ", claimFee=" + claimFee +
+                ", disbursementDate=" + disbursementDate +
+                ", statusReject=" + statusReject +
+                ", statusOnHc=" + statusOnHc +
+                ", statusOnFinance=" + statusOnFinance +
+                ", statusSuccess=" + statusSuccess +
+                ", borneCost=" + borneCost +
+                ", employeeId=" + employeeId +
+                ", categoryId=" + categoryId +
+                '}';
+    }
 }
