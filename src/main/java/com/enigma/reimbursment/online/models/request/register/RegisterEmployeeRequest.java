@@ -1,17 +1,14 @@
 package com.enigma.reimbursment.online.models.request.register;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class RegisterEmployeeRequest {
 
-    @NotNull
     @NotBlank
     private String email;
 
-    @Size(min = 8)
+    @Size(min = 8, max = 50)
     private String password;
 
 
