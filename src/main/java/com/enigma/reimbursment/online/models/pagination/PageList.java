@@ -2,14 +2,14 @@ package com.enigma.reimbursment.online.models.pagination;
 
 import java.util.List;
 
-public class PagedList <T>{
-
+public class PageList<T> {
     private List<T> list;
     private Integer page;
     private Integer size;
     private Long total;
 
-    public PagedList(List<T> list, Integer page, Integer size, Long total) {
+
+    public PageList(List<T> list, Integer page, Integer size, Long total) {
         this.list = list;
         this.page = page;
         this.size = size;

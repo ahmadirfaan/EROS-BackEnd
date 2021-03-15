@@ -46,11 +46,4 @@ public abstract class  AbstractEntity<ID> {
         this.modifiedDate = modifiedDate;
     }
 
-    @Override
-    public String toString() {
-        return "AbstractEntity{" +
-                "createdDate=" + createdDate +
-                ", modifiedDate=" + modifiedDate +
-                '}';
-    }
 }

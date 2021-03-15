@@ -6,20 +6,10 @@ import javax.validation.constraints.Max;
 
 public class PageSearch {
 
-    private Integer page = 0;
-
     @Max(100)
-    private Integer size = 10;
-
+    private Integer size = 100;
+    private Integer page = 0;
     private Sort.Direction sort = Sort.Direction.ASC;
-
-    public Integer getPage() {
-        return page;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
-    }
 
     public Integer getSize() {
         return size;
@@ -29,6 +19,14 @@ public class PageSearch {
         this.size = size;
     }
 
+    public Integer getPage() {
+        return page;
+    }
+
+    public void setPage(Integer page) {
+        this.page = page;
+    }
+
     public Sort.Direction getSort() {
         return sort;
     }
@@ -36,5 +34,4 @@ public class PageSearch {
     public void setSort(Sort.Direction sort) {
         this.sort = sort;
     }
-
 }
