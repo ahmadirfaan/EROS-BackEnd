@@ -3,7 +3,7 @@ package com.enigma.reimbursment.online.controller;
 import com.enigma.reimbursment.online.entities.Category;
 import com.enigma.reimbursment.online.entities.Employee;
 import com.enigma.reimbursment.online.entities.Reimbursement;
-import com.enigma.reimbursment.online.exceptions.EntityNotFondException;
+import com.enigma.reimbursment.online.exceptions.EntityNotFoundException;
 import com.enigma.reimbursment.online.models.request.reimbursements.ReimbursementRequest;
 import com.enigma.reimbursment.online.models.response.ResponseMessage;
 import com.enigma.reimbursment.online.models.response.reimbursement.ReimbursementResponse;
@@ -54,7 +54,7 @@ public class ReimbursementController {
     public ResponseMessage<ReimbursementResponse> edit(@PathVariable String id, @RequestBody ReimbursementRequest model) throws ParseException {
         Reimbursement entity = reimbursementService.findById(id);
         if(entity == null) {
-            throw new EntityNotFondException();
+            throw new EntityNotFoundException();
         }
 
         Employee employee = employeeService.findById(model.getEmployeeId());
@@ -83,7 +83,7 @@ public class ReimbursementController {
     public ResponseMessage<ReimbursementResponse> findById(@PathVariable String id) {
         Reimbursement entity = reimbursementService.findById(id);
         if(entity == null ) {
-            throw new EntityNotFondException();
+            throw new EntityNotFoundException();
         }
         ReimbursementResponse data = modelMapper.map(entity,ReimbursementResponse.class);
         return ResponseMessage.success(data);

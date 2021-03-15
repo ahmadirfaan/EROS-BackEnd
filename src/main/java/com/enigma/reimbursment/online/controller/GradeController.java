@@ -1,7 +1,7 @@
 package com.enigma.reimbursment.online.controller;
 
 import com.enigma.reimbursment.online.entities.Grade;
-import com.enigma.reimbursment.online.exceptions.EntityNotFondException;
+import com.enigma.reimbursment.online.exceptions.EntityNotFoundException;
 import com.enigma.reimbursment.online.models.request.grade.GradeRequest;
 import com.enigma.reimbursment.online.models.response.ResponseMessage;
 import com.enigma.reimbursment.online.models.response.grade.GradeResponse;
@@ -37,7 +37,7 @@ public class GradeController {
     public ResponseMessage<GradeResponse> edit(@PathVariable String id, @RequestBody GradeRequest model) {
         Grade entity = gradeService.findById(id);
         if(entity == null) {
-            throw new EntityNotFondException();
+            throw new EntityNotFoundException();
         }
         modelMapper.map(model,entity);
         entity = gradeService.save(entity);
@@ -50,7 +50,7 @@ public class GradeController {
     public ResponseMessage<GradeResponse> findById(@PathVariable String id) {
         Grade entity = gradeService.findById(id);
         if(entity == null) {
-            throw new EntityNotFondException();
+            throw new EntityNotFoundException();
         }
         GradeResponse data = modelMapper.map(entity,GradeResponse.class);
         return ResponseMessage.success(data);
@@ -70,7 +70,7 @@ public class GradeController {
     public ResponseMessage<GradeResponse> removeById(@PathVariable  String id) {
         Grade entity = gradeService.RemoveById(id);
         if(entity == null) {
-            throw new EntityNotFondException();
+            throw new EntityNotFoundException();
         }
         GradeResponse data = modelMapper.map(entity,GradeResponse.class);
         return ResponseMessage.success(data);

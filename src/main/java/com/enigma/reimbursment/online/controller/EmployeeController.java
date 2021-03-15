@@ -2,12 +2,12 @@ package com.enigma.reimbursment.online.controller;
 
 import com.enigma.reimbursment.online.entities.Employee;
 import com.enigma.reimbursment.online.entities.Login;
-import com.enigma.reimbursment.online.exceptions.EntityNotFondException;
+import com.enigma.reimbursment.online.exceptions.EntityNotFoundException;
 import com.enigma.reimbursment.online.models.pagination.PageList;
 import com.enigma.reimbursment.online.models.request.employee.EmployeeRequest;
 import com.enigma.reimbursment.online.models.request.employee.EmployeeSearch;
 import com.enigma.reimbursment.online.models.response.ResponseMessage;
-import com.enigma.reimbursment.online.models.response.employee.EmployeResponsePage;
+import com.enigma.reimbursment.online.models.response.employee.EmployeeResponsePage;
 import com.enigma.reimbursment.online.models.response.employee.EmployeeResponse;
 import com.enigma.reimbursment.online.services.EmployeeService;
 import com.enigma.reimbursment.online.services.LoginService;
@@ -39,7 +39,7 @@ public class EmployeeController {
         Employee employee = employeeService.findById(id);
 
         if (employee == null) {
-            throw new EntityNotFondException();
+            throw new EntityNotFoundException();
         }
 
         EmployeeResponse response = modelMapper.map(employee, EmployeeResponse.class);
@@ -48,19 +48,18 @@ public class EmployeeController {
 
 
     @GetMapping
-    public ResponseMessage<PageList<EmployeResponsePage>> findAll(@Valid EmployeeSearch request) {
+    public ResponseMessage<PageList<EmployeeResponse>> findAll(@Valid EmployeeSearch request) {
         Employee employee = modelMapper.map(request, Employee.class);
 
         Page<Employee> pagination = employeeService.findAll(employee, request.getPage(),
                 request.getSize(), request.getSort());
-
-        List<EmployeResponsePage> employeResponsePageList = pagination.stream()
-                .map(e -> modelMapper.map(e, EmployeResponsePage.class))
+        System.out.println(pagination);
+        List<EmployeeResponse> employeResponsePageList = pagination.stream()
+                .map(e -> modelMapper.map(e, EmployeeResponse.class))
                 .collect(Collectors.toList());
-
-        PageList<EmployeResponsePage> response = new PageList(employeResponsePageList,
+        PageList<EmployeeResponse> response = new PageList(employeResponsePageList,
                 pagination.getNumber(), pagination.getSize(), pagination.getTotalElements());
-
+        System.out.println(employeResponsePageList);
         return new ResponseMessage(200, "OK", response);
     }
 
@@ -83,7 +82,7 @@ public class EmployeeController {
 
         Employee employee = employeeService.findById(id);
         if (employee == null) {
-            throw new EntityNotFondException();
+            throw new EntityNotFoundException();
         }
 
         Login login = loginService.findById(id);

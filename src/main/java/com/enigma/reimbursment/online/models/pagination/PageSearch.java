@@ -7,7 +7,7 @@ import javax.validation.constraints.Max;
 public class PageSearch {
 
     @Max(100)
-    private Integer size = 100;
+    private Integer size = 10;
     private Integer page = 0;
     private Sort.Direction sort = Sort.Direction.ASC;
 

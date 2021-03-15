@@ -1,6 +1,6 @@
 package com.enigma.reimbursment.online.models.response.employee;
 
-public class EmployeResponsePage {
+public class EmployeeResponsePage {
 
     private String id;
 
