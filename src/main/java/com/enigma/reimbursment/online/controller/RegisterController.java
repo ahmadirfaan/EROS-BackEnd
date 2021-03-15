@@ -69,7 +69,7 @@ public class RegisterController {
             return new ResponseMessage(400, "Verification token is not valid.");
         } else {
             employeeService.changeIsVerifiedEmail(token);
-            return new ResponseMessage(400, "Verification token is success.");
+            return new ResponseMessage(200, "Verification token is success.");
         }
 
     }
