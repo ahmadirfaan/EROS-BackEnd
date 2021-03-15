@@ -20,6 +20,10 @@ public class EmployeeService extends AbstractService<Employee,String> {
         return employeeRepository.checkVerificationEmailToken(token);
     }
 
+    public Employee findByIdLogin(String idLogin) {
+        return employeeRepository.findIdLogin(idLogin);
+    }
+
     public void changeIsVerifiedEmail(String token) {
         employeeRepository.changeIsVerifiedEmail(token);
     }

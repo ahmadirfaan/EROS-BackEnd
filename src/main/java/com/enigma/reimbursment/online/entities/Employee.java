@@ -89,7 +89,7 @@ public class Employee extends AbstractEntity <String>{
     private String emailVerificationToken;
 
     @Column(name = "is_verified_email")
-    private Boolean isVerifiedEmail;
+    private Boolean isVerifiedEmail = false;
 
     @Column(name = "ktp_address")
     private String ktpAddress;
