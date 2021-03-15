@@ -28,7 +28,7 @@ INSERT INTO admin (id,created_date,name,id_login) VALUES ('8b2558c0-2d0f-45e2-a0
 INSERT INTO admin (id,created_date,name,id_login) VALUES ('02564c68-c872-43ee-a67a-57d91de2b1b1','2021-03-12','wulan','6c1d0c8c-4296-4e67-a04b-3c3fdaa158b7');
 INSERT INTO admin (id,created_date,name,id_login) VALUES ('742cb4d1-060b-421d-bbbc-093d8113040e','2021-03-13','eka','b884462e-83e7-11eb-8dcd-0242ac130003');
 
-INSERT INTO reimbursement(id,created_date,date_of_claim_submission,claim_fee,disbursement_date,status_reject,status_on_hc,status_on_finance,status_success,borne_cost,id_category) VALUES ('0996bde7-5fd6-4c5a-815a-7b2405fa8eca','2021-03-14',150000,'2021-02-12',true,false,false,false,0,'1e4bbbee-83f3-11eb-8dcd-0242ac130005');
+--INSERT INTO reimbursement(id,created_date,date_of_claim_submission,claim_fee,disbursement_date,status_reject,status_on_hc,status_on_finance,status_success,borne_cost,id_category) VALUES ('0996bde7-5fd6-4c5a-815a-7b2405fa8eca','2021-03-14',150000,'2021-02-12',true,false,false,false,0,'1e4bbbee-83f3-11eb-8dcd-0242ac130005');
 
 
 

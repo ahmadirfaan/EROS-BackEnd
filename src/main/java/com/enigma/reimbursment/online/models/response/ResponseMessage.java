@@ -58,7 +58,7 @@ public class ResponseMessage <T>{
     }
 
     public static <T> ResponseMessage<T> error (int code,String message) {
-        return error(code, message);
+        return error(code, message, null);
     }
 
     public static <T> ResponseMessage<T> error (int code, String message,T data) {
