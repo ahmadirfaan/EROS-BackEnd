@@ -1,11 +1,11 @@
-package com.enigma.reimbursment.online.models.request.reimbursements;
+package com.enigma.reimbursment.online.models.search.reimbursementTravel;
 
 import com.enigma.reimbursment.online.entities.Reimbursement;
 
+import javax.persistence.Column;
 import java.util.Date;
 
-public class ReimbursementTravelRequest {
-
+public class ReimbursementTravelElement {
     private String reimbursementId;
     private Date startDate;
     private Date endDate;

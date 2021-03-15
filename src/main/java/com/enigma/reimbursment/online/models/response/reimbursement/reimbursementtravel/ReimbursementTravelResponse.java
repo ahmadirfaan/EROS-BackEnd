@@ -1,22 +1,24 @@
-package com.enigma.reimbursment.online.models.response.reimbursement;
+package com.enigma.reimbursment.online.models.response.reimbursement.reimbursementtravel;
 
 import com.enigma.reimbursment.online.entities.Reimbursement;
+import com.enigma.reimbursment.online.models.response.reimbursement.ReimbursementResponse;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class ReimbursementTravelResponse {
 
-    private Reimbursement reimbursementId;
+    private ReimbursementResponse reimbursementId;
 
     private Date startDate;
 
     private Date endDate;
 
-    public Reimbursement getReimbursementId() {
+    public ReimbursementResponse getReimbursementId() {
         return reimbursementId;
     }
 
-    public void setReimbursementId(Reimbursement reimbursementId) {
+    public void setReimbursementId(ReimbursementResponse reimbursementId) {
         this.reimbursementId = reimbursementId;
     }
 
@@ -35,6 +37,4 @@ public class ReimbursementTravelResponse {
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
-
-
 }

@@ -1,4 +1,4 @@
-package com.enigma.reimbursment.online.models.validations;
+package com.enigma.reimbursment.online.models.validations.alphabetic;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

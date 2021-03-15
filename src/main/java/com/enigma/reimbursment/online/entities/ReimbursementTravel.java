@@ -4,11 +4,12 @@ package com.enigma.reimbursment.online.entities;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
 @Table(name = "reimbursement_travel")
-public class ReimbursementTravel {
+public class ReimbursementTravel extends AbstractEntity<String> {
 
     @Id
     @GenericGenerator(name="id",strategy = "uuid2")
@@ -17,10 +18,20 @@ public class ReimbursementTravel {
     @OneToOne
     @JoinColumn(name = "id_reimbursement")
     private Reimbursement reimbursementId;
-    @Column(name = "start_date")
+    @Column(name = "start_date",nullable = false)
     private Date startDate;
-    @Column(name = "end_date")
+    @Column(name = "end_date",nullable = false)
     private Date endDate;
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public Reimbursement getReimbursementId() {
         return reimbursementId;
@@ -44,5 +55,15 @@ public class ReimbursementTravel {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    @Override
+    public String toString() {
+        return "ReimbursementTravel{" +
+                "id='" + id + '\'' +
+                ", reimbursementId=" + reimbursementId +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                '}';
     }
 }

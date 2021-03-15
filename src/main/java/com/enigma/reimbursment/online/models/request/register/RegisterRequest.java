@@ -1,6 +1,7 @@
 package com.enigma.reimbursment.online.models.request.register;
 
 import com.enigma.reimbursment.online.entities.Role;
+import com.enigma.reimbursment.online.models.validations.alphabetic.Alphabetic;
 
 public class RegisterRequest {
     private String name;

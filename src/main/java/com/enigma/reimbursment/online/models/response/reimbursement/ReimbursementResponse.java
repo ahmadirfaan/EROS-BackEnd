@@ -1,5 +1,8 @@
 package com.enigma.reimbursment.online.models.response.reimbursement;
 
+import com.enigma.reimbursment.online.models.response.category.CategoryResponse;
+import com.enigma.reimbursment.online.models.response.employee.EmployeeResponse;
+
 import java.util.Date;
 
 public class ReimbursementResponse {
@@ -12,15 +15,14 @@ public class ReimbursementResponse {
     private Boolean statusOnFinance;
     private Boolean statusSuccess;
     private Integer borneCost;
-    private String employeeId;
-    private String categoryId;
+    private EmployeeResponse employeeId;
+    private CategoryResponse categoryId;
 
-
-    public String getCategoryId() {
+    public CategoryResponse getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(String categoryId) {
+    public void setCategoryId(CategoryResponse categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -88,11 +90,27 @@ public class ReimbursementResponse {
         this.borneCost = borneCost;
     }
 
-    public String getEmployeeId() {
+    public EmployeeResponse getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(String employeeId) {
+    public void setEmployeeId(EmployeeResponse employeeId) {
         this.employeeId = employeeId;
+    }
+
+    @Override
+    public String toString() {
+        return "ReimbursementResponse{" +
+                "dateOfClaimSubmission=" + dateOfClaimSubmission +
+                ", claimFee=" + claimFee +
+                ", disbursementDate=" + disbursementDate +
+                ", statusReject=" + statusReject +
+                ", statusOnHc=" + statusOnHc +
+                ", statusOnFinance=" + statusOnFinance +
+                ", statusSuccess=" + statusSuccess +
+                ", borneCost=" + borneCost +
+                ", employeeId=" + employeeId +
+                ", categoryId=" + categoryId +
+                '}';
     }
 }

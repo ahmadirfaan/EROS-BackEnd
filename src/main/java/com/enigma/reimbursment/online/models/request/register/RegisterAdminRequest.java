@@ -1,6 +1,8 @@
 package com.enigma.reimbursment.online.models.request.register;
 
 
+import com.enigma.reimbursment.online.models.validations.alphabetic.Alphabetic;
+
 public class RegisterAdminRequest {
     private String email;
     private String password;

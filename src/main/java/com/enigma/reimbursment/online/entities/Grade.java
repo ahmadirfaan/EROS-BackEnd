@@ -12,8 +12,8 @@ public class Grade {
     @GenericGenerator(name="id",strategy = "uuid2")
     @GeneratedValue(generator = "id",strategy = GenerationType.IDENTITY)
     private String id;
-    @Column(name = "id_grade")
-    private Integer numgrade;
+    @Column(name = "grade")
+    private Integer grade;
     @Column(name = "glasess_cost")
     private Integer glasessCost;
     @Column(name = "give_birth_cost")
@@ -33,12 +33,12 @@ public class Grade {
         this.id = id;
     }
 
-    public Integer getNumgrade() {
-        return numgrade;
+    public Integer getGrade() {
+        return grade;
     }
 
-    public void setNumgrade(Integer numgrade) {
-        this.numgrade = numgrade;
+    public void setGrade(Integer numgrade) {
+        this.grade = numgrade;
     }
 
     public Integer getGlasessCost() {

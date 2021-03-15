@@ -2,7 +2,7 @@ package com.enigma.reimbursment.online.models.request.grade;
 
 public class GradeRequest {
 
-    private Integer numgrade;
+    private Integer grade;
 
     private Integer glasessCost;
 
@@ -14,12 +14,12 @@ public class GradeRequest {
 
     private Integer mealCost;
 
-    public Integer getNumgrade() {
-        return numgrade;
+    public Integer getGrade() {
+        return grade;
     }
 
-    public void setNumgrade(Integer numgrade) {
-        this.numgrade = numgrade;
+    public void setGrade(Integer grade) {
+        this.grade = grade;
     }
 
     public Integer getGlasessCost() {
