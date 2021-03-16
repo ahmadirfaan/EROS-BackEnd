@@ -37,10 +37,7 @@ public class LoginController {
         if (login == null) {
             return new ResponseMessage(200, "Username or password is wrong.");
         } else {
-            LoginResponse response = new LoginResponse();
-            response.setEmail(login.getEmail());
-            response.setPassword(login.getPassword());
-            response.setRoleId(login.getRole().getId());
+            LoginResponse response = modelMapper.map(login, LoginResponse.class);
             switch (login.getRole().getId()) {
                 case 1:
                     return new ResponseMessage(200, "Login Success", response);
@@ -50,9 +47,9 @@ public class LoginController {
                     return new ResponseMessage(200, "Login Success", response);
                 case 4:
                     Employee employee = employeeService.findByIdLogin(login.getId());
-                    if (employee.getIsVerifiedEmail() == null) {
+                    if (employee.getVerifiedEmail() == null) {
                         return new ResponseMessage(200, "Username or password is wrong.");
-                    } else if (employee.getIsVerifiedEmail() != null && employee.getIsVerifiedEmail()) {
+                    } else if (employee.getVerifiedEmail() != null && employee.getVerifiedEmail()) {
                         return new ResponseMessage(200, "Login Success", response);
                     }
                 default:

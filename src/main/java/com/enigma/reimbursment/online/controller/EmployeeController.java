@@ -2,9 +2,11 @@ package com.enigma.reimbursment.online.controller;
 
 import com.enigma.reimbursment.online.entities.Employee;
 import com.enigma.reimbursment.online.entities.Login;
+import com.enigma.reimbursment.online.enums.*;
 import com.enigma.reimbursment.online.exceptions.EntityNotFoundException;
 import com.enigma.reimbursment.online.models.pagination.PageList;
 import com.enigma.reimbursment.online.models.request.employee.EmployeeRequest;
+import com.enigma.reimbursment.online.models.request.employee.EmployeeRequestEditForm;
 import com.enigma.reimbursment.online.models.request.employee.EmployeeSearch;
 import com.enigma.reimbursment.online.models.response.ResponseMessage;
 import com.enigma.reimbursment.online.models.response.employee.EmployeeResponsePage;
@@ -16,6 +18,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,34 +70,69 @@ public class EmployeeController {
     }
 
 
-    @PostMapping
-    public ResponseMessage<EmployeeResponse> add(@RequestBody @Valid EmployeeRequest request) {
-        Employee employee = modelMapper.map(request, Employee.class);
-        Login login = loginService.findById(request.getIdLogin());
-        employee.setIdLogin(login);
-
-        employee = employeeService.save(employee);
-        EmployeeResponse response = modelMapper.map(employee, EmployeeResponse.class);
-        return ResponseMessage.success(response);
-    }
+//    @PostMapping
+//    public ResponseMessage<EmployeeResponse> add(@RequestBody @Valid EmployeeRequest request) {
+//        Employee employee = modelMapper.map(request, Employee.class);
+//        Login login = loginService.findById(employee.getLogin().getId());  //Apakah masih dibutuhkan controller Add????
+//        employee.setLogin(login);
+//        employee.setBloodType(BloodType.getBloodType(request.getBloodType()));
+//        employee.setGender(Gender.getGender(request.getGender()));
+//        employee.setEmployeeStatus(EmployeeStatus.getEmployeeStatus(request.getEmployeeStatus()));
+//        employee.setMaritalStatus(MaritalStatus.getMaritalStatus(request.getMaritalStatus()));
+//        employee.setReligion(Religion.getReligion(request.getReligion()));
+//        employee.setEmployeeType(EmployeeType.getEmployeeType(request.getEmployeeType()));
+//        employee = employeeService.save(employee);
+//        EmployeeResponse response = modelMapper.map(employee, EmployeeResponse.class);
+//        return ResponseMessage.success(response);
+//    }
 
 
     @PutMapping("/{id}")
     public ResponseMessage<EmployeeResponse> edit(@PathVariable String id,
-                                                  @RequestBody @Valid EmployeeRequest request) {
+                                                  @RequestBody @Valid EmployeeRequest request) throws ParseException {
 
         Employee employee = employeeService.findById(id);
         if (employee == null) {
             throw new EntityNotFoundException();
         }
 
-        Login login = loginService.findById(id);
-        employee.setIdLogin(login);
+        Login login = loginService.findById(employee.getLogin().getId());
+        employee.setLogin(login);
 
         modelMapper.map(request, employee);
+        employee.setDateOfBirth(LocalDate.parse(request.getDateOfBirth(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        employee.setJoinDate(LocalDate.parse(request.getJoinDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        employee.setLogin(login);
+        employee.setBloodType(BloodType.getBloodType(request.getBloodType()));
+        employee.setGender(Gender.getGender(request.getGender()));
+        employee.setEmployeeStatus(EmployeeStatus.getEmployeeStatus(request.getEmployeeStatus()));
+        employee.setMaritalStatus(MaritalStatus.getMaritalStatus(request.getMaritalStatus()));
+        employee.setReligion(Religion.getReligion(request.getReligion()));
+        employee.setEmployeeType(EmployeeType.getEmployeeType(request.getEmployeeType()));
         employee = employeeService.save(employee);
 
         EmployeeResponse response = modelMapper.map(employee, EmployeeResponse.class);
+        return ResponseMessage.success(response);
+    }
+
+    @PutMapping("/editform/{id}")
+    public ResponseMessage<EmployeeResponse> editForm(
+            @PathVariable String id, @RequestBody @Valid EmployeeRequestEditForm request) throws ParseException {
+        Employee employee = employeeService.findById(id);
+        if(employee == null) {
+            throw new EntityNotFoundException();
+        }
+        Login login = loginService.findById(employee.getLogin().getId());
+        employee.setLogin(login);
+        modelMapper.map(request, employee);
+        employee.setDateOfBirth(LocalDate.parse(request.getDateOfBirth(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        employee.setLogin(login);
+        employee.setBloodType(BloodType.getBloodType(request.getBloodType()));
+        employee.setGender(Gender.getGender(request.getGender()));
+        employee.setMaritalStatus(MaritalStatus.getMaritalStatus(request.getMaritalStatus()));
+        employee.setReligion(Religion.getReligion(request.getReligion()));
+        employee = employeeService.save(employee);
+        EmployeeResponse response = modelMapper.map(employee,EmployeeResponse.class);
         return ResponseMessage.success(response);
     }
 
@@ -100,4 +141,15 @@ public class EmployeeController {
     public ResponseMessage<Boolean> changeStatusEmployee(@PathVariable String id) {
         return null;
     }
+
+    @GetMapping("/idlogin/{idLogin}")
+    public ResponseMessage<EmployeeResponse> getEmployeeByIdLogin(@PathVariable String idLogin) {
+        Employee employee = employeeService.findByIdLogin(idLogin);
+        if(employee == null) {
+            throw  new EntityNotFoundException();
+        }
+        EmployeeResponse response = modelMapper.map(employee, EmployeeResponse.class);
+        return ResponseMessage.success(response);
+    }
+
 }

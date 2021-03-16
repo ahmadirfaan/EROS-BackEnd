@@ -2,8 +2,8 @@ package com.enigma.reimbursment.online.controller;
 
 import com.enigma.reimbursment.online.entities.Reimbursement;
 import com.enigma.reimbursment.online.entities.ReimbursementTraining;
-import com.enigma.reimbursment.online.exceptions.EntityNotFondException;
-import com.enigma.reimbursment.online.models.pagination.PagedList;
+import com.enigma.reimbursment.online.exceptions.EntityNotFoundException;
+import com.enigma.reimbursment.online.models.pagination.PageList;
 import com.enigma.reimbursment.online.models.request.reimbursements.training.ReimbursementTrainingRequest;
 import com.enigma.reimbursment.online.models.request.reimbursements.training.ReimbursementTrainingSearch;
 import com.enigma.reimbursment.online.models.response.ResponseMessage;
@@ -54,7 +54,7 @@ public class ReimbursementTrainingController {
         ReimbursementTraining reimbursementTraining = reimbursementTrainingService.findById(id);
 
         if (reimbursementTraining == null) {
-            throw new EntityNotFondException();
+            throw new EntityNotFoundException();
         }
         reimbursementTraining.setTrainingEndDate(new SimpleDateFormat("yyyy-MM-dd").parse(model.getTrainingEndDate()));
         reimbursementTraining.setTrainingStartDate(new SimpleDateFormat("yyyy-MM-dd").parse(model.getTrainingStartDate()));
@@ -67,7 +67,7 @@ public class ReimbursementTrainingController {
     }
 
     @GetMapping
-    public ResponseMessage<PagedList<ReimbursementTrainingResponse>> findAll(@Valid ReimbursementTrainingSearch model) {
+    public ResponseMessage<PageList<ReimbursementTrainingResponse>> findAll(@Valid ReimbursementTrainingSearch model) {
         ReimbursementTraining search = modelMapper.map(model, ReimbursementTraining.class);
 
         Page<ReimbursementTraining> entityPage = reimbursementTrainingService.findAll(search, model.getPage(), model.getSize(), model.getSort());
@@ -78,7 +78,7 @@ public class ReimbursementTrainingController {
                 .map(e -> modelMapper.map(e, ReimbursementTrainingResponse.class))
                 .collect(Collectors.toList());
 
-        PagedList<ReimbursementTrainingResponse> data = new PagedList<>(models, entityPage.getNumber(),
+        PageList<ReimbursementTrainingResponse> data = new PageList<>(models, entityPage.getNumber(),
                 entityPage.getSize(), entityPage.getTotalElements());
 
         return ResponseMessage.success(data);
@@ -91,7 +91,7 @@ public class ReimbursementTrainingController {
             ReimbursementTrainingResponse data = modelMapper.map(reimbursementTraining, ReimbursementTrainingResponse.class);
             return ResponseMessage.success(data);
         }
-        throw new EntityNotFondException();
+        throw new EntityNotFoundException();
     }
 
 //    @DeleteMapping("{id}")

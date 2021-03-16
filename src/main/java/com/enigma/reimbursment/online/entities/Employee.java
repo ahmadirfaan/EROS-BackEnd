@@ -22,6 +22,7 @@ public class Employee extends AbstractEntity <String>{
     @Column
     private String fullname;
 
+    @Enumerated(EnumType.STRING)
     @Column
     private Gender gender;
 
@@ -43,12 +44,15 @@ public class Employee extends AbstractEntity <String>{
     @Column
     private String npwp;
 
-    @Column
-    private String grade;
+    @OneToOne
+    @JoinColumn(name = "grade_id")
+    private Grade grade;
 
+    @Enumerated(EnumType.STRING)
     @Column
     private Religion religion;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "blood_type")
     private BloodType  bloodType;
 
@@ -58,7 +62,7 @@ public class Employee extends AbstractEntity <String>{
     @Column(name = "account_number")
     private String accountNumber;
 
-    @Column(name = "account_name")
+    @Column(name = "account_name") //Nama Rekening Bank
     private String accountName;
 
     @Column(name = "place_of_birth")
@@ -67,6 +71,7 @@ public class Employee extends AbstractEntity <String>{
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "marital_status")
     private MaritalStatus maritalStatus;
 
@@ -79,11 +84,8 @@ public class Employee extends AbstractEntity <String>{
     @Column(name = "biological_mother_name")
     private String biologicalMothersName;
 
-    @Column(name = "wife_name")
-    private String wifeName;
-
-    @Column(name = "husband_name")
-    private String husbandName;
+    @Column(name = "spouse_name")
+    private String spouseName;
 
     @Column(name = "email_verification_token")
     private String emailVerificationToken;
@@ -103,9 +105,10 @@ public class Employee extends AbstractEntity <String>{
     @Column(name = "postal_code_of_id_card")
     private String postalCodeOfIdCard;
 
+    @Column(name = "is_verified_hc")
+    private Boolean isVerifiedHc = false;
 
     /* Getter & Setter */
-
     @Override
     public String getId() {
         return id;
@@ -116,92 +119,11 @@ public class Employee extends AbstractEntity <String>{
         this.id = id;
     }
 
-    public Boolean getVerifiedEmail() {
-        return isVerifiedEmail;
-    }
-
-    public void setVerifiedEmail(Boolean verifiedEmail) {
-        isVerifiedEmail = verifiedEmail;
-    }
-
-    public String getKtpAddress() {
-        return ktpAddress;
-    }
-
-    public void setKtpAddress(String ktpAddress) {
-        this.ktpAddress = ktpAddress;
-    }
-
-    public String getNpwpAddress() {
-        return npwpAddress;
-    }
-
-    public void setNpwpAddress(String npwpAddress) {
-        this.npwpAddress = npwpAddress;
-    }
-
-    public String getResidenceAddress() {
-        return residenceAddress;
-    }
-
-    public void setResidenceAddress(String residenceAddress) {
-        this.residenceAddress = residenceAddress;
-    }
-
-    public String getPostalCodeOfIdCard() {
-        return postalCodeOfIdCard;
-    }
-
-    public void setPostalCodeOfIdCard(String postalCodeOfIdCard) {
-        this.postalCodeOfIdCard = postalCodeOfIdCard;
-    }
-
-
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public Integer getNumberOfChildren() {
-        return numberOfChildren;
-    }
-
-    public LocalDate getJoinDate() {
-        return joinDate;
-    }
-
-    public String getEmailVerificationToken() {
-        return emailVerificationToken;
-    }
-
-    public void setEmailVerificationToken(String emailVerificationToken) {
-        this.emailVerificationToken = emailVerificationToken;
-    }
-
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public void setNumberOfChildren(Integer numberOfChildren) {
-        this.numberOfChildren = numberOfChildren;
-    }
-
-    public void setJoinDate(LocalDate joinDate) {
-        this.joinDate = joinDate;
-    }
-
-    public Boolean getIsVerifiedEmail() {
-        return isVerifiedEmail;
-    }
-
-    public void setIsVerifiedEmail(Boolean verified) {
-        isVerifiedEmail = verified;
-    }
-
-    public Login getIdLogin() {
+    public Login getLogin() {
         return login;
     }
 
-    public void setIdLogin(Login login) {
+    public void setLogin(Login login) {
         this.login = login;
     }
 
@@ -269,11 +191,11 @@ public class Employee extends AbstractEntity <String>{
         this.npwp = npwp;
     }
 
-    public String getGrade() {
+    public Grade getGrade() {
         return grade;
     }
 
-    public void setGrade(String grade) {
+    public void setGrade(Grade grade) {
         this.grade = grade;
     }
 
@@ -325,12 +247,36 @@ public class Employee extends AbstractEntity <String>{
         this.placeOfBirth = placeOfBirth;
     }
 
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
     public MaritalStatus getMaritalStatus() {
         return maritalStatus;
     }
 
     public void setMaritalStatus(MaritalStatus maritalStatus) {
         this.maritalStatus = maritalStatus;
+    }
+
+    public Integer getNumberOfChildren() {
+        return numberOfChildren;
+    }
+
+    public void setNumberOfChildren(Integer numberOfChildren) {
+        this.numberOfChildren = numberOfChildren;
+    }
+
+    public LocalDate getJoinDate() {
+        return joinDate;
+    }
+
+    public void setJoinDate(LocalDate joinDate) {
+        this.joinDate = joinDate;
     }
 
     public String getBiologicalMothersName() {
@@ -341,52 +287,103 @@ public class Employee extends AbstractEntity <String>{
         this.biologicalMothersName = biologicalMothersName;
     }
 
-    public String getWifeName() {
-        return wifeName;
+    public String getSpouseName() {
+        return spouseName;
     }
 
-    public void setWifeName(String wifeName) {
-        this.wifeName = wifeName;
+    public void setSpouseName(String spouseName) {
+        this.spouseName = spouseName;
     }
 
-    public String getHusbandName() {
-        return husbandName;
+    public String getEmailVerificationToken() {
+        return emailVerificationToken;
     }
 
-    public void setHusbandName(String husbandName) {
-        this.husbandName = husbandName;
+    public void setEmailVerificationToken(String emailVerificationToken) {
+        this.emailVerificationToken = emailVerificationToken;
     }
 
+    public Boolean getVerifiedEmail() {
+        return isVerifiedEmail;
+    }
+
+    public void setVerifiedEmail(Boolean verifiedEmail) {
+        isVerifiedEmail = verifiedEmail;
+    }
+
+    public String getKtpAddress() {
+        return ktpAddress;
+    }
+
+    public void setKtpAddress(String ktpAddress) {
+        this.ktpAddress = ktpAddress;
+    }
+
+    public String getNpwpAddress() {
+        return npwpAddress;
+    }
+
+    public void setNpwpAddress(String npwpAddress) {
+        this.npwpAddress = npwpAddress;
+    }
+
+    public String getResidenceAddress() {
+        return residenceAddress;
+    }
+
+    public void setResidenceAddress(String residenceAddress) {
+        this.residenceAddress = residenceAddress;
+    }
+
+    public String getPostalCodeOfIdCard() {
+        return postalCodeOfIdCard;
+    }
+
+    public void setPostalCodeOfIdCard(String postalCodeOfIdCard) {
+        this.postalCodeOfIdCard = postalCodeOfIdCard;
+    }
+
+    public Boolean getVerifiedHc() {
+        return isVerifiedHc;
+    }
+
+    public void setVerifiedHc(Boolean verifiedHc) {
+        isVerifiedHc = verifiedHc;
+    }
 
     @Override
     public String toString() {
         return "Employee{" +
                 "id='" + id + '\'' +
-                ", login='" + login + '\'' +
+                ", login=" + login +
                 ", fullname='" + fullname + '\'' +
-                ", gender='" + gender + '\'' +
+                ", gender=" + gender +
                 ", nik='" + nik + '\'' +
                 ", nip='" + nip + '\'' +
                 ", emergencyNumber='" + emergencyNumber + '\'' +
-                ", employeeStatus='" + employeeStatus + '\'' +
-                ", employeeType='" + employeeType + '\'' +
+                ", employeeStatus=" + employeeStatus +
+                ", employeeType=" + employeeType +
                 ", npwp='" + npwp + '\'' +
-                ", grade='" + grade + '\'' +
-                ", religion='" + religion + '\'' +
-                ", bloodType='" + bloodType + '\'' +
+                ", grade=" + grade +
+                ", religion=" + religion +
+                ", bloodType=" + bloodType +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", accountNumber='" + accountNumber + '\'' +
                 ", accountName='" + accountName + '\'' +
                 ", placeOfBirth='" + placeOfBirth + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
-                ", maritalStatus='" + maritalStatus + '\'' +
+                ", maritalStatus=" + maritalStatus +
                 ", numberOfChildren=" + numberOfChildren +
                 ", joinDate=" + joinDate +
                 ", biologicalMothersName='" + biologicalMothersName + '\'' +
-                ", wifeName='" + wifeName + '\'' +
-                ", husbandName='" + husbandName + '\'' +
+                ", spouseName='" + spouseName + '\'' +
                 ", emailVerificationToken='" + emailVerificationToken + '\'' +
                 ", isVerifiedEmail=" + isVerifiedEmail +
+                ", ktpAddress='" + ktpAddress + '\'' +
+                ", npwpAddress='" + npwpAddress + '\'' +
+                ", residenceAddress='" + residenceAddress + '\'' +
+                ", postalCodeOfIdCard='" + postalCodeOfIdCard + '\'' +
+                ", isVerifiedHc=" + isVerifiedHc +
                 '}';
     }
 }

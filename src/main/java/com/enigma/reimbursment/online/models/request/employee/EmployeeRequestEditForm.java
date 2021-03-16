@@ -1,36 +1,22 @@
-package com.enigma.reimbursment.online.models.response.employee;
-
-import com.enigma.reimbursment.online.models.response.login.LoginResponse;
+package com.enigma.reimbursment.online.models.request.employee;
 
 import java.time.LocalDate;
 
-public class EmployeeResponse {
-
-    private String id;
-
-    private LoginResponse idLogin;
+public class EmployeeRequestEditForm {
 
     private String fullname;
 
-    private String gender;
+    private Integer gender;
 
     private String nik;
 
-    private String nip;
-
     private String emergencyNumber;
-
-    private String employeeStatus;
-
-    private String employeeType;
 
     private String npwp;
 
-    private String grade;
+    private Integer religion;
 
-    private String religion;
-
-    private String bloodType;
+    private Integer bloodType;
 
     private String phoneNumber;
 
@@ -40,19 +26,15 @@ public class EmployeeResponse {
 
     private String placeOfBirth;
 
-    private LocalDate dateOfBirth;
+    private String dateOfBirth;
 
-    private String maritalStatus;
+    private Integer maritalStatus;
 
     private Integer numberOfChildren;
-
-    private LocalDate joinDate;
 
     private String biologicalMothersName;
 
     private String spouseName;
-
-    private Boolean isVerifiedEmail;
 
     private String ktpAddress;
 
@@ -62,25 +44,6 @@ public class EmployeeResponse {
 
     private String postalCodeOfIdCard;
 
-
-    /* Getter & Setter */
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public LoginResponse getIdLogin() {
-        return idLogin;
-    }
-
-    public void setIdLogin(LoginResponse idLogin) {
-        this.idLogin = idLogin;
-    }
-
     public String getFullname() {
         return fullname;
     }
@@ -89,11 +52,11 @@ public class EmployeeResponse {
         this.fullname = fullname;
     }
 
-    public String getGender() {
+    public Integer getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Integer gender) {
         this.gender = gender;
     }
 
@@ -105,36 +68,12 @@ public class EmployeeResponse {
         this.nik = nik;
     }
 
-    public String getNip() {
-        return nip;
-    }
-
-    public void setNip(String nip) {
-        this.nip = nip;
-    }
-
     public String getEmergencyNumber() {
         return emergencyNumber;
     }
 
     public void setEmergencyNumber(String emergencyNumber) {
         this.emergencyNumber = emergencyNumber;
-    }
-
-    public String getEmployeeStatus() {
-        return employeeStatus;
-    }
-
-    public void setEmployeeStatus(String employeeStatus) {
-        this.employeeStatus = employeeStatus;
-    }
-
-    public String getEmployeeType() {
-        return employeeType;
-    }
-
-    public void setEmployeeType(String employeeType) {
-        this.employeeType = employeeType;
     }
 
     public String getNpwp() {
@@ -145,27 +84,19 @@ public class EmployeeResponse {
         this.npwp = npwp;
     }
 
-    public String getGrade() {
-        return grade;
-    }
-
-    public void setGrade(String grade) {
-        this.grade = grade;
-    }
-
-    public String getReligion() {
+    public Integer getReligion() {
         return religion;
     }
 
-    public void setReligion(String religion) {
+    public void setReligion(Integer religion) {
         this.religion = religion;
     }
 
-    public String getBloodType() {
+    public Integer getBloodType() {
         return bloodType;
     }
 
-    public void setBloodType(String bloodType) {
+    public void setBloodType(Integer bloodType) {
         this.bloodType = bloodType;
     }
 
@@ -201,19 +132,19 @@ public class EmployeeResponse {
         this.placeOfBirth = placeOfBirth;
     }
 
-    public LocalDate getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getMaritalStatus() {
+    public Integer getMaritalStatus() {
         return maritalStatus;
     }
 
-    public void setMaritalStatus(String maritalStatus) {
+    public void setMaritalStatus(Integer maritalStatus) {
         this.maritalStatus = maritalStatus;
     }
 
@@ -223,14 +154,6 @@ public class EmployeeResponse {
 
     public void setNumberOfChildren(Integer numberOfChildren) {
         this.numberOfChildren = numberOfChildren;
-    }
-
-    public LocalDate getJoinDate() {
-        return joinDate;
-    }
-
-    public void setJoinDate(LocalDate joinDate) {
-        this.joinDate = joinDate;
     }
 
     public String getBiologicalMothersName() {
@@ -247,14 +170,6 @@ public class EmployeeResponse {
 
     public void setSpouseName(String spouseName) {
         this.spouseName = spouseName;
-    }
-
-    public Boolean getVerifiedEmail() {
-        return isVerifiedEmail;
-    }
-
-    public void setVerifiedEmail(Boolean verifiedEmail) {
-        isVerifiedEmail = verifiedEmail;
     }
 
     public String getKtpAddress() {

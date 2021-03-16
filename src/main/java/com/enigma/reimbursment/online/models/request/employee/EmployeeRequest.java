@@ -4,11 +4,9 @@ import java.time.LocalDate;
 
 public class EmployeeRequest {
 
-    private String idLogin;
-
     private String fullname;
 
-    private String gender;
+    private Integer gender;
 
     private String nik;
 
@@ -16,17 +14,17 @@ public class EmployeeRequest {
 
     private String emergencyNumber;
 
-    private String employeeStatus;
+    private Integer employeeStatus;
 
-    private String employeeType;
+    private Integer employeeType;
 
     private String npwp;
 
-    private String grade;
+    private Integer grade;
 
-    private String religion;
+    private Integer religion;
 
-    private String bloodType;
+    private Integer bloodType;
 
     private String phoneNumber;
 
@@ -36,23 +34,21 @@ public class EmployeeRequest {
 
     private String placeOfBirth;
 
-    private LocalDate dateOfBirth;
+    private String dateOfBirth;
 
-    private String maritalStatus;
+    private Integer maritalStatus;
 
     private Integer numberOfChildren;
 
-    private LocalDate joinDate;
+    private String joinDate;
 
     private String biologicalMothersName;
 
-    private String wifeName;
-
-    private String husbandName;
-
-    private String emailVerificationToken;
+    private String spouseName;
 
     private Boolean isVerifiedEmail;
+
+    private Boolean isVerifiedHc;
 
     private String ktpAddress;
 
@@ -65,14 +61,6 @@ public class EmployeeRequest {
 
     /* Getter & Setter */
 
-    public String getIdLogin() {
-        return idLogin;
-    }
-
-    public void setIdLogin(String idLogin) {
-        this.idLogin = idLogin;
-    }
-
     public String getFullname() {
         return fullname;
     }
@@ -81,11 +69,11 @@ public class EmployeeRequest {
         this.fullname = fullname;
     }
 
-    public String getGender() {
+    public Integer getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Integer gender) {
         this.gender = gender;
     }
 
@@ -113,19 +101,19 @@ public class EmployeeRequest {
         this.emergencyNumber = emergencyNumber;
     }
 
-    public String getEmployeeStatus() {
+    public Integer getEmployeeStatus() {
         return employeeStatus;
     }
 
-    public void setEmployeeStatus(String employeeStatus) {
+    public void setEmployeeStatus(Integer employeeStatus) {
         this.employeeStatus = employeeStatus;
     }
 
-    public String getEmployeeType() {
+    public Integer getEmployeeType() {
         return employeeType;
     }
 
-    public void setEmployeeType(String employeeType) {
+    public void setEmployeeType(Integer employeeType) {
         this.employeeType = employeeType;
     }
 
@@ -137,27 +125,27 @@ public class EmployeeRequest {
         this.npwp = npwp;
     }
 
-    public String getGrade() {
+    public Integer getGrade() {
         return grade;
     }
 
-    public void setGrade(String grade) {
+    public void setGrade(Integer grade) {
         this.grade = grade;
     }
 
-    public String getReligion() {
+    public Integer getReligion() {
         return religion;
     }
 
-    public void setReligion(String religion) {
+    public void setReligion(Integer religion) {
         this.religion = religion;
     }
 
-    public String getBloodType() {
+    public Integer getBloodType() {
         return bloodType;
     }
 
-    public void setBloodType(String bloodType) {
+    public void setBloodType(Integer bloodType) {
         this.bloodType = bloodType;
     }
 
@@ -193,19 +181,19 @@ public class EmployeeRequest {
         this.placeOfBirth = placeOfBirth;
     }
 
-    public LocalDate getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getMaritalStatus() {
+    public Integer getMaritalStatus() {
         return maritalStatus;
     }
 
-    public void setMaritalStatus(String maritalStatus) {
+    public void setMaritalStatus(Integer maritalStatus) {
         this.maritalStatus = maritalStatus;
     }
 
@@ -217,11 +205,11 @@ public class EmployeeRequest {
         this.numberOfChildren = numberOfChildren;
     }
 
-    public LocalDate getJoinDate() {
+    public String getJoinDate() {
         return joinDate;
     }
 
-    public void setJoinDate(LocalDate joinDate) {
+    public void setJoinDate(String joinDate) {
         this.joinDate = joinDate;
     }
 
@@ -233,28 +221,12 @@ public class EmployeeRequest {
         this.biologicalMothersName = biologicalMothersName;
     }
 
-    public String getWifeName() {
-        return wifeName;
+    public String getSpouseName() {
+        return spouseName;
     }
 
-    public void setWifeName(String wifeName) {
-        this.wifeName = wifeName;
-    }
-
-    public String getHusbandName() {
-        return husbandName;
-    }
-
-    public void setHusbandName(String husbandName) {
-        this.husbandName = husbandName;
-    }
-
-    public String getEmailVerificationToken() {
-        return emailVerificationToken;
-    }
-
-    public void setEmailVerificationToken(String emailVerificationToken) {
-        this.emailVerificationToken = emailVerificationToken;
+    public void setSpouseName(String spouseName) {
+        this.spouseName = spouseName;
     }
 
     public Boolean getVerifiedEmail() {
@@ -263,6 +235,14 @@ public class EmployeeRequest {
 
     public void setVerifiedEmail(Boolean verifiedEmail) {
         isVerifiedEmail = verifiedEmail;
+    }
+
+    public Boolean getVerifiedHc() {
+        return isVerifiedHc;
+    }
+
+    public void setVerifiedHc(Boolean verifiedHc) {
+        isVerifiedHc = verifiedHc;
     }
 
     public String getKtpAddress() {
@@ -295,41 +275,5 @@ public class EmployeeRequest {
 
     public void setPostalCodeOfIdCard(String postalCodeOfIdCard) {
         this.postalCodeOfIdCard = postalCodeOfIdCard;
-    }
-
-
-    @Override
-    public String toString() {
-        return "EmployeeRequest{" +
-                "idLogin=" + idLogin +
-                ", fullname='" + fullname + '\'' +
-                ", gender='" + gender + '\'' +
-                ", nik='" + nik + '\'' +
-                ", nip='" + nip + '\'' +
-                ", emergencyNumber='" + emergencyNumber + '\'' +
-                ", employeeStatus='" + employeeStatus + '\'' +
-                ", employeeType='" + employeeType + '\'' +
-                ", npwp='" + npwp + '\'' +
-                ", grade='" + grade + '\'' +
-                ", religion='" + religion + '\'' +
-                ", bloodType='" + bloodType + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", accountNumber='" + accountNumber + '\'' +
-                ", accountName='" + accountName + '\'' +
-                ", placeOfBirth='" + placeOfBirth + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                ", maritalStatus='" + maritalStatus + '\'' +
-                ", numberOfChildren=" + numberOfChildren +
-                ", joinDate=" + joinDate +
-                ", biologicalMothersName='" + biologicalMothersName + '\'' +
-                ", wifeName='" + wifeName + '\'' +
-                ", husbandName='" + husbandName + '\'' +
-                ", emailVerificationToken='" + emailVerificationToken + '\'' +
-                ", isVerifiedEmail=" + isVerifiedEmail +
-                ", ktpAddress='" + ktpAddress + '\'' +
-                ", npwpAddress='" + npwpAddress + '\'' +
-                ", residenceAddress='" + residenceAddress + '\'' +
-                ", postalCodeOfIdCard='" + postalCodeOfIdCard + '\'' +
-                '}';
     }
 }
