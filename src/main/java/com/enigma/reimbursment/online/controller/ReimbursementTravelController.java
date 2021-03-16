@@ -2,8 +2,8 @@ package com.enigma.reimbursment.online.controller;
 
 import com.enigma.reimbursment.online.entities.Reimbursement;
 import com.enigma.reimbursment.online.entities.ReimbursementTravel;
-import com.enigma.reimbursment.online.exceptions.EntityNotFondException;
-import com.enigma.reimbursment.online.models.pagination.PagedList;
+import com.enigma.reimbursment.online.exceptions.EntityNotFoundException;
+import com.enigma.reimbursment.online.models.pagination.PageList;
 import com.enigma.reimbursment.online.models.request.reimbursements.travel.ReimbursementTravelRequest;
 import com.enigma.reimbursment.online.models.response.ResponseMessage;
 import com.enigma.reimbursment.online.models.response.reimbursement.travel.ReimbursementTravelResponse;
@@ -37,7 +37,7 @@ public class ReimbursementTravelController {
     public ResponseMessage<ReimbursementTravelResponse> findById(@PathVariable String id) {
         ReimbursementTravel reimbursementTravel = reimbursementTravelService.findById(id);
         if (reimbursementTravel == null)
-            throw new EntityNotFondException();
+            throw new EntityNotFoundException();
         ReimbursementTravelResponse data = modelMapper.map(reimbursementTravel, ReimbursementTravelResponse.class);
         return ResponseMessage.success(data);
 
@@ -61,7 +61,7 @@ public class ReimbursementTravelController {
     }
 
     @GetMapping
-    public ResponseMessage<PagedList<ReimbursementTravelResponse>> findAll(
+    public ResponseMessage<PageList<ReimbursementTravelResponse>> findAll(
             @Valid ReimbursementTravelSearch model
     ) {
         ReimbursementTravel search = modelMapper.map(model, ReimbursementTravel.class);
@@ -70,7 +70,7 @@ public class ReimbursementTravelController {
         List<ReimbursementTravelResponse> models = entities.stream()
                 .map(e -> modelMapper.map(e, ReimbursementTravelResponse.class))
                 .collect(Collectors.toList());
-        PagedList<ReimbursementTravelResponse> data = new PagedList<>(models, entityPage.getNumber(), entityPage.getSize(), entityPage.getTotalElements());
+        PageList<ReimbursementTravelResponse> data = new PageList<>(models, entityPage.getNumber(), entityPage.getSize(), entityPage.getTotalElements());
         return ResponseMessage.success(data);
 
     }
@@ -80,7 +80,7 @@ public class ReimbursementTravelController {
         ReimbursementTravel entity = reimbursementTravelService.RemoveById(id);
 //        ReimbursementTravel entity = reimbursementTravelService.delete(id);
         if (entity == null) {
-            throw new EntityNotFondException();
+            throw new EntityNotFoundException();
         }
 
         ReimbursementTravelResponse data = modelMapper.map(entity, ReimbursementTravelResponse.class);
@@ -91,7 +91,7 @@ public class ReimbursementTravelController {
     public ResponseMessage<ReimbursementTravelResponse> edit(@PathVariable String id, @RequestBody @Valid ReimbursementTravelRequest request) throws ParseException {
         ReimbursementTravel entity = reimbursementTravelService.findById(id);
         if (entity == null) {
-            throw new EntityNotFondException();
+            throw new EntityNotFoundException();
         }
         entity.setStartDate(new SimpleDateFormat("yyyy-MM-dd").parse(request.getStartDate()));
         entity.setEndDate(new SimpleDateFormat("yyyy-MM-dd").parse(request.getEndDate()));
