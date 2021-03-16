@@ -6,9 +6,9 @@ public class EmployeeRequest {
 
     private String fullname;
 
-    private Integer gender;
+    private Integer gender; //sudah
 
-    private String nik;
+    private String nik; //sudah
 
     private String nip;
 

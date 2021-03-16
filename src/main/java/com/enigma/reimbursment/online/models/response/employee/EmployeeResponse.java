@@ -54,6 +54,9 @@ public class EmployeeResponse {
 
     private Boolean isVerifiedEmail;
 
+    private Boolean isVerifiedHc;
+
+
     private String ktpAddress;
 
     private String npwpAddress;
@@ -287,5 +290,13 @@ public class EmployeeResponse {
 
     public void setPostalCodeOfIdCard(String postalCodeOfIdCard) {
         this.postalCodeOfIdCard = postalCodeOfIdCard;
+    }
+
+    public Boolean getVerifiedHc() {
+        return isVerifiedHc;
+    }
+
+    public void setVerifiedHc(Boolean verifiedHc) {
+        isVerifiedHc = verifiedHc;
     }
 }

@@ -4,43 +4,43 @@ import java.time.LocalDate;
 
 public class EmployeeRequestEditForm {
 
-    private String fullname;
+    private String fullname; //sudah
 
-    private Integer gender;
+    private Integer gender; //sudah
 
-    private String nik;
+    private String nik; //sudah
 
-    private String emergencyNumber;
+    private String emergencyNumber; //sudah
 
-    private String npwp;
+    private String npwp; //sudah
 
-    private Integer religion;
+    private Integer religion; //sudah
 
-    private Integer bloodType;
+    private Integer bloodType; //sudah
 
-    private String phoneNumber;
+    private String phoneNumber; //sudah
 
-    private String accountNumber;
+    private String accountNumber; //sudah
 
-    private String accountName;
+    private String accountName; //sudah
 
-    private String placeOfBirth;
+    private String placeOfBirth; //sudah
 
-    private String dateOfBirth;
+    private String dateOfBirth; //sudah
 
-    private Integer maritalStatus;
+    private Integer maritalStatus; //sudah
 
-    private Integer numberOfChildren;
+    private Integer numberOfChildren;  //sudah
 
-    private String biologicalMothersName;
+    private String biologicalMothersName; //sudah
 
-    private String spouseName;
+    private String spouseName; //sudah
 
-    private String ktpAddress;
+    private String ktpAddress; //sudah
 
     private String npwpAddress;
 
-    private String residenceAddress;
+    private String residenceAddress; //sudah
 
     private String postalCodeOfIdCard;
 
