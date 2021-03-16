@@ -4,10 +4,10 @@ import com.enigma.reimbursment.online.entities.Admin;
 import com.enigma.reimbursment.online.entities.Employee;
 import com.enigma.reimbursment.online.entities.Login;
 import com.enigma.reimbursment.online.entities.Role;
+import com.enigma.reimbursment.online.exceptions.NotEmailException;
 import com.enigma.reimbursment.online.models.request.register.RegisterAdminRequest;
 import com.enigma.reimbursment.online.models.request.register.RegisterEmployeeRequest;
 import com.enigma.reimbursment.online.models.response.ResponseMessage;
-import com.enigma.reimbursment.online.models.response.login.LoginResponse;
 import com.enigma.reimbursment.online.models.response.register.RegisterResponse;
 import com.enigma.reimbursment.online.services.*;
 import org.modelmapper.ModelMapper;
@@ -69,7 +69,7 @@ public class RegisterController {
             return new ResponseMessage(400, "Verification token is not valid.");
         } else {
             employeeService.changeIsVerifiedEmail(token);
-            return new ResponseMessage(400, "Verification token is success.");
+            return new ResponseMessage(200, "Verification token is success.");
         }
 
     }
@@ -79,6 +79,9 @@ public class RegisterController {
     public ResponseMessage<RegisterResponse> register_employee (@RequestBody @Valid RegisterEmployeeRequest model) throws MessagingException {
 
         /* Save data register to table login */
+        if(!model.getEmail().matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")) {
+            throw new NotEmailException();
+        }
         Login login = modelMapper.map(model, Login.class);
         Role role = roleService.findById(4);
         login.setRole(role);

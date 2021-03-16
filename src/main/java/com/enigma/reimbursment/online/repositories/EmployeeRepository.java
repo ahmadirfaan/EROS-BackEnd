@@ -17,4 +17,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
     @Transactional
     @Query(value = "UPDATE employee SET is_verified_email = true WHERE email_verification_token = :token", nativeQuery = true)
     Integer changeIsVerifiedEmail(@Param("token") String token);
+
+    @Query(value = "SELECT * FROM employee WHERE id_login = :id_login", nativeQuery = true)
+    Employee findIdLogin(@Param("id_login") String idLogin);
 }

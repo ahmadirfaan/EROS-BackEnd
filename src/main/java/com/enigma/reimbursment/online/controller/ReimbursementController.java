@@ -3,9 +3,8 @@ package com.enigma.reimbursment.online.controller;
 import com.enigma.reimbursment.online.entities.Category;
 import com.enigma.reimbursment.online.entities.Employee;
 import com.enigma.reimbursment.online.entities.Reimbursement;
-import com.enigma.reimbursment.online.entities.ReimbursementTravel;
-import com.enigma.reimbursment.online.exceptions.EntityNotFondException;
-import com.enigma.reimbursment.online.models.pagination.PagedList;
+import com.enigma.reimbursment.online.exceptions.EntityNotFoundException;
+import com.enigma.reimbursment.online.models.pagination.PageList;
 import com.enigma.reimbursment.online.models.request.reimbursements.ReimbursementRequest;
 import com.enigma.reimbursment.online.models.response.ResponseMessage;
 import com.enigma.reimbursment.online.models.response.reimbursement.ReimbursementResponse;
@@ -63,7 +62,7 @@ public class ReimbursementController {
     public ResponseMessage<ReimbursementResponse> edit(@PathVariable String id, @RequestBody ReimbursementRequest model) {
         Reimbursement entity = reimbursementService.findById(id);
         if(entity == null) {
-            throw new EntityNotFondException();
+            throw new EntityNotFoundException();
         }
 
         Employee employee = employeeService.findById(model.getEmployeeId());
@@ -96,14 +95,14 @@ public class ReimbursementController {
     public ResponseMessage<ReimbursementResponse> findById(@PathVariable String id) {
         Reimbursement reimbursement = reimbursementService.findById(id);
         if(reimbursement == null)
-            throw new EntityNotFondException();
+            throw new EntityNotFoundException();
         ReimbursementResponse data = modelMapper.map(reimbursement, ReimbursementResponse.class);
         return ResponseMessage.success(data);
 
     }
 
     @GetMapping
-    public ResponseMessage<PagedList<ReimbursementResponse>> findAll(
+    public ResponseMessage<PageList<ReimbursementResponse>> findAll(
             @Valid ReimbursementSearch model
             ) {
         Reimbursement search = modelMapper.map(model,Reimbursement.class);
@@ -115,14 +114,10 @@ public class ReimbursementController {
                 .map(e->modelMapper.map(e,ReimbursementResponse.class))
                 .collect(Collectors.toList());
 
-        PagedList<ReimbursementResponse> data = new PagedList<>(models,entityPage.getNumber(),entityPage.getSize(),entityPage.getTotalElements());
+        PageList<ReimbursementResponse> data = new PageList<>(models,entityPage.getNumber(),entityPage.getSize(),entityPage.getTotalElements());
 
         return ResponseMessage.success(data);
     }
-
-
-
-
 
 
 }

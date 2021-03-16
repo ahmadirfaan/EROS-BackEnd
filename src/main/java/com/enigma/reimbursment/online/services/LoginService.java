@@ -1,6 +1,7 @@
 package com.enigma.reimbursment.online.services;
 
 import com.enigma.reimbursment.online.entities.Login;
+import com.enigma.reimbursment.online.models.response.login.LoginResponse;
 import com.enigma.reimbursment.online.repositories.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

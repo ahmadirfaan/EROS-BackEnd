@@ -8,6 +8,7 @@ public class LoginResponse {
     private String password;
     private Integer roleId;
 
+
     public String getEmail() {
         return email;
     }

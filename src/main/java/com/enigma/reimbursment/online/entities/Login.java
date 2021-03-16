@@ -42,16 +42,6 @@ public class Login extends AbstractEntity<String>{
         this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "Login{" +
-                "id='" + id + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", role=" + role +
-                '}';
-    }
-
     public String getEmail() {
         return email;
     }

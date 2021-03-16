@@ -1,7 +1,7 @@
 package com.enigma.reimbursment.online.controller;
 
 import com.enigma.reimbursment.online.entities.Role;
-import com.enigma.reimbursment.online.exceptions.EntityNotFondException;
+import com.enigma.reimbursment.online.exceptions.EntityNotFoundException;
 import com.enigma.reimbursment.online.models.request.role.RoleRequest;
 import com.enigma.reimbursment.online.models.response.ResponseMessage;
 import com.enigma.reimbursment.online.models.response.role.RoleResponse;
@@ -37,7 +37,7 @@ public class RoleController {
     public ResponseMessage<RoleResponse> edit(@PathVariable Integer id, @RequestBody RoleRequest model) {
         Role entity = roleService.findById(id);
         if(entity == null) {
-            throw new EntityNotFondException();
+            throw new EntityNotFoundException();
         }
         modelMapper.map(model,entity);
         entity = roleService.save(entity);
@@ -50,7 +50,7 @@ public class RoleController {
     public ResponseMessage<RoleResponse> findById(@PathVariable Integer id) {
         Role entity = roleService.findById(id);
         if(entity == null) {
-            throw new EntityNotFondException();
+            throw new EntityNotFoundException();
         }
         RoleResponse data = modelMapper.map(entity,RoleResponse.class);
         return ResponseMessage.success(data);
@@ -68,7 +68,7 @@ public class RoleController {
     public ResponseMessage<RoleResponse> removeById(@PathVariable Integer id) {
         Role entity = roleService.RemoveById(id);
         if(entity == null) {
-            throw new EntityNotFondException();
+            throw new EntityNotFoundException();
         }
         RoleResponse data = modelMapper.map(entity,RoleResponse.class);
         return ResponseMessage.success(data);

@@ -9,10 +9,10 @@ import java.util.Date;
 
 @Entity
 @Table
-public class Reimbursement extends AbstractEntity<String>{
+public class Reimbursement extends AbstractEntity<String> {
     @Id
-    @GenericGenerator(name="id_reimbursement",strategy = "uuid2")
-    @GeneratedValue(generator = "id_reimbursement",strategy = GenerationType.IDENTITY)
+    @GenericGenerator(name = "id_reimbursement", strategy = "uuid2")
+    @GeneratedValue(generator = "id_reimbursement", strategy = GenerationType.IDENTITY)
     private String id;
 
     @Column(name = "date_of_claim_submission")
@@ -24,14 +24,14 @@ public class Reimbursement extends AbstractEntity<String>{
     @Column(name = "disbursement_date")
     private Date disbursementDate;
     @Column(name = "status_reject")
-    private Boolean statusReject;
+    private Boolean statusReject = false;
     @Column(name = "status_on_hc")
-    private Boolean statusOnHc;
+    private Boolean statusOnHc = false;
     @Column(name = "status_on_finance")
-    private Boolean statusOnFinance;
+    private Boolean statusOnFinance = false;
     @Column(name = "status_success")
-    private Boolean statusSuccess;
-    @Column(name = "borne_cost")
+    private Boolean statusSuccess = false;
+    @Column(name = "borne_cost") //Merupakan biaya yang ditanggung
     private Integer borneCost;
 
     @ManyToOne

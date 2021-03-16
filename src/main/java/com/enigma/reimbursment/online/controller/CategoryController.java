@@ -1,7 +1,7 @@
 package com.enigma.reimbursment.online.controller;
 
 import com.enigma.reimbursment.online.entities.Category;
-import com.enigma.reimbursment.online.exceptions.EntityNotFondException;
+import com.enigma.reimbursment.online.exceptions.EntityNotFoundException;
 import com.enigma.reimbursment.online.models.request.category.CategoryRequest;
 import com.enigma.reimbursment.online.models.response.ResponseMessage;
 import com.enigma.reimbursment.online.models.response.category.CategoryResponse;
@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RequestMapping("categories")
+@RequestMapping("/categories")
 @RestController
 public class CategoryController {
 
@@ -37,7 +37,7 @@ public class CategoryController {
     public ResponseMessage<CategoryResponse> edit(@PathVariable String id, @RequestBody CategoryRequest model) {
         Category entity = categoryService.findById(id);
         if(entity == null) {
-            throw new EntityNotFondException();
+            throw new EntityNotFoundException();
         }
         modelMapper.map(model,entity);
         entity = categoryService.save(entity);
@@ -50,7 +50,7 @@ public class CategoryController {
     public ResponseMessage<CategoryResponse> findById(@PathVariable String id) {
         Category entity = categoryService.findById(id);
         if(entity == null) {
-            throw new EntityNotFondException();
+            throw new EntityNotFoundException();
         }
         CategoryResponse data = modelMapper.map(entity,CategoryResponse.class);
         return ResponseMessage.success(data);
@@ -69,7 +69,7 @@ public class CategoryController {
     public ResponseMessage<CategoryResponse> removeById(@PathVariable  String id) {
         Category entity = categoryService.RemoveById(id);
         if(entity == null) {
-            throw new EntityNotFondException();
+            throw new EntityNotFoundException();
         }
         CategoryResponse data = modelMapper.map(entity,CategoryResponse.class);
         return ResponseMessage.success(data);

@@ -1,5 +1,5 @@
 application.data-dir: ${DATA_DIR:images}
-server.port: 8080
+server.port: 8081 #PORT IRFAAN 8081
 spring.mail:
   protocol: smtp
   host: smtp.gmail.com
@@ -15,7 +15,6 @@ spring:
     url: jdbc:mysql://localhost:3306/reimburse
     username: root
     password: admin
-#    password:
   jpa:
     hibernate.ddl-auto: update
     generate-ddl: true
@@ -26,4 +25,6 @@ spring:
     multipart:
       max-file-size: 2MB
       max-request-size: 2MB
-
+springdoc:
+  swagger-ui:
+    path: /swagger-ui-custom.html

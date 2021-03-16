@@ -2,7 +2,7 @@ package com.enigma.reimbursment.online.controller;
 
 import com.enigma.reimbursment.online.entities.Bill;
 import com.enigma.reimbursment.online.entities.Reimbursement;
-import com.enigma.reimbursment.online.exceptions.EntityNotFondException;
+import com.enigma.reimbursment.online.exceptions.EntityNotFoundException;
 import com.enigma.reimbursment.online.models.request.bill.ImageUploadRequest;
 import com.enigma.reimbursment.online.models.response.ResponseMessage;
 import com.enigma.reimbursment.online.services.BillService;
@@ -38,7 +38,7 @@ public class BillController {
     public ResponseMessage<Bill> upload (@PathVariable String id, @Valid ImageUploadRequest model) throws IOException {
         Reimbursement entity =  reimbursementService.findById(id);
         if(entity == null){
-            throw new EntityNotFondException();
+            throw new EntityNotFoundException();
         }
         Bill bill = new Bill();
         bill.setBillImage(model.getFile().getOriginalFilename());
@@ -52,7 +52,7 @@ public class BillController {
     public void  download (@PathVariable String id, HttpServletResponse response)throws IOException {
         Bill entity = billService.findById(id);
         if(entity == null) {
-            throw new EntityNotFondException();
+            throw new EntityNotFoundException();
         }
         response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "filename=\"" +entity.getId() + "\"");
         fileService.download(entity,response.getOutputStream());
