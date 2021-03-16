@@ -1,6 +1,8 @@
 package com.enigma.reimbursment.online.models.response.admin;
 
 public class UserResponse {
+
+    private String id;
     private String name;
     private String username;
     private String password;
@@ -28,4 +30,14 @@ public class UserResponse {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+
 }

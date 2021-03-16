@@ -1,9 +1,4 @@
-package com.enigma.reimbursment.online.models.request.reimbursements.reimbursementtravel;
-
-import com.enigma.reimbursment.online.entities.Reimbursement;
-
-import java.time.LocalDate;
-import java.util.Date;
+package com.enigma.reimbursment.online.models.request.reimbursements.travel;
 
 public class ReimbursementTravelRequest {
 

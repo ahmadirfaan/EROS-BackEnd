@@ -3,6 +3,7 @@ package com.enigma.reimbursment.online.models.response.login;
 
 public class LoginResponse {
 
+    private String id;
     private String email;
     private String password;
     private Integer roleId;
@@ -31,10 +32,19 @@ public class LoginResponse {
         this.roleId = roleId;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "LoginResponse{" +
-                "email='" + email + '\'' +
+                "id='" + id + '\'' +
+                ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", roleId=" + roleId +
                 '}';

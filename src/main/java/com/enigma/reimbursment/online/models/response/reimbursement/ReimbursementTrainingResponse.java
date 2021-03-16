@@ -2,6 +2,7 @@ package com.enigma.reimbursment.online.models.response.reimbursement;
 
 import com.enigma.reimbursment.online.entities.Employee;
 import com.enigma.reimbursment.online.entities.Reimbursement;
+import com.enigma.reimbursment.online.models.response.employee.EmployeeResponse;
 
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
@@ -9,16 +10,16 @@ import javax.persistence.OneToOne;
 import java.util.Date;
 
 public class ReimbursementTrainingResponse {
-    private String reimbursementId;
+    private String id;
+    private ReimbursementResponse reimbursementId;
     private Date trainingStartDate;
     private Date trainingEndDate;
-    private Employee employeeId;
 
-    public String getReimbursementId() {
+    public ReimbursementResponse getReimbursementId() {
         return reimbursementId;
     }
 
-    public void setReimbursementId(String reimbursementId) {
+    public void setReimbursementId(ReimbursementResponse reimbursementId) {
         this.reimbursementId = reimbursementId;
     }
 
@@ -38,11 +39,11 @@ public class ReimbursementTrainingResponse {
         this.trainingEndDate = trainingEndDate;
     }
 
-    public Employee getEmployeeId() {
-        return employeeId;
+    public String getId() {
+        return id;
     }
 
-    public void setEmployeeId(Employee employeeId) {
-        this.employeeId = employeeId;
+    public void setId(String id) {
+        this.id = id;
     }
 }

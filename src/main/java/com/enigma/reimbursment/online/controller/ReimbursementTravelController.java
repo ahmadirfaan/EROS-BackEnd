@@ -4,9 +4,9 @@ import com.enigma.reimbursment.online.entities.Reimbursement;
 import com.enigma.reimbursment.online.entities.ReimbursementTravel;
 import com.enigma.reimbursment.online.exceptions.EntityNotFondException;
 import com.enigma.reimbursment.online.models.pagination.PagedList;
-import com.enigma.reimbursment.online.models.request.reimbursements.reimbursementtravel.ReimbursementTravelRequest;
+import com.enigma.reimbursment.online.models.request.reimbursements.travel.ReimbursementTravelRequest;
 import com.enigma.reimbursment.online.models.response.ResponseMessage;
-import com.enigma.reimbursment.online.models.response.reimbursement.reimbursementtravel.ReimbursementTravelResponse;
+import com.enigma.reimbursment.online.models.response.reimbursement.travel.ReimbursementTravelResponse;
 import com.enigma.reimbursment.online.models.search.reimbursementTravel.ReimbursementTravelSearch;
 import com.enigma.reimbursment.online.services.ReimbursementService;
 import com.enigma.reimbursment.online.services.ReimbursementTravelService;
@@ -45,13 +45,13 @@ public class ReimbursementTravelController {
 
     @PostMapping
     public ResponseMessage<ReimbursementTravelResponse> add(@RequestBody ReimbursementTravelRequest model) throws ParseException {
-       ReimbursementTravel reimbursementTravel = modelMapper.map(model,ReimbursementTravel.class);
-       reimbursementTravel.setStartDate(new SimpleDateFormat("yyyy-MM-dd").parse(model.getStartDate()));
-       reimbursementTravel.setEndDate(new SimpleDateFormat("yyyy-MM-dd").parse(model.getEndDate()));
+        ReimbursementTravel reimbursementTravel = modelMapper.map(model, ReimbursementTravel.class);
+        reimbursementTravel.setStartDate(new SimpleDateFormat("yyyy-MM-dd").parse(model.getStartDate()));
+        reimbursementTravel.setEndDate(new SimpleDateFormat("yyyy-MM-dd").parse(model.getEndDate()));
 
-       Reimbursement reimbursement = reimbursementService.findById(model.getReimbursementId());
-       reimbursementTravel.setReimbursementId(reimbursement);
-       reimbursementTravel = reimbursementTravelService.save(reimbursementTravel);
+        Reimbursement reimbursement = reimbursementService.findById(model.getReimbursementId());
+        reimbursementTravel.setReimbursementId(reimbursement);
+        reimbursementTravel = reimbursementTravelService.save(reimbursementTravel);
 
 
         ReimbursementTravelResponse data = modelMapper.map(reimbursementTravel, ReimbursementTravelResponse.class);
@@ -64,7 +64,7 @@ public class ReimbursementTravelController {
     public ResponseMessage<PagedList<ReimbursementTravelResponse>> findAll(
             @Valid ReimbursementTravelSearch model
     ) {
-        ReimbursementTravel search = modelMapper.map(model,ReimbursementTravel.class);
+        ReimbursementTravel search = modelMapper.map(model, ReimbursementTravel.class);
         Page<ReimbursementTravel> entityPage = reimbursementTravelService.findAll(search, model.getPage(), model.getSize(), model.getSort());
         List<ReimbursementTravel> entities = entityPage.toList();
         List<ReimbursementTravelResponse> models = entities.stream()
@@ -76,10 +76,10 @@ public class ReimbursementTravelController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseMessage<ReimbursementTravelResponse> removeById(@PathVariable String id){
+    public ResponseMessage<ReimbursementTravelResponse> removeById(@PathVariable String id) {
         ReimbursementTravel entity = reimbursementTravelService.RemoveById(id);
 //        ReimbursementTravel entity = reimbursementTravelService.delete(id);
-        if(entity== null) {
+        if (entity == null) {
             throw new EntityNotFondException();
         }
 
@@ -88,9 +88,9 @@ public class ReimbursementTravelController {
     }
 
     @PutMapping("/{id}")
-    public ResponseMessage<ReimbursementTravelResponse> edit(@PathVariable String id, @RequestBody @Valid ReimbursementTravelRequest request ) throws ParseException {
+    public ResponseMessage<ReimbursementTravelResponse> edit(@PathVariable String id, @RequestBody @Valid ReimbursementTravelRequest request) throws ParseException {
         ReimbursementTravel entity = reimbursementTravelService.findById(id);
-        if(entity == null){
+        if (entity == null) {
             throw new EntityNotFondException();
         }
         entity.setStartDate(new SimpleDateFormat("yyyy-MM-dd").parse(request.getStartDate()));

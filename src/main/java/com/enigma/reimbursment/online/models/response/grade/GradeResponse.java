@@ -2,6 +2,8 @@ package com.enigma.reimbursment.online.models.response.grade;
 
 public class GradeResponse {
 
+    private String id;
+
     private Integer grade;
 
     private Integer glasessCost;
@@ -60,5 +62,26 @@ public class GradeResponse {
 
     public void setMealCost(Integer mealCost) {
         this.mealCost = mealCost;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "GradeResponse{" +
+                "id='" + id + '\'' +
+                ", grade=" + grade +
+                ", glasessCost=" + glasessCost +
+                ", giveBirthCost=" + giveBirthCost +
+                ", hotelCost=" + hotelCost +
+                ", transportationCost=" + transportationCost +
+                ", mealCost=" + mealCost +
+                '}';
     }
 }

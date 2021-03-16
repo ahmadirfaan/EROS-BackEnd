@@ -7,6 +7,7 @@ import java.util.Date;
 
 public class ReimbursementResponse {
 
+    private String id;
     private Date dateOfClaimSubmission;
     private Integer claimFee;
     private Date disbursementDate;
@@ -17,6 +18,15 @@ public class ReimbursementResponse {
     private Integer borneCost;
     private EmployeeResponse employeeId;
     private CategoryResponse categoryId;
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public CategoryResponse getCategoryId() {
         return categoryId;

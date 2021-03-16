@@ -2,10 +2,20 @@ package com.enigma.reimbursment.online.models.response.reimbursement;
 
 import com.enigma.reimbursment.online.entities.Reimbursement;
 
-public class ReimbursementGlasessResponse {
+public class ReimbursementGlassesResponse {
+    private String id;
+
     private String reimbursementId;
 
     private Integer borneCost;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getReimbursementId() {
         return reimbursementId;

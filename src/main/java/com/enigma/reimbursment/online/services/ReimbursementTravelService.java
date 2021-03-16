@@ -1,13 +1,10 @@
 package com.enigma.reimbursment.online.services;
 
 import com.enigma.reimbursment.online.entities.ReimbursementTravel;
-import com.enigma.reimbursment.online.models.request.reimbursements.reimbursementtravel.ReimbursementTravelRequest;
+import com.enigma.reimbursment.online.models.request.reimbursements.travel.ReimbursementTravelRequest;
 import com.enigma.reimbursment.online.repositories.ReimbursementTravelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @Service
 public class ReimbursementTravelService extends AbstractService<ReimbursementTravel,String>{

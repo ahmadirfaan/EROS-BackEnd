@@ -1,12 +1,20 @@
-package com.enigma.reimbursment.online.models.response.reimbursement.reimbursementtravel;
+package com.enigma.reimbursment.online.models.response.reimbursement.travel;
 
-import com.enigma.reimbursment.online.entities.Reimbursement;
 import com.enigma.reimbursment.online.models.response.reimbursement.ReimbursementResponse;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 public class ReimbursementTravelResponse {
+
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     private ReimbursementResponse reimbursementId;
 
