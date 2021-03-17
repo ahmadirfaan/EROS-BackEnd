@@ -18,7 +18,7 @@ public class FileServiceImpl implements FileService{
             dir.mkdirs();
         }
 
-        File file = new File(dir, entity.getId().toString() +".png");
+        File file = new File(dir, entity.getId().toString() +".pdf");
         try (OutputStream out = new FileOutputStream(file)) {
             byte[] data = new byte[8192];
             int length;
@@ -32,7 +32,7 @@ public class FileServiceImpl implements FileService{
     @Override
     public void download(AbstractEntity entity, OutputStream out) throws IOException {
         File dir = new File(dataDir,entity.getClass().getSimpleName().toLowerCase());
-        File file = new File(dir, entity.getId().toString()+".png");
+        File file = new File(dir, entity.getId().toString()+".pdf");
 
         try (InputStream in = new FileInputStream(file)){
             int length;

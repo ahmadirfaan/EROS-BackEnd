@@ -1,20 +1,24 @@
 package com.enigma.reimbursment.online.models.search.reimbursmentsearch;
 
-import com.enigma.reimbursment.online.entities.Category;
 import com.enigma.reimbursment.online.models.pagination.PageSearch;
-
-import java.util.Date;
 
 public class ReimbursementSearch extends PageSearch {
 
+    private Integer claimFee;
 
-    private String dateOfClaimSubmission;
 
-    public String getDateOfClaimSubmission() {
-        return dateOfClaimSubmission;
+    public Integer getClaimFee() {
+        return claimFee;
     }
 
-    public void setDateOfClaimSubmission(String dateOfClaimSubmission) {
-        this.dateOfClaimSubmission = dateOfClaimSubmission;
+    public void setClaimFee(Integer claimFee) {
+        this.claimFee = claimFee;
+    }
+
+    @Override
+    public String toString() {
+        return "ReimbursementSearch{" +
+                "claimFee=" + claimFee +
+                '}';
     }
 }

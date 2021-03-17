@@ -95,19 +95,47 @@ public class ReimbursementController {
 
     @GetMapping
     public ResponseMessage<PageList<ReimbursementResponse>> findAll(@Valid ReimbursementSearch request) {
-        Reimbursement reimbursement= modelMapper.map(request, Reimbursement.class);
+        System.out.println("request "+ request);
 
-        Page<Reimbursement> pagination = reimbursementService.findAll(reimbursement, request.getPage(),
+        Reimbursement reimbursement= modelMapper.map(request, Reimbursement.class);
+        System.out.println("reimbursement" +reimbursement);
+
+        Page<Reimbursement> pagination = reimbursementService
+                .findAll(reimbursement, request.getPage(),
                 request.getSize(), request.getSort());
-        System.out.println(pagination);
-        List<ReimbursementResponse> reimburseResponsePageList = pagination.stream()
+        System.out.println("pagination:" +pagination);
+
+        List<Reimbursement> reimbursements = pagination.toList();
+
+        List<ReimbursementResponse> reimburseResponsePageList = reimbursements.stream()
                 .map(e -> modelMapper.map(e, ReimbursementResponse.class))
                 .collect(Collectors.toList());
+        System.out.println("pagedlist:"+reimburseResponsePageList);
+
         PageList<ReimbursementResponse> response = new PageList(reimburseResponsePageList,
                 pagination.getNumber(), pagination.getSize(), pagination.getTotalElements());
-        System.out.println(reimburseResponsePageList);
+
+        System.out.println("response"+response);
         return new ResponseMessage(200, "OK", response);
     }
+
+//    @GetMapping
+//    public ResponseMessage<PageList<ReimbursementResponse>> findAll(@Valid ReimbursementSearch request) {
+//        Reimbursement reimbursement= modelMapper.map(request, Reimbursement.class);
+//
+//        Page<Reimbursement> pagination = reimbursementService.findAll(reimbursement, request.getPage(),
+//                request.getSize(), request.getSort());
+//        System.out.println(pagination);
+//        List<ReimbursementResponse> reimburseResponsePageList = pagination.stream()
+//                .map(e -> modelMapper.map(e, ReimbursementResponse.class))
+//                .collect(Collectors.toList());
+//        PageList<ReimbursementResponse> response = new PageList(reimburseResponsePageList,
+//                pagination.getNumber(), pagination.getSize(), pagination.getTotalElements());
+//        System.out.println(reimburseResponsePageList);
+//        return new ResponseMessage(200, "OK", response);
+//    }
+
+
 
     //UNTUK ADMIN HC
     @PutMapping("/{id}/hc")

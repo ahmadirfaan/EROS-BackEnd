@@ -42,6 +42,28 @@ public class Reimbursement extends AbstractEntity<String> {
     @JoinColumn(name = "id_category")
     private Category categoryId;
 
+    @Column(name = "start_date")
+    private Date startDate;
+
+    @Column(name = "end_date")
+    private Date endDate;
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
     public String getId() {
         return id;
     }
@@ -145,6 +167,8 @@ public class Reimbursement extends AbstractEntity<String> {
                 ", borneCost=" + borneCost +
                 ", employeeId=" + employeeId +
                 ", categoryId=" + categoryId +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
                 '}';
     }
 }

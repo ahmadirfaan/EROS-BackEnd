@@ -35,12 +35,4 @@ public class PageSearch {
         this.sort = sort;
     }
 
-    @Override
-    public String toString() {
-        return "PageSearch{" +
-                "size=" + size +
-                ", page=" + page +
-                ", sort=" + sort +
-                '}';
-    }
 }
