@@ -8,6 +8,8 @@ import com.enigma.reimbursment.online.models.model.reimbursement.ReimbursementMo
 import com.enigma.reimbursment.online.models.model.reimbursement.ReimbursementModelHc;
 import com.enigma.reimbursment.online.models.model.reimbursement.RequestModelEmployee;
 import com.enigma.reimbursment.online.models.pagination.PageList;
+import com.enigma.reimbursment.online.models.request.reimbursements.FindCategoryRequest;
+import com.enigma.reimbursment.online.models.request.reimbursements.FindDateOfClaim;
 import com.enigma.reimbursment.online.models.request.reimbursements.ReimbursementRequest;
 import com.enigma.reimbursment.online.models.response.ResponseMessage;
 import com.enigma.reimbursment.online.models.response.reimbursement.ReimbursementResponse;
@@ -61,6 +63,31 @@ public class ReimbursementController {
         return ResponseMessage.success(data);
 
     }
+
+    //filter by id category
+    @PostMapping("/category")
+    public ResponseMessage<List<Reimbursement>> filterCategoryId( @RequestBody FindCategoryRequest categoryId) {
+        System.out.println(categoryId);
+        List<Reimbursement> reimbursements = reimbursementService.filterCategoryById(categoryId.getCategoryId());
+        if(reimbursements == null){
+            throw new EntityNotFoundException();
+        }
+        System.out.println(reimbursements);
+        return ResponseMessage.success(reimbursements);
+
+    }
+
+    //filter by dateOfClaimSubmission
+    @PostMapping("/date")
+    public ResponseMessage<List<Reimbursement>> filterByDateClaim(@RequestBody FindDateOfClaim dateOfClaimSubmission) throws ParseException {
+        Reimbursement reimbursement = new Reimbursement();
+        reimbursement.setDateOfClaimSubmission(new SimpleDateFormat("yyyy-MM-dd").parse(dateOfClaimSubmission.getDateOfClaimSubmission()));
+
+        List<Reimbursement> reimbursements = reimbursementService.filterByDateOfClaim(dateOfClaimSubmission.getDateOfClaimSubmission());
+        System.out.println(dateOfClaimSubmission);
+        return ResponseMessage.success(reimbursements);
+    }
+
 
     @PutMapping("/{id}")
     public ResponseMessage<ReimbursementResponse> edit(@PathVariable String id, @RequestBody ReimbursementRequest model) {
@@ -205,6 +232,8 @@ public class ReimbursementController {
         FinanceResponse data = modelMapper.map(entity,FinanceResponse.class);
         return ResponseMessage.success(data);
     }
+
+
 
 
 }

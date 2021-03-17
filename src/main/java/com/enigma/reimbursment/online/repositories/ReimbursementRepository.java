@@ -9,10 +9,10 @@ import java.util.List;
 
 public interface ReimbursementRepository extends JpaRepository<Reimbursement,String> {
 
-    @Query(value = "SELECT * FROM reimburse WHERE id_category = :categoryId",nativeQuery = true)
-    List<Reimbursement> searchCategoryById(@Param("categoryId") String categoryId);
+    @Query(value = "SELECT * FROM reimbursement WHERE id_category = :categoryId",nativeQuery = true)
+    List<Reimbursement> filterCategoryById(@Param("categoryId") String categoryId);
 
-    @Query(value = "SELECT * FROM reimburse WHERE date_of_claim_submission = :dateOfClaimSubmission",nativeQuery = true)
-    List<Reimbursement> searchByDateoFClaim(@Param("dateOfClaimSubmission") String dateOfClaimSubmission);
+    @Query(value = "SELECT * FROM reimbursement WHERE date_of_claim_submission = :dateOfClaimSubmission",nativeQuery = true)
+    List<Reimbursement> filterByDateOfClaim(@Param("dateOfClaimSubmission") String dateOfClaimSubmission);
 
 }

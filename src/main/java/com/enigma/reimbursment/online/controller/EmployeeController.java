@@ -96,7 +96,6 @@ public class EmployeeController {
             throw new EntityNotFoundException();
         }
 
-        login.setPassword(login.getPassword());
         modelMapper.map(request,login);
 
 
