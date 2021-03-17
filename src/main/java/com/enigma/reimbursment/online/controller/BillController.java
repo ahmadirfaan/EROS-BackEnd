@@ -48,8 +48,8 @@ public class BillController {
         return ResponseMessage.success(bill);
     }
 
-    @GetMapping("/{id}/download")
-    public void  download (@PathVariable String id, HttpServletResponse response)throws IOException {
+    @GetMapping("/{id}/preview")
+    public void  preview (@PathVariable String id, HttpServletResponse response)throws IOException {
         Bill entity = billService.findById(id);
         if(entity == null) {
             throw new EntityNotFoundException();

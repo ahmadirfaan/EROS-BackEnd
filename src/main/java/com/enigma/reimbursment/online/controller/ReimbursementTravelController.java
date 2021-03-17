@@ -65,12 +65,18 @@ public class ReimbursementTravelController {
             @Valid ReimbursementTravelSearch model
     ) {
         ReimbursementTravel search = modelMapper.map(model, ReimbursementTravel.class);
-        Page<ReimbursementTravel> entityPage = reimbursementTravelService.findAll(search, model.getPage(), model.getSize(), model.getSort());
+        Page<ReimbursementTravel> entityPage = reimbursementTravelService.findAll(search, model.getPage(),
+                model.getSize(), model.getSort());
         List<ReimbursementTravel> entities = entityPage.toList();
         List<ReimbursementTravelResponse> models = entities.stream()
                 .map(e -> modelMapper.map(e, ReimbursementTravelResponse.class))
                 .collect(Collectors.toList());
-        PageList<ReimbursementTravelResponse> data = new PageList<>(models, entityPage.getNumber(), entityPage.getSize(), entityPage.getTotalElements());
+
+        System.out.println("cek hasil:");
+        System.out.println(models.toString());
+
+        PageList<ReimbursementTravelResponse> data = new PageList<>(models, entityPage.getNumber(),
+                entityPage.getSize(), entityPage.getTotalElements());
         return ResponseMessage.success(data);
 
     }
