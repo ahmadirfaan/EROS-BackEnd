@@ -1,8 +1,8 @@
-package com.enigma.reimbursment.online.models.request.reimbursements;
+package com.enigma.reimbursment.online.models.request.reimbursements.glasses;
 
 import com.enigma.reimbursment.online.entities.Reimbursement;
 
-public class ReimbursementGlasesRequets {
+public class ReimbursementGlassesRequest {
 
     private Integer borneCost;
 

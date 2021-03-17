@@ -34,4 +34,13 @@ public class PageSearch {
     public void setSort(Sort.Direction sort) {
         this.sort = sort;
     }
+
+    @Override
+    public String toString() {
+        return "PageSearch{" +
+                "size=" + size +
+                ", page=" + page +
+                ", sort=" + sort +
+                '}';
+    }
 }

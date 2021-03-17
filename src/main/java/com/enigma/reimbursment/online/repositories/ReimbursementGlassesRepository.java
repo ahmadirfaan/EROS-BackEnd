@@ -1,6 +1,5 @@
 package com.enigma.reimbursment.online.repositories;
 
-import com.enigma.reimbursment.online.entities.Reimbursement;
 import com.enigma.reimbursment.online.entities.ReimbursementGlasses;
 import org.springframework.data.jpa.repository.JpaRepository;
 

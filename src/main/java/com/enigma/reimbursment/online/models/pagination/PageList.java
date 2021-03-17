@@ -47,4 +47,14 @@ public class PageList<T> {
     public void setTotal(Long total) {
         this.total = total;
     }
+
+    @Override
+    public String toString() {
+        return "PageList{" +
+                "list=" + list +
+                ", page=" + page +
+                ", size=" + size +
+                ", total=" + total +
+                '}';
+    }
 }

@@ -1,11 +1,12 @@
-package com.enigma.reimbursment.online.models.response.reimbursement;
+package com.enigma.reimbursment.online.models.response.reimbursement.glasses;
 
 import com.enigma.reimbursment.online.entities.Reimbursement;
+import com.enigma.reimbursment.online.models.response.reimbursement.ReimbursementResponse;
 
 public class ReimbursementGlassesResponse {
     private String id;
 
-    private String reimbursementId;
+    private ReimbursementResponse reimbursementId;
 
     private Integer borneCost;
 
@@ -17,11 +18,11 @@ public class ReimbursementGlassesResponse {
         this.id = id;
     }
 
-    public String getReimbursementId() {
+    public ReimbursementResponse getReimbursementId() {
         return reimbursementId;
     }
 
-    public void setReimbursementId(String reimbursementId) {
+    public void setReimbursementId(ReimbursementResponse reimbursementId) {
         this.reimbursementId = reimbursementId;
     }
 

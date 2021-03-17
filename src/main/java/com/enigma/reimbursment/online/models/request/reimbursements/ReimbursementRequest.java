@@ -21,8 +21,11 @@ public class ReimbursementRequest {
     private Boolean statusSuccess;
     @Pattern(message = "input number only",regexp = "/^[0-9]+$/")
     private Integer borneCost;
+    @NotBlank
     private String employeeId;
+    @NotBlank
     private String categoryId;
+
 
     public String getEmployeeId() {
         return employeeId;
