@@ -1,7 +1,7 @@
 package com.enigma.reimbursment.online.enums;
 
 public enum Religion {
-    ISLAM, KRISTEN,KATOLIK,BUDHA,HINDHU, KONGHUCU;
+    ISLAM, PROTESTAN,KATOLIK,BUDDHA,HINDU, KONGHUCU;
 
     private static final Religion[] religionList = Religion.values();
 
