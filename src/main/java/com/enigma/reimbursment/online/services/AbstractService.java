@@ -48,7 +48,6 @@ import java.util.List;
                 .withIgnoreCase()
                 .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
 
-        return repository.findAll(Example.of(search,matcher), PageRequest.of(page, size, sort)
-        );
+        return repository.findAll(PageRequest.of(page, size, sort));
     }
 }

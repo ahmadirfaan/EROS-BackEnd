@@ -4,15 +4,12 @@ import com.enigma.reimbursment.online.entities.Category;
 import com.enigma.reimbursment.online.entities.Employee;
 import com.enigma.reimbursment.online.entities.Reimbursement;
 import com.enigma.reimbursment.online.exceptions.EntityNotFoundException;
-import com.enigma.reimbursment.online.models.model.reimbursement.RequestModelEmployee;
 import com.enigma.reimbursment.online.models.model.reimbursement.ReimbursementModelFinance;
 import com.enigma.reimbursment.online.models.model.reimbursement.ReimbursementModelHc;
+import com.enigma.reimbursment.online.models.model.reimbursement.RequestModelEmployee;
 import com.enigma.reimbursment.online.models.pagination.PageList;
-import com.enigma.reimbursment.online.models.pagination.PageSearch;
-import com.enigma.reimbursment.online.models.request.employee.EmployeeSearch;
 import com.enigma.reimbursment.online.models.request.reimbursements.ReimbursementRequest;
 import com.enigma.reimbursment.online.models.response.ResponseMessage;
-import com.enigma.reimbursment.online.models.response.employee.EmployeeResponse;
 import com.enigma.reimbursment.online.models.response.reimbursement.ReimbursementResponse;
 import com.enigma.reimbursment.online.models.response.reimbursement.model.FinanceResponse;
 import com.enigma.reimbursment.online.models.response.reimbursement.model.ReimburseEmployeeResponse;
@@ -20,7 +17,6 @@ import com.enigma.reimbursment.online.models.search.reimbursmentsearch.Reimburse
 import com.enigma.reimbursment.online.services.CategoryService;
 import com.enigma.reimbursment.online.services.EmployeeService;
 import com.enigma.reimbursment.online.services.ReimbursementService;
-import org.apache.catalina.mapper.Mapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -97,6 +93,7 @@ public class ReimbursementController {
 
     }
 
+    @GetMapping
     public ResponseMessage<PageList<ReimbursementResponse>> findAll(@Valid ReimbursementSearch request) {
         Reimbursement reimbursement= modelMapper.map(request, Reimbursement.class);
 

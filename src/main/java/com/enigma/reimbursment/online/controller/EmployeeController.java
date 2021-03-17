@@ -6,11 +6,13 @@ import com.enigma.reimbursment.online.enums.*;
 import com.enigma.reimbursment.online.exceptions.EntityNotFoundException;
 import com.enigma.reimbursment.online.models.pagination.PageList;
 import com.enigma.reimbursment.online.models.request.employee.EmployeeRequest;
+import com.enigma.reimbursment.online.models.request.employee.EmployeeRequestChangePassword;
 import com.enigma.reimbursment.online.models.request.employee.EmployeeRequestEditForm;
 import com.enigma.reimbursment.online.models.request.employee.EmployeeSearch;
 import com.enigma.reimbursment.online.models.response.ResponseMessage;
 import com.enigma.reimbursment.online.models.response.employee.EmployeeResponsePage;
 import com.enigma.reimbursment.online.models.response.employee.EmployeeResponse;
+import com.enigma.reimbursment.online.models.response.login.LoginResponse;
 import com.enigma.reimbursment.online.services.EmployeeService;
 import com.enigma.reimbursment.online.services.LoginService;
 import org.modelmapper.ModelMapper;
@@ -85,6 +87,25 @@ public class EmployeeController {
 //        EmployeeResponse response = modelMapper.map(employee, EmployeeResponse.class);
 //        return ResponseMessage.success(response);
 //    }
+
+    @PutMapping("/ganti-password")
+    public ResponseMessage<LoginResponse> changePassword( @RequestBody  EmployeeRequestChangePassword request) {
+        Login login = loginService.findById(request.getIdLogin());
+
+        if(login == null) {
+            throw new EntityNotFoundException();
+        }
+
+        login.setPassword(login.getPassword());
+        modelMapper.map(request,login);
+
+
+        login = loginService.save(login);
+
+            LoginResponse data = modelMapper.map(login,LoginResponse.class);
+        return ResponseMessage.success(data);
+    }
+
 
 
     @PutMapping("/{id}")
