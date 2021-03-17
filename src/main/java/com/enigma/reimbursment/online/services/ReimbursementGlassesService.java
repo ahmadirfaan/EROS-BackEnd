@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReimbursementGlassesService extends AbstractService<ReimbursementGlasses,String> {
 
-
     @Autowired
     protected ReimbursementGlassesService(ReimbursementGlassesRepository repository){
         super(repository);
