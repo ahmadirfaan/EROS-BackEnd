@@ -1,7 +1,5 @@
 package com.enigma.reimbursment.online.models.model.reimbursement;
 
-import java.util.Date;
-
 public class ReimbursementModelFinance {
 
     private String disbursementDate;

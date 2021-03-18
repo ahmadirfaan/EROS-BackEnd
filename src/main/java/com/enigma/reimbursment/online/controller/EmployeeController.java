@@ -120,14 +120,9 @@ public class EmployeeController {
         employee.setLogin(login);
 
         modelMapper.map(request, employee);
-        employee.setDateOfBirth(LocalDate.parse(request.getDateOfBirth(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         employee.setJoinDate(LocalDate.parse(request.getJoinDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         employee.setLogin(login);
-        employee.setBloodType(BloodType.getBloodType(request.getBloodType()));
-        employee.setGender(Gender.getGender(request.getGender()));
         employee.setEmployeeStatus(EmployeeStatus.getEmployeeStatus(request.getEmployeeStatus()));
-        employee.setMaritalStatus(MaritalStatus.getMaritalStatus(request.getMaritalStatus()));
-        employee.setReligion(Religion.getReligion(request.getReligion()));
         employee.setEmployeeType(EmployeeType.getEmployeeType(request.getEmployeeType()));
         employee = employeeService.save(employee);
 

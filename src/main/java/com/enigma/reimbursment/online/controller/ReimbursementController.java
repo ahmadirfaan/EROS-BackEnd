@@ -11,8 +11,14 @@ import com.enigma.reimbursment.online.models.pagination.PageList;
 import com.enigma.reimbursment.online.models.request.reimbursements.FindCategoryRequest;
 import com.enigma.reimbursment.online.models.request.reimbursements.FindDateOfClaim;
 import com.enigma.reimbursment.online.models.request.reimbursements.ReimbursementRequest;
+import com.enigma.reimbursment.online.models.request.reimbursements.claim.RequestStatusOnFinance;
+import com.enigma.reimbursment.online.models.request.reimbursements.claim.RequestStatusOnHc;
+import com.enigma.reimbursment.online.models.request.reimbursements.claim.RequestStatusReject;
 import com.enigma.reimbursment.online.models.response.ResponseMessage;
 import com.enigma.reimbursment.online.models.response.reimbursement.ReimbursementResponse;
+import com.enigma.reimbursment.online.models.response.reimbursement.claim.ResponseStatusOnFinance;
+import com.enigma.reimbursment.online.models.response.reimbursement.claim.ResponseStatusOnHc;
+import com.enigma.reimbursment.online.models.response.reimbursement.claim.ResponseStatusReject;
 import com.enigma.reimbursment.online.models.response.reimbursement.model.FinanceResponse;
 import com.enigma.reimbursment.online.models.response.reimbursement.model.ReimburseEmployeeResponse;
 import com.enigma.reimbursment.online.models.search.reimbursmentsearch.ReimbursementSearch;
@@ -64,6 +70,72 @@ public class ReimbursementController {
 
     }
 
+    //change status on_reject
+    @PutMapping("/{id}/change-status-hc")
+    public ResponseMessage<ResponseStatusOnHc> editStatusOnHc(@PathVariable String id,@RequestBody RequestStatusOnHc request) {
+
+        Reimbursement reimbursement = reimbursementService.findById(id);
+        if(reimbursement == null){
+            throw new EntityNotFoundException();
+        }
+
+        Employee employee = employeeService.findById(reimbursement.getEmployeeId().getId());
+        reimbursement.setEmployeeId(employee);
+
+        Category category = categoryService.findById(reimbursement.getCategoryId().getId());
+        reimbursement.setCategoryId(category);
+        modelMapper.map(request,reimbursement);
+
+        reimbursement = reimbursementService.save(reimbursement);
+
+        ResponseStatusOnHc data = modelMapper.map(reimbursement,ResponseStatusOnHc.class);
+        return ResponseMessage.success(data);
+    }
+
+    //change status on_reject
+    @PutMapping("/{id}/change-status-finance")
+    public ResponseMessage<ResponseStatusOnFinance> editStatusOnHc(@PathVariable String id, @RequestBody RequestStatusOnFinance request) {
+
+        Reimbursement reimbursement = reimbursementService.findById(id);
+        if(reimbursement == null){
+            throw new EntityNotFoundException();
+        }
+
+        Employee employee = employeeService.findById(reimbursement.getEmployeeId().getId());
+        reimbursement.setEmployeeId(employee);
+
+        Category category = categoryService.findById(reimbursement.getCategoryId().getId());
+        reimbursement.setCategoryId(category);
+        modelMapper.map(request,reimbursement);
+
+        reimbursement = reimbursementService.save(reimbursement);
+
+        ResponseStatusOnFinance data = modelMapper.map(reimbursement,ResponseStatusOnFinance.class);
+        return ResponseMessage.success(data);
+    }
+
+    //change status on_reject
+    @PutMapping("/{id}/change-status-reject")
+    public ResponseMessage<ResponseStatusReject> editStatusOnHc(@PathVariable String id, @RequestBody RequestStatusReject request) {
+
+        Reimbursement reimbursement = reimbursementService.findById(id);
+        if(reimbursement == null){
+            throw new EntityNotFoundException();
+        }
+
+        Employee employee = employeeService.findById(reimbursement.getEmployeeId().getId());
+        reimbursement.setEmployeeId(employee);
+
+        Category category = categoryService.findById(reimbursement.getCategoryId().getId());
+        reimbursement.setCategoryId(category);
+        modelMapper.map(request,reimbursement);
+
+        reimbursement = reimbursementService.save(reimbursement);
+
+        ResponseStatusReject data = modelMapper.map(reimbursement,ResponseStatusReject.class);
+        return ResponseMessage.success(data);
+    }
+
     //filter by id category
     @PostMapping("/category")
     public ResponseMessage<List<Reimbursement>> filterCategoryId( @RequestBody FindCategoryRequest categoryId) {
@@ -89,6 +161,7 @@ public class ReimbursementController {
     }
 
 
+
     @PutMapping("/{id}")
     public ResponseMessage<ReimbursementResponse> edit(@PathVariable String id, @RequestBody ReimbursementRequest model) {
         Reimbursement entity = reimbursementService.findById(id);
@@ -99,6 +172,7 @@ public class ReimbursementController {
         Employee employee = employeeService.findById(model.getEmployeeId());
         entity.setEmployeeId(employee);
         modelMapper.map(model,entity);
+
         Category category = categoryService.findById(model.getCategoryId());
         entity.setCategoryId(category);
         modelMapper.map(model,entity);
@@ -146,24 +220,6 @@ public class ReimbursementController {
         return new ResponseMessage(200, "OK", response);
     }
 
-//    @GetMapping
-//    public ResponseMessage<PageList<ReimbursementResponse>> findAll(@Valid ReimbursementSearch request) {
-//        Reimbursement reimbursement= modelMapper.map(request, Reimbursement.class);
-//
-//        Page<Reimbursement> pagination = reimbursementService.findAll(reimbursement, request.getPage(),
-//                request.getSize(), request.getSort());
-//        System.out.println(pagination);
-//        List<ReimbursementResponse> reimburseResponsePageList = pagination.stream()
-//                .map(e -> modelMapper.map(e, ReimbursementResponse.class))
-//                .collect(Collectors.toList());
-//        PageList<ReimbursementResponse> response = new PageList(reimburseResponsePageList,
-//                pagination.getNumber(), pagination.getSize(), pagination.getTotalElements());
-//        System.out.println(reimburseResponsePageList);
-//        return new ResponseMessage(200, "OK", response);
-//    }
-
-
-
     //UNTUK ADMIN HC
     @PutMapping("/{id}/hc")
     public ResponseMessage<ReimbursementModelHc> editAdminHc(@PathVariable String id, @RequestBody ReimbursementModelHc model) {
@@ -210,12 +266,11 @@ public class ReimbursementController {
         return ResponseMessage.success(data);
     }
 
-    //UNTUK finance
+    //untuk finance
     @PutMapping("/{id}/finance")
     public ResponseMessage<FinanceResponse> editFinance(@PathVariable String id, @RequestBody ReimbursementModelFinance model) throws ParseException {
         Reimbursement entity = reimbursementService.findById(id);
         entity.setDisbursementDate(new SimpleDateFormat("yyyy-MM-dd").parse(model.getDisbursementDate()));
-
         if(entity == null) {
             throw new EntityNotFoundException();
         }
