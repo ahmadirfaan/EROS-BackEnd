@@ -6,10 +6,7 @@ import com.enigma.reimbursment.online.entities.Login;
 import com.enigma.reimbursment.online.enums.*;
 import com.enigma.reimbursment.online.exceptions.EntityNotFoundException;
 import com.enigma.reimbursment.online.models.pagination.PageList;
-import com.enigma.reimbursment.online.models.request.employee.EmployeeRequest;
-import com.enigma.reimbursment.online.models.request.employee.EmployeeRequestChangePassword;
-import com.enigma.reimbursment.online.models.request.employee.EmployeeRequestEditForm;
-import com.enigma.reimbursment.online.models.request.employee.EmployeeSearch;
+import com.enigma.reimbursment.online.models.request.employee.*;
 import com.enigma.reimbursment.online.models.response.ResponseMessage;
 import com.enigma.reimbursment.online.models.response.employee.EmployeeResponsePage;
 import com.enigma.reimbursment.online.models.response.employee.EmployeeResponse;
@@ -100,6 +97,7 @@ public class EmployeeController {
 //        return ResponseMessage.success(response);
 //    }
 
+
     @PutMapping("/ganti-password")
     public ResponseMessage<LoginResponse> changePassword( @RequestBody  EmployeeRequestChangePassword request) {
         Login login = loginService.findById(request.getIdLogin());
@@ -170,8 +168,15 @@ public class EmployeeController {
     }
 
 
+    //change status employee active or non-active
     @PutMapping("/{id}/changeStatusEmployee")
     public ResponseMessage<Boolean> changeStatusEmployee(@PathVariable String id) {
+        return null;
+    }
+
+    //change status hc
+    @PutMapping("/{id}/changeStatusHc")
+    public ResponseMessage<Boolean> changeIsVerifiedHc(@RequestBody EmployeeRequestVerifiedHc request) {
         return null;
     }
 

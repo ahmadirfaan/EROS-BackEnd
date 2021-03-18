@@ -10,4 +10,6 @@ public class FindCategoryRequest {
     public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
+
+
 }

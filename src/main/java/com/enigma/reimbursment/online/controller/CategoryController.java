@@ -35,6 +35,8 @@ public class CategoryController {
 
     @PutMapping("/{id}")
     public ResponseMessage<CategoryResponse> edit(@PathVariable String id, @RequestBody CategoryRequest model) {
+
+
         Category entity = categoryService.findById(id);
         if(entity == null) {
             throw new EntityNotFoundException();

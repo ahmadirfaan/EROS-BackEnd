@@ -1,6 +1,7 @@
 package com.enigma.reimbursment.online.services;
 
 import com.enigma.reimbursment.online.entities.Reimbursement;
+import com.enigma.reimbursment.online.models.request.reimbursements.FindCategoryRequestEmployee;
 import com.enigma.reimbursment.online.repositories.ReimbursementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,7 +25,16 @@ public class ReimbursementService extends AbstractService<Reimbursement,String> 
         return reimbursementRepository.filterCategoryById(categoryId);
     }
 
+    public List<Reimbursement> filterCategoryByIdEmployee(String employeeId, String categoryId) {
+        System.out.println(categoryId);
+        return reimbursementRepository.filterCategoryByIdEmployee(employeeId,categoryId);
+    }
+
     public List<Reimbursement> filterByDateOfClaim(String dateOfClaimSubmission) {
         return reimbursementRepository.filterByDateOfClaim(dateOfClaimSubmission);
+    }
+
+    public List<Reimbursement> filterByIdEmployee(String employeeId) {
+        return reimbursementRepository.filterByIdEmployee(employeeId);
     }
 }
