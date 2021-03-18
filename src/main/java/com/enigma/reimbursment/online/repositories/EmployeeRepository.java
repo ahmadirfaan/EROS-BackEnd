@@ -17,6 +17,12 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
     @Query(value = "SELECT * FROM employee WHERE is_verified_email = true AND is_completed = true", nativeQuery = true)
     List<Employee> getAll();
 
+    //tambahan
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE employee SET is_verified_hc = :isVerifiedHc WHERE id = :id", nativeQuery = true)
+    Employee changeIsVerifiedHc(@Param("id") String id,@Param("isVerifiedHc") Boolean isVerifiedHc);
+
     @Modifying
     @Transactional
     @Query(value = "UPDATE employee SET is_verified_email = true WHERE email_verification_token = :token", nativeQuery = true)

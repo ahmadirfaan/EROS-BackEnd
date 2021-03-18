@@ -8,10 +8,7 @@ import com.enigma.reimbursment.online.models.model.reimbursement.ReimbursementMo
 import com.enigma.reimbursment.online.models.model.reimbursement.ReimbursementModelHc;
 import com.enigma.reimbursment.online.models.model.reimbursement.RequestModelEmployee;
 import com.enigma.reimbursment.online.models.pagination.PageList;
-import com.enigma.reimbursment.online.models.request.reimbursements.FindCategoryRequest;
-import com.enigma.reimbursment.online.models.request.reimbursements.FindCategoryRequestEmployee;
-import com.enigma.reimbursment.online.models.request.reimbursements.FindDateOfClaim;
-import com.enigma.reimbursment.online.models.request.reimbursements.ReimbursementRequest;
+import com.enigma.reimbursment.online.models.request.reimbursements.*;
 import com.enigma.reimbursment.online.models.request.reimbursements.claim.RequestStatusOnFinance;
 import com.enigma.reimbursment.online.models.request.reimbursements.claim.RequestStatusOnHc;
 import com.enigma.reimbursment.online.models.request.reimbursements.claim.RequestStatusReject;
@@ -71,7 +68,7 @@ public class ReimbursementController {
 
     }
 
-    //change status on_reject
+    //change status on_HC
     @PutMapping("/{id}/change-status-hc")
     public ResponseMessage<ResponseStatusOnHc> editStatusOnHc(@PathVariable String id,@RequestBody RequestStatusOnHc request) {
 
@@ -93,7 +90,7 @@ public class ReimbursementController {
         return ResponseMessage.success(data);
     }
 
-    //change status on_reject
+    //change status on_finance
     @PutMapping("/{id}/change-status-finance")
     public ResponseMessage<ResponseStatusOnFinance> editStatusOnHc(@PathVariable String id, @RequestBody RequestStatusOnFinance request) {
 
@@ -139,9 +136,8 @@ public class ReimbursementController {
 
     //filter by id category for admin
     @PostMapping("/filter-category-admin")
-    public ResponseMessage<List<Reimbursement>> filterCategoryIdAdmin( @RequestBody FindCategoryRequest categoryId) {
-        System.out.println(categoryId);
-        List<Reimbursement> reimbursements = reimbursementService.filterCategoryById(categoryId.getCategoryId());
+    public ResponseMessage<List<Reimbursement>> filterCategoryIdAdmin( @RequestBody FindCategoryRequest request) {
+        List<Reimbursement> reimbursements = reimbursementService.filterCategoryById(request.getCategoryId());
         if(reimbursements == null){
             throw new EntityNotFoundException();
         }
@@ -149,17 +145,29 @@ public class ReimbursementController {
         return ResponseMessage.success(reimbursements);
     }
 
-    //filter by id category for employee
-//    @PostMapping("/filter-category-employee")
-//    public ResponseMessage<List<Reimbursement>> filterCategoryIdEmployee( @RequestBody FindCategoryRequestEmployee categoryId) {
-//        System.out.println(categoryId);
-//        List<Reimbursement> reimbursements = reimbursementService.filterCategoryById(categoryId.getCategoryId());
-//        if(reimbursements == null){
-//            throw new EntityNotFoundException();
-//        }
-//        System.out.println(reimbursements);
-//        return ResponseMessage.success(reimbursements);
-//    }
+//    filter by id category and id employee for employee
+    @PostMapping("/filter-category-employee")
+    public ResponseMessage<List<Reimbursement>> filterCategoryIdEmployee( @RequestBody FindCategoryRequestEmployee model) {
+        List<Reimbursement> reimbursements = reimbursementService.filterCategoryByIdEmployee(model.getCategoryId(),model.getEmployeeId());
+        if(reimbursements == null){
+            throw new EntityNotFoundException();
+        }
+        System.out.println(reimbursements);
+        return ResponseMessage.success(reimbursements);
+    }
+
+    //filter by id employee for admin
+    @PostMapping("/filter-employee-admin")
+    public ResponseMessage<List<Reimbursement>> filterIdEmployee(@RequestBody FindEmployeeRequest request){
+        List<Reimbursement> reimbursements = reimbursementService.filterByIdEmployee(request.getEmployeeId());
+        if(reimbursements == null){
+            throw new EntityNotFoundException();
+        }
+        return ResponseMessage.success(reimbursements);
+
+    }
+
+
 
     //filter by dateOfClaimSubmission
     @PostMapping("/date")
