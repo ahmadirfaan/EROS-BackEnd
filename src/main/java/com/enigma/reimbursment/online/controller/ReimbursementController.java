@@ -134,16 +134,6 @@ public class ReimbursementController {
         return ResponseMessage.success(data);
     }
 
-    //filter by id category for admin
-    @PostMapping("/filter-category-admin")
-    public ResponseMessage<List<Reimbursement>> filterCategoryIdAdmin( @RequestBody FindCategoryRequest request) {
-        List<Reimbursement> reimbursements = reimbursementService.filterCategoryById(request.getCategoryId());
-        if(reimbursements == null){
-            throw new EntityNotFoundException();
-        }
-        System.out.println(reimbursements);
-        return ResponseMessage.success(reimbursements);
-    }
 
 //    filter by id category and id employee for employee
     @PostMapping("/filter-category-employee")
@@ -168,8 +158,6 @@ public class ReimbursementController {
     }
 
 
-
-    //filter by dateOfClaimSubmission
     @PostMapping("/date")
     public ResponseMessage<List<Reimbursement>> filterByDateClaim(@RequestBody FindDateOfClaim dateOfClaimSubmission) throws ParseException {
         Reimbursement reimbursement = new Reimbursement();
@@ -179,6 +167,12 @@ public class ReimbursementController {
         System.out.println(dateOfClaimSubmission);
         return ResponseMessage.success(reimbursements);
     }
+
+    //filter by date,category and id employee
+//    public ResponseMessage<List<Reimbursement>> filterByDateCategoryAndIdEmployee(@RequestBody FindDateCategoryAndIdEmployee model) {
+//        Reimbursement reimbursement = new Reimbursement();
+//        reimbursement.
+//    }
 
 
 

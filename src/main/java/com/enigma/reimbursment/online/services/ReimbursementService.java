@@ -37,4 +37,8 @@ public class ReimbursementService extends AbstractService<Reimbursement,String> 
     public List<Reimbursement> filterByIdEmployee(String employeeId) {
         return reimbursementRepository.filterByIdEmployee(employeeId);
     }
+
+    public List<Reimbursement> filterByDateCategoryAndIdEmployee(String dateOfClaimSubmission, String categoryId, String employeeId){
+        return reimbursementRepository.filterByDateCategoryAndIdEmployee(dateOfClaimSubmission, categoryId, employeeId);
+    }
 }
