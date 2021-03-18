@@ -1,6 +1,7 @@
 package com.enigma.reimbursment.online.controller;
 
 import com.enigma.reimbursment.online.entities.Employee;
+import com.enigma.reimbursment.online.entities.Grade;
 import com.enigma.reimbursment.online.entities.Login;
 import com.enigma.reimbursment.online.enums.*;
 import com.enigma.reimbursment.online.exceptions.EntityNotFoundException;
@@ -14,6 +15,7 @@ import com.enigma.reimbursment.online.models.response.employee.EmployeeResponseP
 import com.enigma.reimbursment.online.models.response.employee.EmployeeResponse;
 import com.enigma.reimbursment.online.models.response.login.LoginResponse;
 import com.enigma.reimbursment.online.services.EmployeeService;
+import com.enigma.reimbursment.online.services.GradeService;
 import com.enigma.reimbursment.online.services.LoginService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,9 @@ public class EmployeeController {
 
     @Autowired
     LoginService loginService;
+
+    @Autowired
+    GradeService gradeService;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -126,9 +131,14 @@ public class EmployeeController {
         Login login = loginService.findById(employee.getLogin().getId());
         employee.setLogin(login);
 
+        Grade grade = gradeService.findById(employee.getGrade().getId());
+        employee.setGrade(grade);
+
+
         modelMapper.map(request, employee);
         employee.setJoinDate(LocalDate.parse(request.getJoinDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         employee.setLogin(login);
+        employee.setGrade(grade);
         employee.setEmployeeStatus(EmployeeStatus.getEmployeeStatus(request.getEmployeeStatus()));
         employee.setEmployeeType(EmployeeType.getEmployeeType(request.getEmployeeType()));
         employee = employeeService.save(employee);
@@ -153,6 +163,7 @@ public class EmployeeController {
         employee.setGender(Gender.getGender(request.getGender()));
         employee.setMaritalStatus(MaritalStatus.getMaritalStatus(request.getMaritalStatus()));
         employee.setReligion(Religion.getReligion(request.getReligion()));
+        employee.setCompleted(true);
         employee = employeeService.save(employee);
         EmployeeResponse response = modelMapper.map(employee,EmployeeResponse.class);
         return ResponseMessage.success(response);

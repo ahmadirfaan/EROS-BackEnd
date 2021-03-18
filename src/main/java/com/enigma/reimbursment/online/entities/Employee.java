@@ -35,9 +35,11 @@ public class Employee extends AbstractEntity <String>{
     @Column(name = "emergency_number")
     private String emergencyNumber;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "employee_status")
     private EmployeeStatus employeeStatus;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "employee_type")
     private EmployeeType employeeType;
 
