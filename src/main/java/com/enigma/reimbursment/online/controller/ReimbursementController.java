@@ -9,6 +9,7 @@ import com.enigma.reimbursment.online.models.model.reimbursement.ReimbursementMo
 import com.enigma.reimbursment.online.models.model.reimbursement.RequestModelEmployee;
 import com.enigma.reimbursment.online.models.pagination.PageList;
 import com.enigma.reimbursment.online.models.request.reimbursements.FindCategoryRequest;
+import com.enigma.reimbursment.online.models.request.reimbursements.FindCategoryRequestEmployee;
 import com.enigma.reimbursment.online.models.request.reimbursements.FindDateOfClaim;
 import com.enigma.reimbursment.online.models.request.reimbursements.ReimbursementRequest;
 import com.enigma.reimbursment.online.models.request.reimbursements.claim.RequestStatusOnFinance;
@@ -136,9 +137,9 @@ public class ReimbursementController {
         return ResponseMessage.success(data);
     }
 
-    //filter by id category
-    @PostMapping("/category")
-    public ResponseMessage<List<Reimbursement>> filterCategoryId( @RequestBody FindCategoryRequest categoryId) {
+    //filter by id category for admin
+    @PostMapping("/filter-category-admin")
+    public ResponseMessage<List<Reimbursement>> filterCategoryIdAdmin( @RequestBody FindCategoryRequest categoryId) {
         System.out.println(categoryId);
         List<Reimbursement> reimbursements = reimbursementService.filterCategoryById(categoryId.getCategoryId());
         if(reimbursements == null){
@@ -146,8 +147,19 @@ public class ReimbursementController {
         }
         System.out.println(reimbursements);
         return ResponseMessage.success(reimbursements);
-
     }
+
+    //filter by id category for employee
+//    @PostMapping("/filter-category-employee")
+//    public ResponseMessage<List<Reimbursement>> filterCategoryIdEmployee( @RequestBody FindCategoryRequestEmployee categoryId) {
+//        System.out.println(categoryId);
+//        List<Reimbursement> reimbursements = reimbursementService.filterCategoryById(categoryId.getCategoryId());
+//        if(reimbursements == null){
+//            throw new EntityNotFoundException();
+//        }
+//        System.out.println(reimbursements);
+//        return ResponseMessage.success(reimbursements);
+//    }
 
     //filter by dateOfClaimSubmission
     @PostMapping("/date")

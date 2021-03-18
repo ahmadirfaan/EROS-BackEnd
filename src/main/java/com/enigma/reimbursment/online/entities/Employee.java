@@ -108,6 +108,54 @@ public class Employee extends AbstractEntity <String>{
     @Column(name = "is_verified_hc")
     private Boolean isVerifiedHc = false;
 
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id='" + id + '\'' +
+                ", login=" + login +
+                ", fullname='" + fullname + '\'' +
+                ", gender=" + gender +
+                ", nik='" + nik + '\'' +
+                ", nip='" + nip + '\'' +
+                ", emergencyNumber='" + emergencyNumber + '\'' +
+                ", employeeStatus=" + employeeStatus +
+                ", employeeType=" + employeeType +
+                ", npwp='" + npwp + '\'' +
+                ", grade=" + grade +
+                ", religion=" + religion +
+                ", bloodType=" + bloodType +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", accountNumber='" + accountNumber + '\'' +
+                ", accountName='" + accountName + '\'' +
+                ", placeOfBirth='" + placeOfBirth + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", maritalStatus=" + maritalStatus +
+                ", numberOfChildren=" + numberOfChildren +
+                ", joinDate=" + joinDate +
+                ", biologicalMothersName='" + biologicalMothersName + '\'' +
+                ", spouseName='" + spouseName + '\'' +
+                ", emailVerificationToken='" + emailVerificationToken + '\'' +
+                ", isVerifiedEmail=" + isVerifiedEmail +
+                ", ktpAddress='" + ktpAddress + '\'' +
+                ", npwpAddress='" + npwpAddress + '\'' +
+                ", residenceAddress='" + residenceAddress + '\'' +
+                ", postalCodeOfIdCard='" + postalCodeOfIdCard + '\'' +
+                ", isVerifiedHc=" + isVerifiedHc +
+                ", isCompleted=" + isCompleted +
+                '}';
+    }
+
+    public Boolean getCompleted() {
+        return isCompleted;
+    }
+
+    public void setCompleted(Boolean completed) {
+        isCompleted = completed;
+    }
+
+    @Column(name = "is_completed")
+    private Boolean isCompleted = false;
+
     /* Getter & Setter */
     @Override
     public String getId() {
@@ -351,39 +399,4 @@ public class Employee extends AbstractEntity <String>{
         isVerifiedHc = verifiedHc;
     }
 
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "id='" + id + '\'' +
-                ", login=" + login +
-                ", fullname='" + fullname + '\'' +
-                ", gender=" + gender +
-                ", nik='" + nik + '\'' +
-                ", nip='" + nip + '\'' +
-                ", emergencyNumber='" + emergencyNumber + '\'' +
-                ", employeeStatus=" + employeeStatus +
-                ", employeeType=" + employeeType +
-                ", npwp='" + npwp + '\'' +
-                ", grade=" + grade +
-                ", religion=" + religion +
-                ", bloodType=" + bloodType +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", accountNumber='" + accountNumber + '\'' +
-                ", accountName='" + accountName + '\'' +
-                ", placeOfBirth='" + placeOfBirth + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                ", maritalStatus=" + maritalStatus +
-                ", numberOfChildren=" + numberOfChildren +
-                ", joinDate=" + joinDate +
-                ", biologicalMothersName='" + biologicalMothersName + '\'' +
-                ", spouseName='" + spouseName + '\'' +
-                ", emailVerificationToken='" + emailVerificationToken + '\'' +
-                ", isVerifiedEmail=" + isVerifiedEmail +
-                ", ktpAddress='" + ktpAddress + '\'' +
-                ", npwpAddress='" + npwpAddress + '\'' +
-                ", residenceAddress='" + residenceAddress + '\'' +
-                ", postalCodeOfIdCard='" + postalCodeOfIdCard + '\'' +
-                ", isVerifiedHc=" + isVerifiedHc +
-                '}';
-    }
 }

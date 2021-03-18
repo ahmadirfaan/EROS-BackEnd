@@ -5,6 +5,8 @@ import com.enigma.reimbursment.online.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EmployeeService extends AbstractService<Employee,String> {
 
@@ -18,6 +20,10 @@ public class EmployeeService extends AbstractService<Employee,String> {
 
     public Employee checkVerificationEmailToken(String token){
         return employeeRepository.checkVerificationEmailToken(token);
+    }
+
+    public List<Employee> getAll() {
+        return employeeRepository.getAll();
     }
 
     public Employee findByIdLogin(String idLogin) {

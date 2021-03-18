@@ -7,11 +7,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 public interface EmployeeRepository extends JpaRepository<Employee, String> {
 
     @Query(value = "SELECT * FROM employee WHERE email_verification_token = :token", nativeQuery = true)
     Employee checkVerificationEmailToken(@Param("token") String token);
+
+    @Query(value = "SELECT * FROM employee WHERE is_verified_email = true AND is_completed = true", nativeQuery = true)
+    List<Employee> getAll();
 
     @Modifying
     @Transactional

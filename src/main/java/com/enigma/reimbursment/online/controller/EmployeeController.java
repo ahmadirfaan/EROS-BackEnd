@@ -55,20 +55,27 @@ public class EmployeeController {
     }
 
 
-    @GetMapping
-    public ResponseMessage<PageList<EmployeeResponse>> findAll(@Valid EmployeeSearch request) {
-        Employee employee = modelMapper.map(request, Employee.class);
+//    @GetMapping
+//    public ResponseMessage<PageList<EmployeeResponse>> findAll(@Valid EmployeeSearch request) {
+//        Employee employee = modelMapper.map(request, Employee.class);
+//
+//        Page<Employee> pagination = employeeService.findAll(employee, request.getPage(),
+//                request.getSize(), request.getSort());
+//        System.out.println(pagination);
+//        List<EmployeeResponse> employeResponsePageList = pagination.stream()
+//                .map(e -> modelMapper.map(e, EmployeeResponse.class))
+//                .collect(Collectors.toList());
+//        PageList<EmployeeResponse> response = new PageList(employeResponsePageList,
+//                pagination.getNumber(), pagination.getSize(), pagination.getTotalElements());
+//        System.out.println(employeResponsePageList);
+//        return new ResponseMessage(200, "OK", response);
+//    }
 
-        Page<Employee> pagination = employeeService.findAll(employee, request.getPage(),
-                request.getSize(), request.getSort());
-        System.out.println(pagination);
-        List<EmployeeResponse> employeResponsePageList = pagination.stream()
-                .map(e -> modelMapper.map(e, EmployeeResponse.class))
-                .collect(Collectors.toList());
-        PageList<EmployeeResponse> response = new PageList(employeResponsePageList,
-                pagination.getNumber(), pagination.getSize(), pagination.getTotalElements());
-        System.out.println(employeResponsePageList);
-        return new ResponseMessage(200, "OK", response);
+
+    @GetMapping
+    public ResponseMessage<List<Employee>> findAll() {
+        List<Employee> employee = employeeService.getAll();
+        return new ResponseMessage(200, "OK", employee);
     }
 
 
