@@ -23,7 +23,7 @@ public interface ReimbursementRepository extends JpaRepository<Reimbursement,Str
     List<Reimbursement> filterByIdEmployee(@Param("employeeId") String employeeId);
 
     //filter by date,category and id employee
-    @Query(value = "SELECT * FROM reimbursement WHERE date_of_claim_submission = :dateOfClaimSubmission AND id_category = :categoryId AND id_employee = :employeeId, nativeQuery = true")
+    @Query(value = "SELECT * FROM reimbursement WHERE date_of_claim_submission = :dateOfClaimSubmission AND id_category = :categoryId AND id_employee = :employeeId,", nativeQuery = true)
     List<Reimbursement> filterByDateCategoryAndIdEmployee(@Param("dateOfClaimSubmission") String dateOfClaimSubmission,
                                                           @Param("categoryId") String categoryId,
                                                           @Param("employeeId") String employeeId);
