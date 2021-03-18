@@ -167,8 +167,6 @@ public class ReimbursementController {
 
     }
 
-
-
     //filter by dateOfClaimSubmission
     @PostMapping("/date")
     public ResponseMessage<List<Reimbursement>> filterByDateClaim(@RequestBody FindDateOfClaim dateOfClaimSubmission) throws ParseException {
@@ -179,6 +177,12 @@ public class ReimbursementController {
         System.out.println(dateOfClaimSubmission);
         return ResponseMessage.success(reimbursements);
     }
+
+    //filter by date,category and id employee
+//    public ResponseMessage<List<Reimbursement>> filterByDateCategoryAndIdEmployee(@RequestBody FindDateCategoryAndIdEmployee model) {
+//        Reimbursement reimbursement = new Reimbursement();
+//        reimbursement.
+//    }
 
 
 
