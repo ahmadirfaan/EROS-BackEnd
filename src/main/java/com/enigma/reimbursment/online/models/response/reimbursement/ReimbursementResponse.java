@@ -3,14 +3,15 @@ package com.enigma.reimbursment.online.models.response.reimbursement;
 import com.enigma.reimbursment.online.models.response.category.CategoryResponse;
 import com.enigma.reimbursment.online.models.response.employee.EmployeeResponse;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class ReimbursementResponse {
 
     private String id;
-    private Date dateOfClaimSubmission;
+    private LocalDate dateOfClaimSubmission;
     private Integer claimFee;
-    private Date disbursementDate;
+    private LocalDate disbursementDate;
     private Boolean statusReject;
     private Boolean statusOnHc;
     private Boolean statusOnFinance;
@@ -18,26 +19,42 @@ public class ReimbursementResponse {
     private Integer borneCost;
     private EmployeeResponse employeeId;
     private CategoryResponse categoryId;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
-    private Date startDate;
 
-    private Date endDate;
+    public void setDateOfClaimSubmission(LocalDate dateOfClaimSubmission) {
+        this.dateOfClaimSubmission = dateOfClaimSubmission;
+    }
 
-    public Date getStartDate() {
+    public LocalDate getDateOfClaimSubmission() {
+        return dateOfClaimSubmission;
+    }
+
+    public LocalDate getDisbursementDate() {
+        return disbursementDate;
+    }
+
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setDisbursementDate(LocalDate disbursementDate) {
+        this.disbursementDate = disbursementDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
+
 
     public String getId() {
         return id;
@@ -55,28 +72,12 @@ public class ReimbursementResponse {
         this.categoryId = categoryId;
     }
 
-    public Date getDateOfClaimSubmission() {
-        return dateOfClaimSubmission;
-    }
-
-    public void setDateOfClaimSubmission(Date dateOfClaimSubmission) {
-        this.dateOfClaimSubmission = dateOfClaimSubmission;
-    }
-
     public Integer getClaimFee() {
         return claimFee;
     }
 
     public void setClaimFee(Integer claimFee) {
         this.claimFee = claimFee;
-    }
-
-    public Date getDisbursementDate() {
-        return disbursementDate;
-    }
-
-    public void setDisbursementDate(Date disbursementDate) {
-        this.disbursementDate = disbursementDate;
     }
 
     public Boolean getStatusReject() {

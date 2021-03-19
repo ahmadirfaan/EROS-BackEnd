@@ -53,8 +53,6 @@ public class ReimbursementController {
     @PostMapping
     public ResponseMessage<ReimbursementResponse> add(@RequestBody  ReimbursementRequest model) throws ParseException {
         Reimbursement reimbursement = modelMapper.map(model,Reimbursement.class);
-        reimbursement.setDateOfClaimSubmission(new SimpleDateFormat("yyyy-MM-dd").parse(model.getDateOfClaimSubmission()));
-        reimbursement.setDisbursementDate(new SimpleDateFormat("yyyy-MM-dd").parse(model.getDisbursementDate()));
         Employee employee = employeeService.findById(model.getEmployeeId());
         reimbursement.setEmployeeId(employee);
         reimbursement = reimbursementService.save(reimbursement);
@@ -174,7 +172,6 @@ public class ReimbursementController {
     @PostMapping("/date")
     public ResponseMessage<List<Reimbursement>> filterByDateClaim(@RequestBody FindDateOfClaim dateOfClaimSubmission) throws ParseException {
         Reimbursement reimbursement = new Reimbursement();
-        reimbursement.setDateOfClaimSubmission(new SimpleDateFormat("yyyy-MM-dd").parse(dateOfClaimSubmission.getDateOfClaimSubmission()));
 
         List<Reimbursement> reimbursements = reimbursementService.filterByDateOfClaim(dateOfClaimSubmission.getDateOfClaimSubmission());
         System.out.println(dateOfClaimSubmission);
@@ -273,8 +270,6 @@ public class ReimbursementController {
     public ResponseMessage<ReimburseEmployeeResponse> editEmployee
             (@PathVariable String id, @RequestBody RequestModelEmployee model) throws ParseException {
         Reimbursement entity = reimbursementService.findById(id);
-        entity.setDateOfClaimSubmission(new SimpleDateFormat("yyyy-MM-dd")
-                .parse(model.getDateOfClaimSubmission()));
 
         if(entity == null) {
             throw new EntityNotFoundException();
@@ -297,7 +292,6 @@ public class ReimbursementController {
     @PutMapping("/{id}/finance")
     public ResponseMessage<FinanceResponse> editFinance(@PathVariable String id, @RequestBody ReimbursementModelFinance model) throws ParseException {
         Reimbursement entity = reimbursementService.findById(id);
-        entity.setDisbursementDate(new SimpleDateFormat("yyyy-MM-dd").parse(model.getDisbursementDate()));
         if(entity == null) {
             throw new EntityNotFoundException();
         }

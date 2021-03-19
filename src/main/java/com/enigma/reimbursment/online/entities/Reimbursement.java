@@ -5,6 +5,7 @@ import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -16,13 +17,13 @@ public class Reimbursement extends AbstractEntity<String> {
     private String id;
 
     @Column(name = "date_of_claim_submission")
-    private Date dateOfClaimSubmission;
+    private LocalDate dateOfClaimSubmission;
 
     @Column(name = "claim_fee")
 //    @Pattern(message = "quantity must be a number",regexp="!/^[0-9]+$/.")
     private Integer claimFee;
     @Column(name = "disbursement_date")
-    private Date disbursementDate;
+    private LocalDate disbursementDate;
     @Column(name = "status_reject")
     private Boolean statusReject = false;
     @Column(name = "status_on_hc")
@@ -43,24 +44,24 @@ public class Reimbursement extends AbstractEntity<String> {
     private Category categoryId;
 
     @Column(name = "start_date")
-    private Date startDate;
+    private LocalDate startDate;
 
     @Column(name = "end_date")
-    private Date endDate;
+    private LocalDate endDate;
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
@@ -80,11 +81,11 @@ public class Reimbursement extends AbstractEntity<String> {
         this.categoryId = categoryId;
     }
 
-    public Date getDateOfClaimSubmission() {
+    public LocalDate getDateOfClaimSubmission() {
         return dateOfClaimSubmission;
     }
 
-    public void setDateOfClaimSubmission(Date dateOfClaimSumbission) {
+    public void setDateOfClaimSubmission(LocalDate dateOfClaimSumbission) {
         this.dateOfClaimSubmission = dateOfClaimSumbission;
     }
 
@@ -96,11 +97,11 @@ public class Reimbursement extends AbstractEntity<String> {
         this.claimFee = claimFee;
     }
 
-    public Date getDisbursementDate() {
+    public LocalDate getDisbursementDate() {
         return disbursementDate;
     }
 
-    public void setDisbursementDate(Date disbursmentDate) {
+    public void setDisbursementDate(LocalDate disbursmentDate) {
         this.disbursementDate = disbursmentDate;
     }
 
