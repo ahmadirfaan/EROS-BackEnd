@@ -154,17 +154,26 @@ public class ReimbursementController {
             throw new EntityNotFoundException();
         }
         return ResponseMessage.success(reimbursements);
-
     }
 
+    //filter status adminOnHc (success,reject,onFinance,hc)
+    @PostMapping("/filter-status-admin")
+    public ResponseMessage<List<Reimbursement>> filterStatusAdmin(@RequestBody FindStatusAdminRequest model) {
 
+        List<Reimbursement> reimbursements = reimbursementService.filterStatusAdminOnHc(model.getStatusReject()
+                ,model.getStatusOnHc(),model.getStatusSuccess(),model.getStatusOnFinance());
+
+        System.out.println("reimbursement :" +reimbursements);
+        return ResponseMessage.success(reimbursements);
+    }
+
+    //filter by date
     @PostMapping("/date")
-    public ResponseMessage<List<Reimbursement>> filterByDateClaim(@RequestBody FindDateOfClaim dateOfClaimSubmission) throws ParseException {
+    public ResponseMessage<List<Reimbursement>> filterByDateClaim(@RequestBody FindDateOfClaim model) throws ParseException {
         Reimbursement reimbursement = new Reimbursement();
-        reimbursement.setDateOfClaimSubmission(new SimpleDateFormat("yyyy-MM-dd").parse(dateOfClaimSubmission.getDateOfClaimSubmission()));
-
-        List<Reimbursement> reimbursements = reimbursementService.filterByDateOfClaim(dateOfClaimSubmission.getDateOfClaimSubmission());
-        System.out.println(dateOfClaimSubmission);
+        reimbursement.setStartDate(new SimpleDateFormat("yyyy-MM-dd").parse(model.getStartDate()));
+        reimbursement.setEndDate(new SimpleDateFormat("yyyy-MM-dd").parse(model.getStartDate()));
+        List<Reimbursement> reimbursements = reimbursementService.filterByDateOfClaim(model.getStartDate(), model.getEndDate());
         return ResponseMessage.success(reimbursements);
     }
 

@@ -30,8 +30,8 @@ public class ReimbursementService extends AbstractService<Reimbursement,String> 
         return reimbursementRepository.filterCategoryByIdEmployee(employeeId,categoryId);
     }
 
-    public List<Reimbursement> filterByDateOfClaim(String dateOfClaimSubmission) {
-        return reimbursementRepository.filterByDateOfClaim(dateOfClaimSubmission);
+    public List<Reimbursement> filterByDateOfClaim(String startDate, String endDate) {
+        return reimbursementRepository.filterByDateOfClaim(startDate,endDate);
     }
 
     public List<Reimbursement> filterByIdEmployee(String employeeId) {
@@ -44,5 +44,9 @@ public class ReimbursementService extends AbstractService<Reimbursement,String> 
 
     public List<Reimbursement> filterByDateAndIdEmployee(String employeeId, String startDate, String endDate) {
         return reimbursementRepository.filterByDateAndIdEmployee(employeeId,startDate,endDate);
+    }
+
+    public List<Reimbursement> filterStatusAdminOnHc(Boolean statusReject, Boolean statusOnHc, Boolean statusSuccess, Boolean statusOnFinance){
+        return reimbursementRepository.filterStatusAdminOnHc(statusReject, statusOnHc, statusSuccess, statusOnFinance);
     }
 }

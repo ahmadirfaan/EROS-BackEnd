@@ -15,8 +15,10 @@ public interface ReimbursementRepository extends JpaRepository<Reimbursement, St
     @Query(value = "SELECT * FROM reimbursement WHERE id_category = :categoryId AND id_employee = :employeeId", nativeQuery = true)
     List<Reimbursement> filterCategoryByIdEmployee(@Param("categoryId") String categoryId, @Param("employeeId") String employeeId);
 
-    @Query(value = "SELECT * FROM reimbursement WHERE date_of_claim_submission = :dateOfClaimSubmission", nativeQuery = true)
-    List<Reimbursement> filterByDateOfClaim(@Param("dateOfClaimSubmission") String dateOfClaimSubmission);
+    //filter by date
+    @Query(value = "SELECT * FROM reimbursement WHERE date_of_claim_submission  BETWEEN :startDate AND :endDate", nativeQuery = true)
+    List<Reimbursement> filterByDateOfClaim( @Param("startDate") String startDate,
+                                             @Param("endDate") String endDate);
 
     //filter by id employee
     @Query(value = "SELECT * FROM reimbursement WHERE id_employee = :employeeId", nativeQuery = true)
@@ -34,4 +36,11 @@ public interface ReimbursementRepository extends JpaRepository<Reimbursement, St
     List<Reimbursement> filterByDateAndIdEmployee(@Param("employeeId") String employeeId,
                                                   @Param("startDate")String startDate,
                                                   @Param("endDate") String endDate);
+
+    //filter status on adminHc(status_onFinance,on hc,reject,success)
+    @Query(value = "SELECT * FROM reimbursement WHERE status_reject = :statusReject AND status_on_hc = :statusOnHc AND status_success = :statusSuccess AND status_on_finance = :statusOnFinance", nativeQuery = true)
+    List<Reimbursement> filterStatusAdminOnHc(@Param("statusReject") Boolean statusReject,
+                                              @Param("statusOnHc") Boolean statusOnHc,
+                                              @Param("statusSuccess") Boolean statusSuccess,
+                                              @Param("statusOnFinance") Boolean statusOnFinance);
 }
