@@ -1,6 +1,7 @@
 package com.enigma.reimbursment.online.repositories;
 
 import com.enigma.reimbursment.online.entities.Reimbursement;
+import com.enigma.reimbursment.online.models.response.reimbursement.ReimbursementResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,7 +14,7 @@ public interface ReimbursementRepository extends JpaRepository<Reimbursement,Str
     List<Reimbursement> filterCategoryById(@Param("categoryId") String categoryId);
 
     @Query(value = "SELECT * FROM reimbursement WHERE id_category = :categoryId AND id_employee = :employeeId",nativeQuery = true)
-    List<Reimbursement> filterCategoryByIdEmployee(@Param("categoryId") String categoryId, @Param("employeeId") String employeeId);
+    List<ReimbursementResponse> filterCategoryByIdEmployee(@Param("categoryId") String categoryId, @Param("employeeId") String employeeId);
 
     @Query(value = "SELECT * FROM reimbursement WHERE date_of_claim_submission = :dateOfClaimSubmission",nativeQuery = true)
     List<Reimbursement> filterByDateOfClaim(@Param("dateOfClaimSubmission") String dateOfClaimSubmission);
@@ -24,8 +25,8 @@ public interface ReimbursementRepository extends JpaRepository<Reimbursement,Str
 
     //filter by date,category and id employee
     @Query(value = "SELECT * FROM reimbursement WHERE date_of_claim_submission = :dateOfClaimSubmission AND id_category = :categoryId AND id_employee = :employeeId,", nativeQuery = true)
-    List<Reimbursement> filterByDateCategoryAndIdEmployee(@Param("dateOfClaimSubmission") String dateOfClaimSubmission,
-                                                          @Param("categoryId") String categoryId,
-                                                          @Param("employeeId") String employeeId);
+    List<ReimbursementResponse> filterByDateCategoryAndIdEmployee(@Param("dateOfClaimSubmission") String dateOfClaimSubmission,
+                                                                  @Param("categoryId") String categoryId,
+                                                                  @Param("employeeId") String employeeId);
 
 }

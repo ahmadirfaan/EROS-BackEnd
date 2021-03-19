@@ -137,8 +137,21 @@ public class ReimbursementController {
 
 //    filter by id category and id employee for employee
     @PostMapping("/filter-category-employee")
-    public ResponseMessage<List<Reimbursement>> filterCategoryIdEmployee( @RequestBody FindCategoryRequestEmployee model) {
-        List<Reimbursement> reimbursements = reimbursementService.filterCategoryByIdEmployee(model.getCategoryId(),model.getEmployeeId());
+    public ResponseMessage<List<ReimbursementResponse>> filterCategoryIdEmployee( @RequestBody FindCategoryRequestEmployee model) {
+        System.out.println(model);
+        List<ReimbursementResponse> reimbursements = reimbursementService.filterCategoryByIdEmployee(model.getCategoryId(),model.getEmployeeId());
+        if(reimbursements == null){
+            throw new EntityNotFoundException();
+        }
+        System.out.println(reimbursements);
+        return ResponseMessage.success(reimbursements);
+    }
+
+    //filter by id category and id employee for employee
+    @PostMapping("/filter-category")
+    public ResponseMessage<List<Reimbursement>> filterCategory(@RequestBody FindCategoryRequest model) {
+        System.out.println(model);
+        List<Reimbursement> reimbursements = reimbursementService.filterCategoryById(model.getCategoryId());
         if(reimbursements == null){
             throw new EntityNotFoundException();
         }
