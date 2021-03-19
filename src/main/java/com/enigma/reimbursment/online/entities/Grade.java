@@ -80,4 +80,5 @@ public class Grade {
     public void setMealCost(Integer mealCost) {
         this.mealCost = mealCost;
     }
+
 }

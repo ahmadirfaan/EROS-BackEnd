@@ -118,8 +118,7 @@ public class EmployeeController {
 
 
     @PutMapping("/{id}")
-    public ResponseMessage<EmployeeResponse> edit(@PathVariable String id,
-                                                  @RequestBody @Valid EmployeeRequest request) throws ParseException {
+    public ResponseMessage<EmployeeResponse> edit(@PathVariable String id,@RequestBody @Valid EmployeeRequest request) throws ParseException {
 
         Employee employee = employeeService.findById(id);
         if (employee == null) {
@@ -163,22 +162,28 @@ public class EmployeeController {
         employee.setReligion(Religion.getReligion(request.getReligion()));
         employee.setCompleted(true);
         employee = employeeService.save(employee);
+        System.out.println("data employee:" +employee);
         EmployeeResponse response = modelMapper.map(employee,EmployeeResponse.class);
         return ResponseMessage.success(response);
     }
 
 
     //change status employee active or non-active
-    @PutMapping("/{id}/changeStatusEmployee")
-    public ResponseMessage<Boolean> changeStatusEmployee(@PathVariable String id) {
-        return null;
-    }
+//    @PutMapping("/{id}/changeStatusEmployee")
+//    public ResponseMessage<Employee> changeStatusEmployee(@PathVariable String id) {
+//        Employee employee = employeeService.findById(id);
+//        if(employee==null) {
+//            throw new EntityNotFoundException();
+//        }
+//        employee = employeeService.save(employee);
+//        return null;
+//    }
 
     //change status hc
-    @PutMapping("/{id}/changeStatusHc")
-    public ResponseMessage<Boolean> changeIsVerifiedHc(@RequestBody EmployeeRequestVerifiedHc request) {
-        return null;
-    }
+//    @PutMapping("/{id}/changeStatusHc")
+//    public ResponseMessage<Boolean> changeIsVerifiedHc(@RequestBody EmployeeRequestVerifiedHc request) {
+//        return null;
+//    }
 
     @GetMapping("/idlogin/{idLogin}")
     public ResponseMessage<EmployeeResponse> getEmployeeByIdLogin(@PathVariable String idLogin) {

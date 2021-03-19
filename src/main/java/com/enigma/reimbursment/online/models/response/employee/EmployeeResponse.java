@@ -1,5 +1,6 @@
 package com.enigma.reimbursment.online.models.response.employee;
 
+import com.enigma.reimbursment.online.entities.Grade;
 import com.enigma.reimbursment.online.models.response.login.LoginResponse;
 
 import java.time.LocalDate;
@@ -26,7 +27,7 @@ public class EmployeeResponse {
 
     private String npwp;
 
-    private String grade;
+    private Grade grade;
 
     private String religion;
 
@@ -148,11 +149,11 @@ public class EmployeeResponse {
         this.npwp = npwp;
     }
 
-    public String getGrade() {
+    public Grade getGrade() {
         return grade;
     }
 
-    public void setGrade(String grade) {
+    public void setGrade(Grade grade) {
         this.grade = grade;
     }
 

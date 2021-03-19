@@ -18,10 +18,4 @@ public class AdminController {
     @Autowired
     private ModelMapper modelMapper;
 
-//    @PostMapping
-//    public ResponseMessage<UserResponse> add(@RequestBody @Valid UserRequest model) {
-//        Admin entity = modelMapper.map(model,Admin.class);
-//        Login login = loginService.findById(model.getUsername());
-//    }
-
 }

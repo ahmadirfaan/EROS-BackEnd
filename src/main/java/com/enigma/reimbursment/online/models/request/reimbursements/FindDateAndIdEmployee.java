@@ -1,12 +1,10 @@
 package com.enigma.reimbursment.online.models.request.reimbursements;
 
-public class FindDateCategoryAndIdEmployee {
+public class FindDateAndIdEmployee {
 
     private String startDate;
 
     private String endDate;
-
-    private String categoryId;
 
     private String employeeId;
 
@@ -24,14 +22,6 @@ public class FindDateCategoryAndIdEmployee {
 
     public void setEndDate(String endDate) {
         this.endDate = endDate;
-    }
-
-    public String getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
     }
 
     public String getEmployeeId() {

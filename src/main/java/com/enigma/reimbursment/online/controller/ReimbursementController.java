@@ -169,12 +169,29 @@ public class ReimbursementController {
     }
 
     //filter by date,category and id employee
-//    public ResponseMessage<List<Reimbursement>> filterByDateCategoryAndIdEmployee(@RequestBody FindDateCategoryAndIdEmployee model) {
-//        Reimbursement reimbursement = new Reimbursement();
-//        reimbursement.
-//    }
+    @PostMapping("/filter-date-category-employee")
+    public ResponseMessage<List<Reimbursement>> filterByDateCategoryAndEmployee(@RequestBody FindDateCategoryAndIdEmployee model) throws ParseException {
+        Reimbursement reimbursement = new Reimbursement();
+        reimbursement.setStartDate(new SimpleDateFormat("yyyy-MM-dd").parse(model.getStartDate()));
+        reimbursement.setEndDate(new SimpleDateFormat("yyyy-MM-dd").parse(model.getStartDate()));
 
+        List<Reimbursement> reimbursements = reimbursementService.filterByDateCategoryAndIdEmployee(model.getCategoryId(), model.getEmployeeId(),model.getStartDate(), model.getEndDate() );
+        System.out.println("test: "+reimbursements);
+        return ResponseMessage.success(reimbursements);
+    }
 
+    //filter-date-employee
+    @PostMapping("/filter-date-employee")
+    public ResponseMessage<List<Reimbursement>> filterByDateIdEmployee(@RequestBody FindDateAndIdEmployee request) throws ParseException {
+        Reimbursement reimbursement = new Reimbursement();
+        reimbursement.setStartDate(new SimpleDateFormat("yyyy-MM-dd").parse(request.getStartDate()));
+        reimbursement.setEndDate(new SimpleDateFormat("yyyy-MM-dd").parse(request.getEndDate()));
+
+        List<Reimbursement> reimbursements = reimbursementService.filterByDateAndIdEmployee(request.getEmployeeId(),request.getStartDate()
+                ,request.getEndDate());
+        System.out.println("reimbursement:" +reimbursements);
+        return ResponseMessage.success(reimbursements);
+    }
 
     @PutMapping("/{id}")
     public ResponseMessage<ReimbursementResponse> edit(@PathVariable String id, @RequestBody ReimbursementRequest model) {
