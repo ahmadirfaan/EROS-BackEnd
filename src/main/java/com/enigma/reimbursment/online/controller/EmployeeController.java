@@ -110,8 +110,8 @@ public class EmployeeController {
 
 
         login = loginService.save(login);
+        LoginResponse data = modelMapper.map(login,LoginResponse.class);
 
-            LoginResponse data = modelMapper.map(login,LoginResponse.class);
         return ResponseMessage.success(data);
     }
 
@@ -129,7 +129,7 @@ public class EmployeeController {
         Login login = loginService.findById(employee.getLogin().getId());
         employee.setLogin(login);
 
-        Grade grade = gradeService.findById(employee.getGrade().getId());
+        Grade grade = gradeService.findById(request.getGradeId().toString());
         employee.setGrade(grade);
 
 
