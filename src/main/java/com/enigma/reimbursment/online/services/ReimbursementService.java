@@ -2,6 +2,7 @@ package com.enigma.reimbursment.online.services;
 
 import com.enigma.reimbursment.online.entities.Reimbursement;
 import com.enigma.reimbursment.online.models.request.reimbursements.FindCategoryRequestEmployee;
+import com.enigma.reimbursment.online.models.response.employee.EmployeeResponseDashboard;
 import com.enigma.reimbursment.online.repositories.ReimbursementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -48,5 +49,15 @@ public class ReimbursementService extends AbstractService<Reimbursement,String> 
 
     public List<Reimbursement> filterStatusAdminOnHc(Boolean statusReject, Boolean statusOnHc, Boolean statusSuccess, Boolean statusOnFinance){
         return reimbursementRepository.filterStatusAdminOnHc(statusReject, statusOnHc, statusSuccess, statusOnFinance);
+    }
+
+    public EmployeeResponseDashboard responseDashboard(){
+        EmployeeResponseDashboard response = new EmployeeResponseDashboard();
+        response.setCountEmployeeReimburse(reimbursementRepository.getCountEmployeeReimbursement());
+        response.setCountEmployeeActive(response.getCountEmployee());
+        response.setCountEmployee(response.getCountEmployee());
+        return response;
+
+
     }
 }

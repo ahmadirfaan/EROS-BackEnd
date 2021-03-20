@@ -43,4 +43,7 @@ public interface ReimbursementRepository extends JpaRepository<Reimbursement, St
                                               @Param("statusOnHc") Boolean statusOnHc,
                                               @Param("statusSuccess") Boolean statusSuccess,
                                               @Param("statusOnFinance") Boolean statusOnFinance);
+
+    @Query(value = "SELECT COUNT(id) FROM reimbursement",nativeQuery = true )
+    Integer getCountEmployeeReimbursement();
 }
