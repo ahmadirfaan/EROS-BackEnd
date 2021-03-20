@@ -286,12 +286,12 @@ public class ReimbursementController {
     public ResponseMessage<ReimburseEmployeeResponse> editEmployee
             (@PathVariable String id, @RequestBody RequestModelEmployee model) throws ParseException {
         Reimbursement entity = reimbursementService.findById(id);
-        entity.setDateOfClaimSubmission(new SimpleDateFormat("yyyy-MM-dd")
-                .parse(model.getDateOfClaimSubmission()));
 
         if(entity == null) {
             throw new EntityNotFoundException();
         }
+        entity.setDateOfClaimSubmission(new SimpleDateFormat("yyyy-MM-dd")
+                .parse(model.getDateOfClaimSubmission()));
 
         Employee employee = employeeService.findById(entity.getEmployeeId().getId());
         entity.setEmployeeId(employee);
@@ -310,10 +310,11 @@ public class ReimbursementController {
     @PutMapping("/{id}/finance")
     public ResponseMessage<FinanceResponse> editFinance(@PathVariable String id, @RequestBody ReimbursementModelFinance model) throws ParseException {
         Reimbursement entity = reimbursementService.findById(id);
-        entity.setDisbursementDate(new SimpleDateFormat("yyyy-MM-dd").parse(model.getDisbursementDate()));
         if(entity == null) {
             throw new EntityNotFoundException();
         }
+        entity.setDisbursementDate(new SimpleDateFormat("yyyy-MM-dd").parse(model.getDisbursementDate()));
+
         Employee employee = employeeService.findById(entity.getEmployeeId().getId());
         entity.setEmployeeId(employee);
         modelMapper.map(model,entity);
