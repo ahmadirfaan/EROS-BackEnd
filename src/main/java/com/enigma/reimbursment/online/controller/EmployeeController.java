@@ -81,23 +81,6 @@ public class EmployeeController {
     }
 
 
-//    @PostMapping
-//    public ResponseMessage<EmployeeResponse> add(@RequestBody @Valid EmployeeRequest request) {
-//        Employee employee = modelMapper.map(request, Employee.class);
-//        Login login = loginService.findById(employee.getLogin().getId());  //Apakah masih dibutuhkan controller Add????
-//        employee.setLogin(login);
-//        employee.setBloodType(BloodType.getBloodType(request.getBloodType()));
-//        employee.setGender(Gender.getGender(request.getGender()));
-//        employee.setEmployeeStatus(EmployeeStatus.getEmployeeStatus(request.getEmployeeStatus()));
-//        employee.setMaritalStatus(MaritalStatus.getMaritalStatus(request.getMaritalStatus()));
-//        employee.setReligion(Religion.getReligion(request.getReligion()));
-//        employee.setEmployeeType(EmployeeType.getEmployeeType(request.getEmployeeType()));
-//        employee = employeeService.save(employee);
-//        EmployeeResponse response = modelMapper.map(employee, EmployeeResponse.class);
-//        return ResponseMessage.success(response);
-//    }
-
-
     @PutMapping("/ganti-password")
     public ResponseMessage<LoginResponse> changePassword( @RequestBody  EmployeeRequestChangePassword request) {
         Login login = loginService.findById(request.getIdLogin());
@@ -145,6 +128,7 @@ public class EmployeeController {
         return ResponseMessage.success(response);
     }
 
+
     @PutMapping("/editform/{id}")
     public ResponseMessage<EmployeeResponse> editForm(
             @PathVariable String id, @RequestBody @Valid EmployeeRequestEditForm request) throws ParseException {
@@ -167,18 +151,6 @@ public class EmployeeController {
         return ResponseMessage.success(response);
     }
 
-
-    //change status employee active or non-active
-    @PutMapping("/{id}/changeStatusEmployee")
-    public ResponseMessage<Boolean> changeStatusEmployee(@PathVariable String id) {
-        return null;
-    }
-
-    //change status hc
-    @PutMapping("/{id}/changeStatusHc")
-    public ResponseMessage<Boolean> changeIsVerifiedHc(@RequestBody EmployeeRequestVerifiedHc request) {
-        return null;
-    }
 
     @GetMapping("/idlogin/{idLogin}")
     public ResponseMessage<EmployeeResponse> getEmployeeByIdLogin(@PathVariable String idLogin) {

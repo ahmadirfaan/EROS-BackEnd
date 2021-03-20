@@ -9,16 +9,10 @@ import com.enigma.reimbursment.online.models.model.reimbursement.ReimbursementMo
 import com.enigma.reimbursment.online.models.model.reimbursement.RequestModelEmployee;
 import com.enigma.reimbursment.online.models.pagination.PageList;
 import com.enigma.reimbursment.online.models.request.reimbursements.*;
-import com.enigma.reimbursment.online.models.request.reimbursements.claim.RequestStatusOnFinance;
-import com.enigma.reimbursment.online.models.request.reimbursements.claim.RequestStatusOnHc;
-import com.enigma.reimbursment.online.models.request.reimbursements.claim.RequestStatusReject;
 import com.enigma.reimbursment.online.models.response.ResponseMessage;
 import com.enigma.reimbursment.online.models.response.reimbursement.ReimbursementResponse;
-import com.enigma.reimbursment.online.models.response.reimbursement.claim.ResponseStatusOnFinance;
-import com.enigma.reimbursment.online.models.response.reimbursement.claim.ResponseStatusOnHc;
-import com.enigma.reimbursment.online.models.response.reimbursement.claim.ResponseStatusReject;
-import com.enigma.reimbursment.online.models.response.reimbursement.model.FinanceResponse;
-import com.enigma.reimbursment.online.models.response.reimbursement.model.ReimburseEmployeeResponse;
+import com.enigma.reimbursment.online.models.model.reimbursement.FinanceResponse;
+import com.enigma.reimbursment.online.models.model.reimbursement.ReimburseEmployeeResponse;
 import com.enigma.reimbursment.online.models.search.reimbursmentsearch.ReimbursementSearch;
 import com.enigma.reimbursment.online.services.CategoryService;
 import com.enigma.reimbursment.online.services.EmployeeService;
@@ -30,7 +24,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -66,84 +59,21 @@ public class ReimbursementController {
 
     }
 
-    //change status on_HC
-    @PutMapping("/{id}/change-status-hc")
-    public ResponseMessage<ResponseStatusOnHc> editStatusOnHc(@PathVariable String id,@RequestBody RequestStatusOnHc request) {
-
-        Reimbursement reimbursement = reimbursementService.findById(id);
-        if(reimbursement == null){
-            throw new EntityNotFoundException();
-        }
-
-        Employee employee = employeeService.findById(reimbursement.getEmployeeId().getId());
-        reimbursement.setEmployeeId(employee);
-
-        Category category = categoryService.findById(reimbursement.getCategoryId().getId());
-        reimbursement.setCategoryId(category);
-        modelMapper.map(request,reimbursement);
-
-        reimbursement = reimbursementService.save(reimbursement);
-
-        ResponseStatusOnHc data = modelMapper.map(reimbursement,ResponseStatusOnHc.class);
-        return ResponseMessage.success(data);
-    }
-
-    //change status on_finance
-    @PutMapping("/{id}/change-status-finance")
-    public ResponseMessage<ResponseStatusOnFinance> editStatusOnHc(@PathVariable String id, @RequestBody RequestStatusOnFinance request) {
-
-        Reimbursement reimbursement = reimbursementService.findById(id);
-        if(reimbursement == null){
-            throw new EntityNotFoundException();
-        }
-
-        Employee employee = employeeService.findById(reimbursement.getEmployeeId().getId());
-        reimbursement.setEmployeeId(employee);
-
-        Category category = categoryService.findById(reimbursement.getCategoryId().getId());
-        reimbursement.setCategoryId(category);
-        modelMapper.map(request,reimbursement);
-
-        reimbursement = reimbursementService.save(reimbursement);
-
-        ResponseStatusOnFinance data = modelMapper.map(reimbursement,ResponseStatusOnFinance.class);
-        return ResponseMessage.success(data);
-    }
-
-    //change status on_reject
-    @PutMapping("/{id}/change-status-reject")
-    public ResponseMessage<ResponseStatusReject> editStatusOnHc(@PathVariable String id, @RequestBody RequestStatusReject request) {
-
-        Reimbursement reimbursement = reimbursementService.findById(id);
-        if(reimbursement == null){
-            throw new EntityNotFoundException();
-        }
-
-        Employee employee = employeeService.findById(reimbursement.getEmployeeId().getId());
-        reimbursement.setEmployeeId(employee);
-
-        Category category = categoryService.findById(reimbursement.getCategoryId().getId());
-        reimbursement.setCategoryId(category);
-        modelMapper.map(request,reimbursement);
-
-        reimbursement = reimbursementService.save(reimbursement);
-
-        ResponseStatusReject data = modelMapper.map(reimbursement,ResponseStatusReject.class);
-        return ResponseMessage.success(data);
-    }
-
 
 //    filter by id category and id employee for employee
     @PostMapping("/filter-category-employee")
     public ResponseMessage<List<ReimbursementResponse>> filterCategoryIdEmployee( @RequestBody FindCategoryRequestEmployee model) {
-        System.out.println(model);
         List<ReimbursementResponse> reimbursements = reimbursementService.filterCategoryByIdEmployee(model.getCategoryId(),model.getEmployeeId());
-        if(reimbursements == null){
-            throw new EntityNotFoundException();
+        List<ReimbursementResponse> reimbursementResponses = reimbursements.stream().map(
+                e -> modelMapper.map(e, ReimbursementResponse.class))
+                .collect(Collectors.toList());
+        if(reimbursements.isEmpty()){
+            return ResponseMessage.error(200,"Data Tidak Ditmeukan", null);
         }
         System.out.println(reimbursements);
-        return ResponseMessage.success(reimbursements);
+        return ResponseMessage.success(reimbursementResponses);
     }
+
 
     //filter by id category and id employee for employee
     @PostMapping("/filter-category")
@@ -156,6 +86,7 @@ public class ReimbursementController {
         System.out.println(reimbursements);
         return ResponseMessage.success(reimbursements);
     }
+
 
     //filter by id employee for admin
     @PostMapping("/filter-employee-admin")
@@ -177,13 +108,6 @@ public class ReimbursementController {
         System.out.println(dateOfClaimSubmission);
         return ResponseMessage.success(reimbursements);
     }
-
-    //filter by date,category and id employee
-//    public ResponseMessage<List<Reimbursement>> filterByDateCategoryAndIdEmployee(@RequestBody FindDateCategoryAndIdEmployee model) {
-//        Reimbursement reimbursement = new Reimbursement();
-//        reimbursement.
-//    }
-
 
 
     @PutMapping("/{id}")
@@ -208,6 +132,7 @@ public class ReimbursementController {
 
     }
 
+
     @GetMapping("/{id}")
     public ResponseMessage<ReimbursementResponse> findById(@PathVariable String id) {
         Reimbursement entity = reimbursementService.findById(id);
@@ -218,8 +143,10 @@ public class ReimbursementController {
 
     }
 
+
     @GetMapping
     public ResponseMessage<PageList<ReimbursementResponse>> findAll(@Valid ReimbursementSearch request) {
+
         System.out.println("request "+ request);
 
         Reimbursement reimbursement= modelMapper.map(request, Reimbursement.class);
@@ -244,6 +171,7 @@ public class ReimbursementController {
         return new ResponseMessage(200, "OK", response);
     }
 
+
     //UNTUK ADMIN HC
     @PutMapping("/{id}/hc")
     public ResponseMessage<ReimbursementModelHc> editAdminHc(@PathVariable String id, @RequestBody ReimbursementModelHc model) {
@@ -264,6 +192,7 @@ public class ReimbursementController {
         ReimbursementModelHc data = modelMapper.map(entity,ReimbursementModelHc.class);
         return ResponseMessage.success(data);
     }
+
 
     //untuk employee
     @PutMapping("/{id}/employee")
@@ -288,6 +217,7 @@ public class ReimbursementController {
         return ResponseMessage.success(data);
     }
 
+
     //untuk finance
     @PutMapping("/{id}/finance")
     public ResponseMessage<FinanceResponse> editFinance(@PathVariable String id, @RequestBody ReimbursementModelFinance model) throws ParseException {
@@ -308,8 +238,5 @@ public class ReimbursementController {
         FinanceResponse data = modelMapper.map(entity,FinanceResponse.class);
         return ResponseMessage.success(data);
     }
-
-
-
 
 }

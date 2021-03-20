@@ -1,4 +1,4 @@
-package com.enigma.reimbursment.online.models.response.reimbursement.model;
+package com.enigma.reimbursment.online.models.model.reimbursement;
 
 import java.util.Date;
 
