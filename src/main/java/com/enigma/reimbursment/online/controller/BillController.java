@@ -13,6 +13,7 @@ import com.enigma.reimbursment.online.uploadFile.FileInfo;
 import com.enigma.reimbursment.online.uploadFile.FilesController;
 import com.enigma.reimbursment.online.uploadFile.FilesStorageService;
 import com.enigma.reimbursment.online.uploadFile.ResponseMessages;
+import com.google.common.io.Files;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -26,7 +27,9 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @RequestMapping("/bill")
@@ -65,18 +68,19 @@ public class BillController {
     @PostMapping(value="/{id}/upload/file",consumes = "multipart/form-data")
     public ResponseEntity<ResponseMessages> uploadFile(@PathVariable String id, ImageUploadRequest file) throws IOException {
         String message = "";
+        String fileName = generateVerificationToken() + "." + Files.getFileExtension(file.getFile().getOriginalFilename());
         try {
-            storageService.save(file.getFile());
+            storageService.save(file.getFile(), fileName);
             Bill bill = new Bill();
             Reimbursement entity =  reimbursementService.findById(id);
             bill.setReimbursementId(entity);
-            bill.setBillImage(file.getFile().getOriginalFilename());
-            bill.setUrl("http://localhost:8080/files/"+file.getFile().getOriginalFilename());
-            bill = billService.save(bill);;
-            message = "Uploaded the file successfully: " + file.getFile().getOriginalFilename();
+            bill.setBillImage(fileName);
+            bill.setUrl("http://localhost:8080/files/"+ fileName);
+            billService.save(bill);
+            message = "Uploaded the file successfully: " + fileName;
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessages(message));
         } catch (Exception e) {
-            message = "Could not upload the file: " + file.getFile().getOriginalFilename() + "!";
+            message = "Could not upload the file: " + fileName;
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessages(message));
         }
     }
@@ -98,6 +102,7 @@ public class BillController {
     @ResponseBody
     public ResponseEntity<Resource> getFile(@PathVariable String filename) {
         Resource file = storageService.load(filename);
+        System.out.println(file.getFilename());
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
@@ -113,5 +118,16 @@ public class BillController {
     }
 
 
+    protected String generateVerificationToken() {
+        String characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder stringBuilder = new StringBuilder();
+        Random rnd = new Random();
 
+        while (stringBuilder.length() <= 20) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * characters.length());
+            stringBuilder.append(characters.charAt(index));
+        }
+
+        return stringBuilder.toString();
+    }
 }
