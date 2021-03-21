@@ -19,7 +19,7 @@ public class FilesController {
     @Autowired
     FilesStorageService storageService;
 
-    @PostMapping("/upload")
+    /*@PostMapping("/upload")
     public ResponseEntity<ResponseMessages> uploadFile(@RequestParam("file") MultipartFile file) {
         String message = "";
         try {
@@ -31,7 +31,7 @@ public class FilesController {
             message = "Could not upload the file: " + file.getOriginalFilename() + "!";
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessages(message));
         }
-    }
+    }*/
 
     @GetMapping("/files")
     public ResponseEntity<List<FileInfo>> getListFiles() {
