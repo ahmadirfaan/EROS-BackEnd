@@ -1,51 +1,58 @@
 package com.enigma.reimbursment.online.entities;
 
+import com.enigma.reimbursment.online.enums.StatusRegistrationBenefit;
+import com.enigma.reimbursment.online.enums.TypeOfContract;
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Table(name = "employee_contract")
 @Entity
-public class EmployeeContract {
+public class EmployeeContract extends AbstractEntity <String> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer contractId;
+    @GenericGenerator(name="id",strategy = "uuid2")
+    @GeneratedValue(generator = "id",strategy = GenerationType.IDENTITY)
+    private String id;
 
     @OneToOne
     @JoinColumn(name = "employee_id")
     private Employee employeeId;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "type_contract")
-    private String typeContract;
+    private TypeOfContract typeContract;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "benefit_registration_status")
-    private String benefitRegistrationStatus;
+    private StatusRegistrationBenefit benefitRegistrationStatus;
 
     @Column(name = "start_date_contract")
-    private LocalDate startDateContract;
+    private Date startDateContract;
 
     @Column(name = "end_date_contract")
-    private LocalDate endDateContract;
+    private Date endDateContract;
 
     @Column(name = "is_ended_contract")
-    private Boolean isEndedContract;
+    private Boolean isEndedContract = false;
 
     @Column(name = "date_of_acceptance_permanent_employee")
-    private LocalDate dateOfAcceptancePermanentEmployee;
+    private Date dateOfAcceptancePermanentEmployee;
 
     @Column(name = "date_of_resignation")
-    private LocalDate dateOfResignation;
+    private Date dateOfResignation;
 
     @Column(name = "placement")
     private String placement;
 
-
-    public Integer getContractId() {
-        return contractId;
+    public String getId() {
+        return id;
     }
 
-    public void setContractId(Integer contractId) {
-        this.contractId = contractId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Employee getEmployeeId() {
@@ -56,35 +63,35 @@ public class EmployeeContract {
         this.employeeId = employeeId;
     }
 
-    public String getTypeContract() {
+    public TypeOfContract getTypeContract() {
         return typeContract;
     }
 
-    public void setTypeContract(String typeContract) {
+    public void setTypeContract(TypeOfContract typeContract) {
         this.typeContract = typeContract;
     }
 
-    public String getBenefitRegistrationStatus() {
+    public StatusRegistrationBenefit getBenefitRegistrationStatus() {
         return benefitRegistrationStatus;
     }
 
-    public void setBenefitRegistrationStatus(String benefitRegistrationStatus) {
+    public void setBenefitRegistrationStatus(StatusRegistrationBenefit benefitRegistrationStatus) {
         this.benefitRegistrationStatus = benefitRegistrationStatus;
     }
 
-    public LocalDate getStartDateContract() {
+    public Date getStartDateContract() {
         return startDateContract;
     }
 
-    public void setStartDateContract(LocalDate startDateContract) {
+    public void setStartDateContract(Date startDateContract) {
         this.startDateContract = startDateContract;
     }
 
-    public LocalDate getEndDateContract() {
+    public Date getEndDateContract() {
         return endDateContract;
     }
 
-    public void setEndDateContract(LocalDate endDateContract) {
+    public void setEndDateContract(Date endDateContract) {
         this.endDateContract = endDateContract;
     }
 
@@ -96,19 +103,19 @@ public class EmployeeContract {
         isEndedContract = endedContract;
     }
 
-    public LocalDate getDateOfAcceptancePermanentEmployee() {
+    public Date getDateOfAcceptancePermanentEmployee() {
         return dateOfAcceptancePermanentEmployee;
     }
 
-    public void setDateOfAcceptancePermanentEmployee(LocalDate dateOfAcceptancePermanentEmployee) {
+    public void setDateOfAcceptancePermanentEmployee(Date dateOfAcceptancePermanentEmployee) {
         this.dateOfAcceptancePermanentEmployee = dateOfAcceptancePermanentEmployee;
     }
 
-    public LocalDate getDateOfResignation() {
+    public Date getDateOfResignation() {
         return dateOfResignation;
     }
 
-    public void setDateOfResignation(LocalDate dateOfResignation) {
+    public void setDateOfResignation(Date dateOfResignation) {
         this.dateOfResignation = dateOfResignation;
     }
 
@@ -118,5 +125,21 @@ public class EmployeeContract {
 
     public void setPlacement(String placement) {
         this.placement = placement;
+    }
+
+    @Override
+    public String toString() {
+        return "EmployeeContract{" +
+                "id='" + id + '\'' +
+                ", employeeId=" + employeeId +
+                ", typeContract=" + typeContract +
+                ", benefitRegistrationStatus=" + benefitRegistrationStatus +
+                ", startDateContract=" + startDateContract +
+                ", endDateContract=" + endDateContract +
+                ", isEndedContract=" + isEndedContract +
+                ", dateOfAcceptancePermanentEmployee=" + dateOfAcceptancePermanentEmployee +
+                ", dateOfResignation=" + dateOfResignation +
+                ", placement='" + placement + '\'' +
+                '}';
     }
 }
