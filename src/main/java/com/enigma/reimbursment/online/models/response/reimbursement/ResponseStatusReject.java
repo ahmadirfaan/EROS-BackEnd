@@ -1,4 +1,4 @@
-package com.enigma.reimbursment.online.models.response.reimbursement.claim;
+package com.enigma.reimbursment.online.models.response.reimbursement;
 
 public class ResponseStatusReject {
 

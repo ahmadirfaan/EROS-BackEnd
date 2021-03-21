@@ -82,23 +82,6 @@ public class EmployeeController {
     }
 
 
-//    @PostMapping
-//    public ResponseMessage<EmployeeResponse> add(@RequestBody @Valid EmployeeRequest request) {
-//        Employee employee = modelMapper.map(request, Employee.class);
-//        Login login = loginService.findById(employee.getLogin().getId());  //Apakah masih dibutuhkan controller Add????
-//        employee.setLogin(login);
-//        employee.setBloodType(BloodType.getBloodType(request.getBloodType()));
-//        employee.setGender(Gender.getGender(request.getGender()));
-//        employee.setEmployeeStatus(EmployeeStatus.getEmployeeStatus(request.getEmployeeStatus()));
-//        employee.setMaritalStatus(MaritalStatus.getMaritalStatus(request.getMaritalStatus()));
-//        employee.setReligion(Religion.getReligion(request.getReligion()));
-//        employee.setEmployeeType(EmployeeType.getEmployeeType(request.getEmployeeType()));
-//        employee = employeeService.save(employee);
-//        EmployeeResponse response = modelMapper.map(employee, EmployeeResponse.class);
-//        return ResponseMessage.success(response);
-//    }
-
-
     @PutMapping("/ganti-password")
     public ResponseMessage<LoginResponse> changePassword( @RequestBody  EmployeeRequestChangePassword request) {
         Login login = loginService.findById(request.getIdLogin());
@@ -111,8 +94,8 @@ public class EmployeeController {
 
 
         login = loginService.save(login);
+        LoginResponse data = modelMapper.map(login,LoginResponse.class);
 
-            LoginResponse data = modelMapper.map(login,LoginResponse.class);
         return ResponseMessage.success(data);
     }
 
@@ -129,7 +112,7 @@ public class EmployeeController {
         Login login = loginService.findById(employee.getLogin().getId());
         employee.setLogin(login);
 
-        Grade grade = gradeService.findById(employee.getGrade().getId());
+        Grade grade = gradeService.findById(request.getGradeId().toString());
         employee.setGrade(grade);
 
 
@@ -137,13 +120,12 @@ public class EmployeeController {
         employee.setJoinDate(LocalDate.parse(request.getJoinDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         employee.setLogin(login);
         employee.setGrade(grade);
-        employee.setEmployeeStatus(EmployeeStatus.getEmployeeStatus(request.getEmployeeStatus()));
-        employee.setEmployeeType(EmployeeType.getEmployeeType(request.getEmployeeType()));
         employee = employeeService.save(employee);
 
         EmployeeResponse response = modelMapper.map(employee, EmployeeResponse.class);
         return ResponseMessage.success(response);
     }
+
 
     @PutMapping("/editform/{id}")
     public ResponseMessage<EmployeeResponse> editForm(
@@ -168,22 +150,6 @@ public class EmployeeController {
         return ResponseMessage.success(response);
     }
 
-    //change status employee active or non-active
-//    @PutMapping("/{id}/changeStatusEmployee")
-//    public ResponseMessage<Employee> changeStatusEmployee(@PathVariable String id) {
-//        Employee employee = employeeService.findById(id);
-//        if(employee==null) {
-//            throw new EntityNotFoundException();
-//        }
-//        employee = employeeService.save(employee);
-//        return null;
-//    }
-
-    //change status hc
-//    @PutMapping("/{id}/changeStatusHc")
-//    public ResponseMessage<Boolean> changeIsVerifiedHc(@RequestBody EmployeeRequestVerifiedHc request) {
-//        return null;
-//    }
 
     @GetMapping("/idlogin/{idLogin}")
     public ResponseMessage<EmployeeResponse> getEmployeeByIdLogin(@PathVariable String idLogin) {

@@ -56,7 +56,6 @@ public class CategoryController {
         List<CategoryResponse> data = entity.stream().map(e -> modelMapper.map(e,CategoryResponse.class))
                 .collect(Collectors.toList());
         return ResponseMessage.success(data);
-
     }
 
 }

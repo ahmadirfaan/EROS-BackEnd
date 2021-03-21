@@ -35,7 +35,7 @@ public class LoginController {
     public ResponseMessage<LoginResponse> login(@RequestBody @Valid LoginRequest request) {
         Login login = loginService.findByEmailAndPassword(request.getEmail(), request.getPassword());
         if (login == null) {
-            return new ResponseMessage(200, "Username or password is wrong.");
+            return new ResponseMessage(400, "Username or password is wrong.");
         } else {
             LoginResponse response = modelMapper.map(login, LoginResponse.class);
             switch (login.getRole().getId()) {

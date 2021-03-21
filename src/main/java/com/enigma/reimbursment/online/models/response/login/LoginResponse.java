@@ -1,14 +1,14 @@
 package com.enigma.reimbursment.online.models.response.login;
 
 
-import com.enigma.reimbursment.online.models.response.role.RoleResponse;
+import com.enigma.reimbursment.online.entities.Role;
 
 public class LoginResponse {
 
     private String id;
     private String email;
     //Pasword tidak diperlukan
-    private RoleResponse role;
+    private Role role;
 
 
     public String getEmail() {
@@ -27,11 +27,11 @@ public class LoginResponse {
         this.id = id;
     }
 
-    public RoleResponse getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(RoleResponse role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 

@@ -1,6 +1,7 @@
 package com.enigma.reimbursment.online.repositories;
 
 import com.enigma.reimbursment.online.entities.Reimbursement;
+import com.enigma.reimbursment.online.models.response.reimbursement.ReimbursementResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,8 +13,10 @@ public interface ReimbursementRepository extends JpaRepository<Reimbursement, St
     @Query(value = "SELECT * FROM reimbursement WHERE id_category = :categoryId", nativeQuery = true)
     List<Reimbursement> filterCategoryById(@Param("categoryId") String categoryId);
 
+
     @Query(value = "SELECT * FROM reimbursement WHERE id_category = :categoryId AND id_employee = :employeeId", nativeQuery = true)
     List<Reimbursement> filterCategoryByIdEmployee(@Param("categoryId") String categoryId, @Param("employeeId") String employeeId);
+
 
     //filter by date
     @Query(value = "SELECT * FROM reimbursement WHERE date_of_claim_submission  BETWEEN :startDate AND :endDate", nativeQuery = true)
