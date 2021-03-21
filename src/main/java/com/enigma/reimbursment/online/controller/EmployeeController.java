@@ -58,23 +58,6 @@ public class EmployeeController {
     }
 
 
-//    @GetMapping
-//    public ResponseMessage<PageList<EmployeeResponse>> findAll(@Valid EmployeeSearch request) {
-//        Employee employee = modelMapper.map(request, Employee.class);
-//
-//        Page<Employee> pagination = employeeService.findAll(employee, request.getPage(),
-//                request.getSize(), request.getSort());
-//        System.out.println(pagination);
-//        List<EmployeeResponse> employeResponsePageList = pagination.stream()
-//                .map(e -> modelMapper.map(e, EmployeeResponse.class))
-//                .collect(Collectors.toList());
-//        PageList<EmployeeResponse> response = new PageList(employeResponsePageList,
-//                pagination.getNumber(), pagination.getSize(), pagination.getTotalElements());
-//        System.out.println(employeResponsePageList);
-//        return new ResponseMessage(200, "OK", response);
-//    }
-
-
     @GetMapping
     public ResponseMessage<List<Employee>> findAll() {
         List<Employee> employee = employeeService.getAll();
@@ -147,17 +130,6 @@ public class EmployeeController {
         employee = employeeService.save(employee);
         System.out.println("data employee:" +employee);
         EmployeeResponse response = modelMapper.map(employee,EmployeeResponse.class);
-        return ResponseMessage.success(response);
-    }
-
-
-    @GetMapping("/idlogin/{idLogin}")
-    public ResponseMessage<EmployeeResponse> getEmployeeByIdLogin(@PathVariable String idLogin) {
-        Employee employee = employeeService.findByIdLogin(idLogin);
-        if(employee == null) {
-            throw  new EntityNotFoundException();
-        }
-        EmployeeResponse response = modelMapper.map(employee, EmployeeResponse.class);
         return ResponseMessage.success(response);
     }
 
