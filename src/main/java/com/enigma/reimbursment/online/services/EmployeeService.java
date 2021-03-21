@@ -1,7 +1,9 @@
 package com.enigma.reimbursment.online.services;
 
 import com.enigma.reimbursment.online.entities.Employee;
+import com.enigma.reimbursment.online.models.response.employee.EmployeeResponseDashboard;
 import com.enigma.reimbursment.online.repositories.EmployeeRepository;
+import com.enigma.reimbursment.online.repositories.ReimbursementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,9 @@ public class EmployeeService extends AbstractService<Employee,String> {
 
     @Autowired
     EmployeeRepository employeeRepository;
+
+    @Autowired
+    ReimbursementRepository reimbursementRepository;
 
     @Autowired
     protected EmployeeService(EmployeeRepository repository){
@@ -32,6 +37,14 @@ public class EmployeeService extends AbstractService<Employee,String> {
 
     public void changeIsVerifiedEmail(String token) {
         employeeRepository.changeIsVerifiedEmail(token);
+    }
+
+    public EmployeeResponseDashboard employeeDashboard(){
+        EmployeeResponseDashboard response = new EmployeeResponseDashboard();
+        response.setCountEmployee(employeeRepository.getCountEmployee());
+        response.setCountEmployeeActive(employeeRepository.getCountEmployeeActive());
+        response.setCountEmployeeReimburse(reimbursementRepository.getCountEmployeeReimbursement());
+        return response;
     }
 
 }

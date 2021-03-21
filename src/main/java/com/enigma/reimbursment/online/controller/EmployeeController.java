@@ -8,6 +8,7 @@ import com.enigma.reimbursment.online.exceptions.EntityNotFoundException;
 import com.enigma.reimbursment.online.models.pagination.PageList;
 import com.enigma.reimbursment.online.models.request.employee.*;
 import com.enigma.reimbursment.online.models.response.ResponseMessage;
+import com.enigma.reimbursment.online.models.response.employee.EmployeeResponseDashboard;
 import com.enigma.reimbursment.online.models.response.employee.EmployeeResponsePage;
 import com.enigma.reimbursment.online.models.response.employee.EmployeeResponse;
 import com.enigma.reimbursment.online.models.response.login.LoginResponse;
@@ -166,7 +167,6 @@ public class EmployeeController {
         EmployeeResponse response = modelMapper.map(employee,EmployeeResponse.class);
         return ResponseMessage.success(response);
     }
-
 
     //change status employee active or non-active
 //    @PutMapping("/{id}/changeStatusEmployee")

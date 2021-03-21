@@ -30,4 +30,14 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
 
     @Query(value = "SELECT * FROM employee WHERE id_login = :id_login", nativeQuery = true)
     Employee findIdLogin(@Param("id_login") String idLogin);
+
+    @Query(value = "SELECT COUNT(id) FROM employee", nativeQuery = true)
+    Integer getCountEmployee();
+
+    @Query(value = "SELECT COUNT(id) FROM employee WHERE employee_status = 'ACTIVE'", nativeQuery = true)
+    Integer getCountEmployeeActive();
+
+
+
+
 }
