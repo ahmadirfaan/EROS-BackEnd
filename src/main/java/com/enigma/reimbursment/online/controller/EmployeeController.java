@@ -137,8 +137,6 @@ public class EmployeeController {
         employee.setJoinDate(LocalDate.parse(request.getJoinDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         employee.setLogin(login);
         employee.setGrade(grade);
-        employee.setEmployeeStatus(EmployeeStatus.getEmployeeStatus(request.getEmployeeStatus()));
-        employee.setEmployeeType(EmployeeType.getEmployeeType(request.getEmployeeType()));
         employee = employeeService.save(employee);
 
         EmployeeResponse response = modelMapper.map(employee, EmployeeResponse.class);

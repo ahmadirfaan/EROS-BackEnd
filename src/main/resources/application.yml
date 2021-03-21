@@ -1,5 +1,5 @@
 application.data-dir: ${DATA_DIR:images}
-server.port: 8080
+server.port: 8081
 spring.mail:
   protocol: smtp
   host: smtp.gmail.com
@@ -14,7 +14,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/reimburse
     username: root
-    password: admin
+    password:
   jpa:
     hibernate.ddl-auto: update
     generate-ddl: true
