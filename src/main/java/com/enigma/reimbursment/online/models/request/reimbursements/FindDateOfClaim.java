@@ -3,13 +3,23 @@ package com.enigma.reimbursment.online.models.request.reimbursements;
 import java.util.Date;
 
 public class FindDateOfClaim {
-    private String dateOfClaimSubmission;
+    private String startDate;
 
-    public String getDateOfClaimSubmission() {
-        return dateOfClaimSubmission;
+    private String endDate;
+
+    public String getStartDate() {
+        return startDate;
     }
 
-    public void setDateOfClaimSubmission(String dateOfClaimSubmission) {
-        this.dateOfClaimSubmission = dateOfClaimSubmission;
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 }

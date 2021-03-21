@@ -5,31 +5,30 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class BillResponse {
 
-    private String id;
-    private MultipartFile billImage;
-    private String reimbursementId;
+    private String billImage;
+    private String url;
 
-    public String getId() {
-        return id;
+    public String getUrl() {
+        return url;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public BillResponse(String billImage, String url) {
+        this.billImage = billImage;
+        this.url = url;
     }
 
-    public MultipartFile getBillImage() {
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getBillImage() {
         return billImage;
     }
 
-    public void setBillImage(MultipartFile billImage) {
+    public void setBillImage(String billImage) {
         this.billImage = billImage;
     }
 
-    public String getReimbursementId() {
-        return reimbursementId;
-    }
 
-    public void setReimbursementId(String reimbursementId) {
-        this.reimbursementId = reimbursementId;
-    }
+
 }

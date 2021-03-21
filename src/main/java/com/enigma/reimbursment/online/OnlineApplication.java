@@ -1,12 +1,19 @@
 package com.enigma.reimbursment.online;
 
+import com.enigma.reimbursment.online.uploadFile.FilesStorageService;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
+
 @SpringBootApplication
-public class OnlineApplication {
+public class OnlineApplication implements CommandLineRunner {
+
+	@Resource
+	FilesStorageService storageService;
 
 	@Bean
 	public RestTemplate getResultTemplate() {
@@ -17,4 +24,9 @@ public class OnlineApplication {
 		SpringApplication.run(OnlineApplication.class, args);
 	}
 
+	@Override
+	public void run(String... args) throws Exception {
+		storageService.deleteAll();
+		storageService.init();
+	}
 }
