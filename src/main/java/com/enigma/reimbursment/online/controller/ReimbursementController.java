@@ -10,6 +10,7 @@ import com.enigma.reimbursment.online.models.model.reimbursement.RequestModelEmp
 import com.enigma.reimbursment.online.models.pagination.PageList;
 import com.enigma.reimbursment.online.models.request.reimbursements.*;
 import com.enigma.reimbursment.online.models.response.ResponseMessage;
+import com.enigma.reimbursment.online.models.response.employee.EmployeeResponseDashboard;
 import com.enigma.reimbursment.online.models.response.reimbursement.ReimbursementResponse;
 import com.enigma.reimbursment.online.models.model.reimbursement.FinanceResponse;
 import com.enigma.reimbursment.online.models.model.reimbursement.ReimburseEmployeeResponse;
@@ -63,7 +64,7 @@ public class ReimbursementController {
 //    filter by id category and id employee for employee
     @PostMapping("/filter-category-employee")
     public ResponseMessage<List<ReimbursementResponse>> filterCategoryIdEmployee( @RequestBody FindCategoryRequestEmployee model) {
-        List<ReimbursementResponse> reimbursements = reimbursementService.filterCategoryByIdEmployee(model.getCategoryId(),model.getEmployeeId());
+        List<Reimbursement> reimbursements = reimbursementService.filterCategoryByIdEmployee(model.getCategoryId(),model.getEmployeeId());
         List<ReimbursementResponse> reimbursementResponses = reimbursements.stream().map(
                 e -> modelMapper.map(e, ReimbursementResponse.class))
                 .collect(Collectors.toList());
@@ -96,18 +97,48 @@ public class ReimbursementController {
             throw new EntityNotFoundException();
         }
         return ResponseMessage.success(reimbursements);
-
     }
 
+//    filter status adminOnHc (success,reject,onFinance,hc)
+    @PostMapping("/filter-status-admin")
+    public ResponseMessage<List<Reimbursement>> filterStatusAdmin(@RequestBody FindStatusAdminRequest model) {
 
-    @PostMapping("/date")
-    public ResponseMessage<List<Reimbursement>> filterByDateClaim(@RequestBody FindDateOfClaim dateOfClaimSubmission) throws ParseException {
-        Reimbursement reimbursement = new Reimbursement();
+        List<Reimbursement> reimbursements = reimbursementService.filterStatusAdminOnHc(model.getStatusReject()
+                ,model.getStatusOnHc(),model.getStatusSuccess(),model.getStatusOnFinance());
 
-        List<Reimbursement> reimbursements = reimbursementService.filterByDateOfClaim(dateOfClaimSubmission.getDateOfClaimSubmission());
-        System.out.println(dateOfClaimSubmission);
+        System.out.println("reimbursement :" +reimbursements);
         return ResponseMessage.success(reimbursements);
     }
+
+
+    //filter by date
+    @PostMapping("/date")
+    public ResponseMessage<List<Reimbursement>> filterByDateClaim(@RequestBody FindDateOfClaim model) throws ParseException {
+        Reimbursement reimbursement = new Reimbursement();
+        List<Reimbursement> reimbursements = reimbursementService.filterByDateOfClaim(model.getStartDate(), model.getEndDate());
+        return ResponseMessage.success(reimbursements);
+    }
+
+
+    //filter by date,category and id employee
+    @PostMapping("/filter-date-category-employee")
+    public ResponseMessage<List<Reimbursement>> filterByDateCategoryAndEmployee(@RequestBody FindDateCategoryAndIdEmployee model) throws ParseException {
+        List<Reimbursement> reimbursements = reimbursementService.filterByDateCategoryAndIdEmployee(model.getCategoryId(), model.getEmployeeId(),model.getStartDate(), model.getEndDate() );
+        System.out.println("test: "+reimbursements);
+        return ResponseMessage.success(reimbursements);
+    }
+
+
+//    //filter-date-employee
+    @PostMapping("/filter-date-employee")
+    public ResponseMessage<List<Reimbursement>> filterByDateIdEmployee(@RequestBody FindDateAndIdEmployee request) throws ParseException {
+        Reimbursement reimbursement = new Reimbursement();
+        List<Reimbursement> reimbursements = reimbursementService
+                .filterByDateAndIdEmployee(request.getEmployeeId(),request.getStartDate(),request.getEndDate());
+        System.out.println("reimbursement:" +reimbursements);
+        return ResponseMessage.success(reimbursements);
+    }
+
 
 
     @PutMapping("/{id}")
@@ -203,7 +234,6 @@ public class ReimbursementController {
         if(entity == null) {
             throw new EntityNotFoundException();
         }
-
         Employee employee = employeeService.findById(entity.getEmployeeId().getId());
         entity.setEmployeeId(employee);
 

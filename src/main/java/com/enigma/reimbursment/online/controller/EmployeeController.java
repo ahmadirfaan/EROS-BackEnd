@@ -8,6 +8,7 @@ import com.enigma.reimbursment.online.exceptions.EntityNotFoundException;
 import com.enigma.reimbursment.online.models.pagination.PageList;
 import com.enigma.reimbursment.online.models.request.employee.*;
 import com.enigma.reimbursment.online.models.response.ResponseMessage;
+import com.enigma.reimbursment.online.models.response.employee.EmployeeResponseDashboard;
 import com.enigma.reimbursment.online.models.response.employee.EmployeeResponsePage;
 import com.enigma.reimbursment.online.models.response.employee.EmployeeResponse;
 import com.enigma.reimbursment.online.models.response.login.LoginResponse;
@@ -101,8 +102,7 @@ public class EmployeeController {
 
 
     @PutMapping("/{id}")
-    public ResponseMessage<EmployeeResponse> edit(@PathVariable String id,
-                                                  @RequestBody @Valid EmployeeRequest request) throws ParseException {
+    public ResponseMessage<EmployeeResponse> edit(@PathVariable String id,@RequestBody @Valid EmployeeRequest request) throws ParseException {
 
         Employee employee = employeeService.findById(id);
         if (employee == null) {
@@ -120,8 +120,6 @@ public class EmployeeController {
         employee.setJoinDate(LocalDate.parse(request.getJoinDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         employee.setLogin(login);
         employee.setGrade(grade);
-        employee.setEmployeeStatus(EmployeeStatus.getEmployeeStatus(request.getEmployeeStatus()));
-        employee.setEmployeeType(EmployeeType.getEmployeeType(request.getEmployeeType()));
         employee = employeeService.save(employee);
 
         EmployeeResponse response = modelMapper.map(employee, EmployeeResponse.class);
@@ -147,6 +145,7 @@ public class EmployeeController {
         employee.setReligion(Religion.getReligion(request.getReligion()));
         employee.setCompleted(true);
         employee = employeeService.save(employee);
+        System.out.println("data employee:" +employee);
         EmployeeResponse response = modelMapper.map(employee,EmployeeResponse.class);
         return ResponseMessage.success(response);
     }

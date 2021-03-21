@@ -1,5 +1,5 @@
 application.data-dir: ${DATA_DIR:images}
-server.port: 8080
+server.port: 8081
 spring.mail:
   protocol: smtp
   host: smtp.gmail.com
@@ -16,15 +16,15 @@ spring:
     username: root
     password:
   jpa:
-    hibernate.ddl-auto: create-drop
+    hibernate.ddl-auto: update
     generate-ddl: true
     show-sql: true
     properties.hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
   messages.basename: i18n/messages
   servlet:
     multipart:
-      max-file-size: 2MB
-      max-request-size: 2MB
+      max-file-size: 10MB
+      max-request-size: 10MB
 springdoc:
   swagger-ui:
     path: /swagger-ui-custom.html

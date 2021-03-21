@@ -1,5 +1,8 @@
 package com.enigma.reimbursment.online.models.request.employee;
 
+import com.enigma.reimbursment.online.enums.EmployeeStatus;
+import com.enigma.reimbursment.online.enums.EmployeeType;
+
 import java.time.LocalDate;
 
 public class EmployeeRequest {
@@ -8,9 +11,9 @@ public class EmployeeRequest {
 
    private String joinDate;
 
-   private Integer employeeStatus;
+   private EmployeeStatus employeeStatus;
 
-   private Integer employeeType;
+   private EmployeeType employeeType;
 
     public Integer getGradeId() {
         return gradeId;
@@ -28,19 +31,19 @@ public class EmployeeRequest {
         this.joinDate = joinDate;
     }
 
-    public Integer getEmployeeStatus() {
+    public EmployeeStatus getEmployeeStatus() {
         return employeeStatus;
     }
 
-    public void setEmployeeStatus(Integer employeeStatus) {
+    public void setEmployeeStatus(EmployeeStatus employeeStatus) {
         this.employeeStatus = employeeStatus;
     }
 
-    public Integer getEmployeeType() {
+    public EmployeeType getEmployeeType() {
         return employeeType;
     }
 
-    public void setEmployeeType(Integer employeeType) {
+    public void setEmployeeType(EmployeeType employeeType) {
         this.employeeType = employeeType;
     }
 }

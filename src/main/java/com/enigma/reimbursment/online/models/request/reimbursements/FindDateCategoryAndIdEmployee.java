@@ -2,18 +2,28 @@ package com.enigma.reimbursment.online.models.request.reimbursements;
 
 public class FindDateCategoryAndIdEmployee {
 
-    private String dateOfClaimSubmission;
+    private String startDate;
+
+    private String endDate;
 
     private String categoryId;
 
     private String employeeId;
 
-    public String getDateOfClaimSubmission() {
-        return dateOfClaimSubmission;
+    public String getStartDate() {
+        return startDate;
     }
 
-    public void setDateOfClaimSubmission(String dateOfClaimSubmission) {
-        this.dateOfClaimSubmission = dateOfClaimSubmission;
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 
     public String getCategoryId() {
