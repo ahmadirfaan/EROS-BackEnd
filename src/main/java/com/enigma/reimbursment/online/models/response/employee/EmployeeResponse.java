@@ -1,10 +1,7 @@
 package com.enigma.reimbursment.online.models.response.employee;
 
 import com.enigma.reimbursment.online.entities.Grade;
-<<<<<<< HEAD
 import com.enigma.reimbursment.online.enums.Gender;
-=======
->>>>>>> c090e4715a178e31573bb29f993e0e05c0dbb04f
 import com.enigma.reimbursment.online.models.response.login.LoginResponse;
 
 import java.time.LocalDate;
