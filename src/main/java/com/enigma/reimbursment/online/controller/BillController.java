@@ -75,7 +75,7 @@ public class BillController {
                     bill.setUrl("http://localhost:8080/files/"+ fileName);
                     billService.save(bill);
                     message = "Uploaded the file successfully: " + fileName;
-                    return ResponseMessage.success(null);
+                    return new ResponseMessage(200,message,null);
 //                            ResponseEntity.status(HttpStatus.OK).body(new ResponseMessages(message));
                 } catch (Exception e) {
                     message = "Could not upload the file: " + fileName;
@@ -106,7 +106,7 @@ public class BillController {
             storageService.save(file.getFile(), fileName);
             bill.setReimbursementId(entity);
             bill.setBillImage(fileName);
-            bill.setUrl("http://localhost:8080/files/"+ fileName);
+            bill.setUrl("http://localhost:8080/bill/files/"+ fileName);
             billService.save(bill);
             message = "Uploaded the file successfully: " + fileName;
             return ResponseMessage.success(null);
