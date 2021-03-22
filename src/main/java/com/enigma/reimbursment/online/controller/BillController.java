@@ -2,14 +2,10 @@ package com.enigma.reimbursment.online.controller;
 
 import com.enigma.reimbursment.online.entities.Bill;
 import com.enigma.reimbursment.online.entities.Reimbursement;
-import com.enigma.reimbursment.online.exceptions.EntityNotFoundException;
 import com.enigma.reimbursment.online.models.request.bill.ImageUploadRequest;
-import com.enigma.reimbursment.online.models.response.ResponseMessage;
 import com.enigma.reimbursment.online.models.response.bill.BillResponse;
 import com.enigma.reimbursment.online.services.BillService;
-import com.enigma.reimbursment.online.services.FileService;
 import com.enigma.reimbursment.online.services.ReimbursementService;
-import com.enigma.reimbursment.online.uploadFile.FileInfo;
 import com.enigma.reimbursment.online.uploadFile.FilesController;
 import com.enigma.reimbursment.online.uploadFile.FilesStorageService;
 import com.enigma.reimbursment.online.uploadFile.ResponseMessages;
@@ -21,13 +17,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;

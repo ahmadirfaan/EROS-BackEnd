@@ -1,5 +1,6 @@
 package com.enigma.reimbursment.online.uploadFile;
 
+import com.enigma.reimbursment.online.entities.Reimbursement;
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -10,11 +11,11 @@ public interface FilesStorageService {
 
      void init();
 
-     void save(MultipartFile file, String fileName);
+     void save(MultipartFile file, String filename);
 
      Resource load(String filename);
-
+//
      void deleteAll();
-
+//
      Stream<Path> loadAll();
 }

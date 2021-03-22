@@ -281,6 +281,12 @@ public class ReimbursementController {
         return ResponseMessage.success(data);
     }
 
+    @GetMapping("/filter-status-finance")
+    public ResponseMessage<List<Reimbursement>> getStatusFinance() {
+        List<Reimbursement> reimbursements = reimbursementService.getStatusFinance();
+        return new ResponseMessage(200, "OK", reimbursements );
+    }
+
 
 
 }

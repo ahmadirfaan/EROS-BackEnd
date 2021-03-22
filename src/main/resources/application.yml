@@ -1,4 +1,4 @@
-application.data-dir: ${DATA_DIR:images}
+application.data-dir: ${DATA_DIR:uploads}
 server.port: 8080
 spring.mail:
   protocol: smtp

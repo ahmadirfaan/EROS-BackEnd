@@ -50,5 +50,8 @@ public interface ReimbursementRepository extends JpaRepository<Reimbursement, St
     @Query(value = "SELECT COUNT(id) FROM reimbursement",nativeQuery = true )
     Integer getCountEmployeeReimbursement();
 
+    //filter status_on_finance_true
+    @Query(value = "SELECT * FROM reimbursement WHERE status_on_finance = true", nativeQuery = true)
+    List<Reimbursement> getStatusFinance();
 
 }
