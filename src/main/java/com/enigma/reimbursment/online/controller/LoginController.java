@@ -31,6 +31,13 @@ public class LoginController {
     @Autowired
     private RestTemplate restTemplate;
 
+    @PostMapping("/encode")
+    public ResponseMessage<String> testEncode(@RequestBody  LoginRequest request){
+        String password = request.getPassword();
+
+        return ResponseMessage.success(password);
+    }
+
     @PostMapping
     public ResponseMessage<LoginResponse> login(@RequestBody @Valid LoginRequest request) {
         Login login = loginService.findByEmailAndPassword(request.getEmail(), request.getPassword());

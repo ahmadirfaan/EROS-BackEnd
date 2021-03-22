@@ -58,30 +58,38 @@ public class BillController {
 
     @PostMapping(value="/{id}/upload/file",consumes = "multipart/form-data")
     public ResponseEntity<ResponseMessages> uploadFile(@PathVariable String id, ImageUploadRequest file) throws IOException {
-        Bill image = billService.filterByIdBill(id);
-        if(image==null) {
-            String message = "";
-            String fileName = id + "." + Files.getFileExtension(file.getFile().getOriginalFilename());
-//            String fileName = generateVerificationToken() + "." + Files.getFileExtension(file.getFile().getOriginalFilename());
-            try {
-                storageService.save(file.getFile(), fileName);
-                Bill bill = new Bill();
-                Reimbursement entity =  reimbursementService.findById(id);
-                bill.setReimbursementId(entity);
-                bill.setBillImage(fileName);
-                bill.setUrl("http://localhost:8080/files/"+ fileName);
-                billService.save(bill);
-                message = "Uploaded the file successfully: " + fileName;
-                return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessages(message));
-            } catch (Exception e) {
-                message = "Could not upload the file: " + fileName;
-                return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessages(message));
-            }
+        if(Files.getFileExtension(file.getFile().getOriginalFilename()) == ".pdf"){
 
+            Bill image = billService.filterByIdBill(id);
+            if(image==null) {
+                String message = "";
+                String fileName = id + "." + Files.getFileExtension(file.getFile().getOriginalFilename());
+//            String fileName = generateVerificationToken() + "." + Files.getFileExtension(file.getFile().getOriginalFilename());
+                try {
+                    storageService.save(file.getFile(), fileName);
+                    Bill bill = new Bill();
+                    Reimbursement entity =  reimbursementService.findById(id);
+                    bill.setReimbursementId(entity);
+                    bill.setBillImage(fileName);
+                    bill.setUrl("http://localhost:8080/files/"+ fileName);
+                    billService.save(bill);
+                    message = "Uploaded the file successfully: " + fileName;
+                    return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessages(message));
+                } catch (Exception e) {
+                    message = "Could not upload the file: " + fileName;
+                    return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessages(message));
+                }
+
+            } else{
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new ResponseMessages("IMAGE HAS BEEN UPLOADED"));
+            }
         }
 
         else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseMessages("IMAGE HAS BEEN UPLOADED"));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ResponseMessages(file.getFile().getOriginalFilename()
+                            + " format file upload is not .pdf"));
         }
 
 

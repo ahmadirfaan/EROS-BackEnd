@@ -7,7 +7,25 @@ public class FinanceResponse {
 
     private LocalDate disbursementDate;
 
-    private Boolean statusOnFinance = false;
+    private Boolean statusSuccess = false;
+
+    private Boolean statusReject = false;
+
+    public Boolean getStatusReject() {
+        return statusReject;
+    }
+
+    public void setStatusReject(Boolean statusReject) {
+        this.statusReject = statusReject;
+    }
+
+    public Boolean getStatusSuccess() {
+        return statusSuccess;
+    }
+
+    public void setStatusSuccess(Boolean statusSuccess) {
+        this.statusSuccess = statusSuccess;
+    }
 
     public LocalDate getDisbursementDate() {
         return disbursementDate;
@@ -18,10 +36,10 @@ public class FinanceResponse {
     }
 
     public Boolean getStatusOnFinance() {
-        return statusOnFinance;
+        return statusSuccess;
     }
 
-    public void setStatusOnFinance(Boolean statusOnFinance) {
-        this.statusOnFinance = statusOnFinance;
+    public void setStatusOnFinance(Boolean statusSuccess) {
+        this.statusSuccess = statusSuccess;
     }
 }

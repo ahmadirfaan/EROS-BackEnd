@@ -79,7 +79,7 @@ public class EmployeeContractController {
 
 
 
-    //belom bisa
+
     @PutMapping("/{id}")
     public ResponseMessage<EmployeeContractResponse> edit(@PathVariable String id, @Valid EmployeeContractRequest request)  {
         System.out.println(request);

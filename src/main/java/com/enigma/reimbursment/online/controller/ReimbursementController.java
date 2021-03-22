@@ -47,10 +47,9 @@ public class ReimbursementController {
     private ModelMapper modelMapper;
 
     @PostMapping
-    public ResponseMessage<ReimbursementResponse> add(@RequestBody  ReimbursementRequest model) throws ParseException {
+    public ResponseMessage<ReimbursementResponse> add(@RequestBody  FindClaimReimburse model) {
         Reimbursement reimbursement = modelMapper.map(model,Reimbursement.class);
-        reimbursement.setDateOfClaimSubmission(LocalDate.parse(model.getDateOfClaimSubmission(),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        reimbursement.setDisbursementDate(LocalDate.parse(model.getDisbursementDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        reimbursement.setDateOfClaimSubmission(LocalDate.now());
         reimbursement.setStartDate(LocalDate.parse(model.getStartDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         reimbursement.setEndDate(LocalDate.parse(model.getEndDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         Employee employee = employeeService.findById(model.getEmployeeId());
@@ -95,7 +94,7 @@ public class ReimbursementController {
     }
 
 
-    //filter by id employee for admin
+    //filter by id employee for admin hc
     @PostMapping("/filter-employee-admin")
     public ResponseMessage<List<Reimbursement>> filterIdEmployee(@RequestBody FindEmployeeRequest request){
         List<Reimbursement> reimbursements = reimbursementService.filterByIdEmployee(request.getEmployeeId());
@@ -126,7 +125,7 @@ public class ReimbursementController {
     }
 
 
-    //filter by date,category and id employee
+    //filter by date,category and id employee for admin hc / employee
     @PostMapping("/filter-date-category-employee")
     public ResponseMessage<List<Reimbursement>> filterByDateCategoryAndEmployee(@RequestBody FindDateCategoryAndIdEmployee model) throws ParseException {
         List<Reimbursement> reimbursements = reimbursementService.filterByDateCategoryAndIdEmployee(model.getCategoryId(), model.getEmployeeId(),model.getStartDate(), model.getEndDate() );
@@ -135,7 +134,7 @@ public class ReimbursementController {
     }
 
 
-//    //filter-date-employee
+//    //filter-date-employee for admin hc/employee
     @PostMapping("/filter-date-employee")
     public ResponseMessage<List<Reimbursement>> filterByDateIdEmployee(@RequestBody FindDateAndIdEmployee request) throws ParseException {
         Reimbursement reimbursement = new Reimbursement();
@@ -147,6 +146,7 @@ public class ReimbursementController {
 
 
 
+    //edit reimburse for admin hc
     @PutMapping("/{id}")
     public ResponseMessage<ReimbursementResponse> edit(@PathVariable String id, @RequestBody ReimbursementRequest model) {
         Reimbursement entity = reimbursementService.findById(id);
@@ -260,7 +260,7 @@ public class ReimbursementController {
     }
 
 
-    //untuk finance
+    //edit reimburse untuk finance
     @PutMapping("/{id}/finance")
     public ResponseMessage<FinanceResponse> editFinance(@PathVariable String id, @RequestBody ReimbursementModelFinance model) throws ParseException {
         Reimbursement entity = reimbursementService.findById(id);
@@ -285,6 +285,14 @@ public class ReimbursementController {
     public ResponseMessage<List<Reimbursement>> getStatusFinance() {
         List<Reimbursement> reimbursements = reimbursementService.getStatusFinance();
         return new ResponseMessage(200, "OK", reimbursements );
+    }
+
+    //filter by date,category and id employee for admin hc / employee
+    @PostMapping("/filter-claim")
+    public ResponseMessage<List<Reimbursement>> filterClaimReimburse(@RequestBody FindClaimReimburse model) throws ParseException {
+        List<Reimbursement> reimbursements = reimbursementService.filterClaimReimbursement(model.getCategoryId(), model.getEmployeeId(),model.getStartDate(), model.getEndDate(), model.getDateOfClaimSubmission(), model.getClaimFee());
+        System.out.println("test: "+reimbursements);
+        return ResponseMessage.success(reimbursements);
     }
 
 

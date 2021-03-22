@@ -4,9 +4,9 @@ public class ReimbursementModelFinance {
 
     private String disbursementDate;
 
-    private Boolean statusOnFinance = false;
+    private Boolean statusSuccess ;
 
-
+    private Boolean statusReject ;
 
     public String getDisbursementDate() {
         return disbursementDate;
@@ -16,19 +16,19 @@ public class ReimbursementModelFinance {
         this.disbursementDate = disbursementDate;
     }
 
-    public Boolean getStatusOnFinance() {
-        return statusOnFinance;
+    public Boolean getStatusSuccess() {
+        return statusSuccess;
     }
 
-    public void setStatusOnFinance(Boolean statusOnFinance) {
-        this.statusOnFinance = statusOnFinance;
+    public void setStatusSuccess(Boolean statusSuccess) {
+        this.statusSuccess = statusSuccess;
     }
 
-    @Override
-    public String toString() {
-        return "ReimbursementModelFinance{" +
-                "disbursementDate=" + disbursementDate +
-                ", statusOnFinance=" + statusOnFinance +
-                '}';
+    public Boolean getStatusReject() {
+        return statusReject;
+    }
+
+    public void setStatusReject(Boolean statusReject) {
+        this.statusReject = statusReject;
     }
 }
