@@ -1,7 +1,5 @@
 package com.enigma.reimbursment.online.uploadFile;
 
-import com.enigma.reimbursment.online.entities.Reimbursement;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -13,7 +11,6 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Random;
 import java.util.stream.Stream;
 
 @Service
