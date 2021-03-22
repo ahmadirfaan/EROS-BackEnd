@@ -47,4 +47,8 @@ public class EmployeeService extends AbstractService<Employee,String> {
         return response;
     }
 
+    public List<Employee> findByNameEmployee(String fullname) {
+        return employeeRepository.findByNameEmployee(fullname);
+    }
+
 }

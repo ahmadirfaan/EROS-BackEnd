@@ -119,7 +119,6 @@ public class EmployeeController {
         }
         Login login = loginService.findById(employee.getLogin().getId());
         employee.setLogin(login);
-        modelMapper.map(request, employee);
         employee.setDateOfBirth(LocalDate.parse(request.getDateOfBirth(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         employee.setLogin(login);
         employee.setBloodType(BloodType.getBloodType(request.getBloodType()));
@@ -127,10 +126,31 @@ public class EmployeeController {
         employee.setMaritalStatus(MaritalStatus.getMaritalStatus(request.getMaritalStatus()));
         employee.setReligion(Religion.getReligion(request.getReligion()));
         employee.setCompleted(true);
+        modelMapper.map(request, employee);
+
         employee = employeeService.save(employee);
         System.out.println("data employee:" +employee);
         EmployeeResponse response = modelMapper.map(employee,EmployeeResponse.class);
         return ResponseMessage.success(response);
     }
+
+    //filter by name employee
+    @PostMapping("/filter-name")
+    public ResponseMessage<List<Employee>> filterByNameEmployee(@RequestBody FilterByNameEmployee request){
+        List<Employee> employees = employeeService.findByNameEmployee(request.getFullname());
+        return ResponseMessage.success(employees);
+    }
+
+
+    @GetMapping("/idlogin/{idLogin}")
+    public ResponseMessage<EmployeeResponse> getEmployeeByIdLogin(@PathVariable String idLogin) {
+        Employee employee = employeeService.findByIdLogin(idLogin);
+        if(employee == null) {
+            throw  new EntityNotFoundException();
+        }
+        EmployeeResponse response = modelMapper.map(employee, EmployeeResponse.class);
+        return ResponseMessage.success(response);
+    }
+
 
 }

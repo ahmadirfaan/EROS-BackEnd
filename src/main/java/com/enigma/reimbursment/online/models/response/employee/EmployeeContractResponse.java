@@ -1,6 +1,7 @@
 package com.enigma.reimbursment.online.models.response.employee;
 
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class EmployeeContractResponse {
@@ -13,15 +14,15 @@ public class EmployeeContractResponse {
 
     private String benefitRegistrationStatus;
 
-    private Date startDateContract;
+    private LocalDate startDateContract;
 
-    private Date endDateContract;
+    private LocalDate endDateContract;
 
     private Boolean isEndedContract = false;
 
-    private Date dateOfAcceptancePermanentEmployee;
+    private LocalDate dateOfAcceptancePermanentEmployee;
 
-    private Date dateOfResignation;
+    private LocalDate dateOfResignation;
 
     private String placement;
 
@@ -57,19 +58,19 @@ public class EmployeeContractResponse {
         this.benefitRegistrationStatus = benefitRegistrationStatus;
     }
 
-    public Date getStartDateContract() {
+    public LocalDate getStartDateContract() {
         return startDateContract;
     }
 
-    public void setStartDateContract(Date startDateContract) {
+    public void setStartDateContract(LocalDate startDateContract) {
         this.startDateContract = startDateContract;
     }
 
-    public Date getEndDateContract() {
+    public LocalDate getEndDateContract() {
         return endDateContract;
     }
 
-    public void setEndDateContract(Date endDateContract) {
+    public void setEndDateContract(LocalDate endDateContract) {
         this.endDateContract = endDateContract;
     }
 
@@ -81,19 +82,19 @@ public class EmployeeContractResponse {
         isEndedContract = endedContract;
     }
 
-    public Date getDateOfAcceptancePermanentEmployee() {
+    public LocalDate getDateOfAcceptancePermanentEmployee() {
         return dateOfAcceptancePermanentEmployee;
     }
 
-    public void setDateOfAcceptancePermanentEmployee(Date dateOfAcceptancePermanentEmployee) {
+    public void setDateOfAcceptancePermanentEmployee(LocalDate dateOfAcceptancePermanentEmployee) {
         this.dateOfAcceptancePermanentEmployee = dateOfAcceptancePermanentEmployee;
     }
 
-    public Date getDateOfResignation() {
+    public LocalDate getDateOfResignation() {
         return dateOfResignation;
     }
 
-    public void setDateOfResignation(Date dateOfResignation) {
+    public void setDateOfResignation(LocalDate dateOfResignation) {
         this.dateOfResignation = dateOfResignation;
     }
 

@@ -1,13 +1,16 @@
 package com.enigma.reimbursment.online.models.request.employee;
 
+import com.enigma.reimbursment.online.enums.StatusRegistrationBenefit;
+import com.enigma.reimbursment.online.enums.TypeOfContract;
+
 public class EmployeeContractRequest {
 
 
     private String employeeId;
 
-    private Integer typeContract;
+    private TypeOfContract typeContract;
 
-    private Integer benefitRegistrationStatus;
+    private StatusRegistrationBenefit benefitRegistrationStatus;
 
     private String startDateContract;
 
@@ -29,19 +32,19 @@ public class EmployeeContractRequest {
         this.employeeId = employeeId;
     }
 
-    public Integer getTypeContract() {
+    public TypeOfContract getTypeContract() {
         return typeContract;
     }
 
-    public void setTypeContract(Integer typeContract) {
+    public void setTypeContract(TypeOfContract typeContract) {
         this.typeContract = typeContract;
     }
 
-    public Integer getBenefitRegistrationStatus() {
+    public StatusRegistrationBenefit getBenefitRegistrationStatus() {
         return benefitRegistrationStatus;
     }
 
-    public void setBenefitRegistrationStatus(Integer benefitRegistrationStatus) {
+    public void setBenefitRegistrationStatus(StatusRegistrationBenefit benefitRegistrationStatus) {
         this.benefitRegistrationStatus = benefitRegistrationStatus;
     }
 

@@ -42,8 +42,8 @@ public class BillController {
     @Autowired
     private ReimbursementService reimbursementService;
 
-    @Autowired
-    private FileService fileService;
+//    @Autowired
+//    private FileService fileService;
 
     @Autowired
     FilesStorageService storageService;
@@ -51,19 +51,19 @@ public class BillController {
     @Autowired
     ModelMapper modelMapper;
 
-    @PostMapping(value = "/{id}/upload",consumes = "multipart/form-data")
-    public ResponseMessage<Bill> upload (@PathVariable String id, @Valid ImageUploadRequest model) throws IOException {
-        Reimbursement entity =  reimbursementService.findById(id);
-        if(entity == null){
-            throw new EntityNotFoundException();
-        }
-        Bill bill = new Bill();
-        bill.setBillImage(model.getFile().getOriginalFilename());
-        bill.setReimbursementId(entity);
-        bill = billService.save(bill);
-        fileService.upload(bill, model.getFile().getInputStream());
-        return ResponseMessage.success(bill);
-    }
+//    @PostMapping(value = "/{id}/upload",consumes = "multipart/form-data")
+//    public ResponseMessage<Bill> upload (@PathVariable String id, @Valid ImageUploadRequest model) throws IOException {
+//        Reimbursement entity =  reimbursementService.findById(id);
+//        if(entity == null){
+//            throw new EntityNotFoundException();
+//        }
+//        Bill bill = new Bill();
+//        bill.setBillImage(model.getFile().getOriginalFilename());
+//        bill.setReimbursementId(entity);
+//        bill = billService.save(bill);
+//        fileService.upload(bill, model.getFile().getInputStream());
+//        return ResponseMessage.success(bill);
+//    }
 
     @PostMapping(value="/{id}/upload/file",consumes = "multipart/form-data")
     public ResponseEntity<ResponseMessages> uploadFile(@PathVariable String id, ImageUploadRequest file) throws IOException {
@@ -107,15 +107,15 @@ public class BillController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
-    @GetMapping("/{id}/preview")
-    public void  preview (@PathVariable String id, HttpServletResponse response)throws IOException {
-        Bill entity = billService.findById(id);
-        if(entity == null) {
-            throw new EntityNotFoundException();
-        }
-        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "filename=\"" +entity.getId() + "\"");
-        fileService.download(entity,response.getOutputStream());
-    }
+//    @GetMapping("/{id}/preview")
+//    public void  preview (@PathVariable String id, HttpServletResponse response)throws IOException {
+//        Bill entity = billService.findById(id);
+//        if(entity == null) {
+//            throw new EntityNotFoundException();
+//        }
+//        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "filename=\"" +entity.getId() + "\"");
+//        fileService.download(entity,response.getOutputStream());
+//    }
 
 
     protected String generateVerificationToken() {

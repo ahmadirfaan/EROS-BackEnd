@@ -17,6 +17,10 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
     @Query(value = "SELECT * FROM employee WHERE is_verified_email = true AND is_completed = true", nativeQuery = true)
     List<Employee> getAll();
 
+    //filter by nama employee
+    @Query(value = "SELECT * FROM employee WHERE fullname = :fullname", nativeQuery = true)
+    List<Employee> findByNameEmployee(@Param("fullname") String fullname);
+
     //tambahan
     @Modifying
     @Transactional

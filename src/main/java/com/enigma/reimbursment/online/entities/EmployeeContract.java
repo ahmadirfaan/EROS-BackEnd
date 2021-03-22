@@ -30,19 +30,19 @@ public class EmployeeContract extends AbstractEntity <String> {
     private StatusRegistrationBenefit benefitRegistrationStatus;
 
     @Column(name = "start_date_contract")
-    private Date startDateContract;
+    private LocalDate startDateContract;
 
     @Column(name = "end_date_contract")
-    private Date endDateContract;
+    private LocalDate endDateContract;
 
     @Column(name = "is_ended_contract")
     private Boolean isEndedContract = false;
 
     @Column(name = "date_of_acceptance_permanent_employee")
-    private Date dateOfAcceptancePermanentEmployee;
+    private LocalDate dateOfAcceptancePermanentEmployee;
 
     @Column(name = "date_of_resignation")
-    private Date dateOfResignation;
+    private LocalDate dateOfResignation;
 
     @Column(name = "placement")
     private String placement;
@@ -79,19 +79,19 @@ public class EmployeeContract extends AbstractEntity <String> {
         this.benefitRegistrationStatus = benefitRegistrationStatus;
     }
 
-    public Date getStartDateContract() {
+    public LocalDate getStartDateContract() {
         return startDateContract;
     }
 
-    public void setStartDateContract(Date startDateContract) {
+    public void setStartDateContract(LocalDate startDateContract) {
         this.startDateContract = startDateContract;
     }
 
-    public Date getEndDateContract() {
+    public LocalDate getEndDateContract() {
         return endDateContract;
     }
 
-    public void setEndDateContract(Date endDateContract) {
+    public void setEndDateContract(LocalDate endDateContract) {
         this.endDateContract = endDateContract;
     }
 
@@ -103,19 +103,19 @@ public class EmployeeContract extends AbstractEntity <String> {
         isEndedContract = endedContract;
     }
 
-    public Date getDateOfAcceptancePermanentEmployee() {
+    public LocalDate getDateOfAcceptancePermanentEmployee() {
         return dateOfAcceptancePermanentEmployee;
     }
 
-    public void setDateOfAcceptancePermanentEmployee(Date dateOfAcceptancePermanentEmployee) {
+    public void setDateOfAcceptancePermanentEmployee(LocalDate dateOfAcceptancePermanentEmployee) {
         this.dateOfAcceptancePermanentEmployee = dateOfAcceptancePermanentEmployee;
     }
 
-    public Date getDateOfResignation() {
+    public LocalDate getDateOfResignation() {
         return dateOfResignation;
     }
 
-    public void setDateOfResignation(Date dateOfResignation) {
+    public void setDateOfResignation(LocalDate dateOfResignation) {
         this.dateOfResignation = dateOfResignation;
     }
 

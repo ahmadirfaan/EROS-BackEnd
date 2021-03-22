@@ -1,18 +1,19 @@
 package com.enigma.reimbursment.online.models.model.reimbursement;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class FinanceResponse {
 
-    private Date disbursementDate;
+    private LocalDate disbursementDate;
 
     private Boolean statusOnFinance = false;
 
-    public Date getDisbursementDate() {
+    public LocalDate getDisbursementDate() {
         return disbursementDate;
     }
 
-    public void setDisbursementDate(Date disbursementDate) {
+    public void setDisbursementDate(LocalDate disbursementDate) {
         this.disbursementDate = disbursementDate;
     }
 

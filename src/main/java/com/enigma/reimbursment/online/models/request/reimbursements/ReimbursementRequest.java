@@ -26,8 +26,10 @@ public class ReimbursementRequest {
     @NotBlank
     private String categoryId;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private String startDate;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private String endDate;
 
     public String getStartDate() {
