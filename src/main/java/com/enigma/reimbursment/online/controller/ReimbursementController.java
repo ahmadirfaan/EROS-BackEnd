@@ -288,6 +288,14 @@ public class ReimbursementController {
         return new ResponseMessage(200, "OK", reimbursements );
     }
 
+    //find status admin finance and by CategoryId
+    @PostMapping("/filter-status-finance-category")
+    public ResponseMessage<List<Reimbursement>> getStatusFinanceAndByCategoryId(@RequestBody FilterFinanceAndCategory model) {
+        List<Reimbursement> reimbursements = reimbursementService.getStatusFinanceAndByCategoryId(model.getCategoryId());
+        return new ResponseMessage(200, "OK", reimbursements );
+    }
+
+
 
 
 

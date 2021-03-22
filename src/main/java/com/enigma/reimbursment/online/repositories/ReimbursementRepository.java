@@ -54,4 +54,8 @@ public interface ReimbursementRepository extends JpaRepository<Reimbursement, St
     @Query(value = "SELECT * FROM reimbursement WHERE status_on_finance = true", nativeQuery = true)
     List<Reimbursement> getStatusFinance();
 
+    //filter status_on_finance_true and byCategoryId
+    @Query(value = "SELECT * FROM reimbursement WHERE status_on_finance = true AND id_category = :categoryId", nativeQuery = true)
+    List<Reimbursement> getStatusFinanceAndCategoryId(@Param("categoryId") String categoryId);
+
 }

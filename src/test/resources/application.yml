@@ -1,5 +1,4 @@
 application.data-dir: ${DATA_DIR:uploads}
-server.port: 8080
 spring:
   datasource:
     url: jdbc:h2:mem:reimburse

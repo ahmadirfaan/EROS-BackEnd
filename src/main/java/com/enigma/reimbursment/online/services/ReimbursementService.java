@@ -58,9 +58,14 @@ public class ReimbursementService extends AbstractService<Reimbursement, String>
         response.setCountEmployee(response.getCountEmployee());
         return response;
     }
-
+    //filter status_on_finance_true
     public List<Reimbursement> getStatusFinance() {
         return reimbursementRepository.getStatusFinance();
+    }
+
+    //filter status_on_finance_true and byCategoryId
+    public List<Reimbursement> getStatusFinanceAndByCategoryId(String categoryId) {
+        return reimbursementRepository.getStatusFinanceAndCategoryId(categoryId);
     }
 
 
