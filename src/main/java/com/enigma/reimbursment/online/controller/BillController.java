@@ -3,12 +3,13 @@ package com.enigma.reimbursment.online.controller;
 import com.enigma.reimbursment.online.entities.Bill;
 import com.enigma.reimbursment.online.entities.Reimbursement;
 import com.enigma.reimbursment.online.models.request.bill.ImageUploadRequest;
+import com.enigma.reimbursment.online.models.response.ResponseMessage;
 import com.enigma.reimbursment.online.models.response.bill.BillResponse;
 import com.enigma.reimbursment.online.services.BillService;
 import com.enigma.reimbursment.online.services.ReimbursementService;
 import com.enigma.reimbursment.online.uploadFile.FilesStorageService;
-import com.enigma.reimbursment.online.uploadFile.ResponseMessages;
 import com.google.common.io.Files;
+import com.sun.mail.iap.Response;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -57,8 +58,8 @@ public class BillController {
 //    }
 
     @PostMapping(value="/{id}/upload/file",consumes = "multipart/form-data")
-    public ResponseEntity<ResponseMessages> uploadFile(@PathVariable String id, ImageUploadRequest file) throws IOException {
-        if(Files.getFileExtension(file.getFile().getOriginalFilename()) == ".pdf"){
+    public ResponseMessage uploadFile(@PathVariable String id, ImageUploadRequest file) throws IOException {
+        if(Files.getFileExtension(file.getFile().getOriginalFilename()).equals("pdf")){
 
             Bill image = billService.filterByIdBill(id);
             if(image==null) {
@@ -74,29 +75,27 @@ public class BillController {
                     bill.setUrl("http://localhost:8080/files/"+ fileName);
                     billService.save(bill);
                     message = "Uploaded the file successfully: " + fileName;
-                    return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessages(message));
+                    return ResponseMessage.success(null);
+//                            ResponseEntity.status(HttpStatus.OK).body(new ResponseMessages(message));
                 } catch (Exception e) {
                     message = "Could not upload the file: " + fileName;
-                    return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessages(message));
+                    return ResponseMessage.error(417, message, null);
                 }
 
             } else{
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                        .body(new ResponseMessages("IMAGE HAS BEEN UPLOADED"));
+                return ResponseMessage.error(400,"IMAGE HAS BEEN UPLOADED", null);
             }
         }
 
         else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new ResponseMessages(file.getFile().getOriginalFilename()
-                            + " format file upload is not .pdf"));
+            return ResponseMessage.error(400,file.getFile().getOriginalFilename()
+                    + " format file upload is not .pdf", null);
         }
-
 
     }
 
     @PutMapping(value="/{id}/upload/file",consumes = "multipart/form-data")
-    public ResponseEntity<ResponseMessages> updateFile(@PathVariable String id, ImageUploadRequest file) throws IOException {
+    public ResponseMessage updateFile(@PathVariable String id, ImageUploadRequest file) throws IOException {
         Bill image = billService.filterByIdBill(id);
         billService.RemoveById(image.getId());
         String message = "";
@@ -110,15 +109,15 @@ public class BillController {
             bill.setUrl("http://localhost:8080/files/"+ fileName);
             billService.save(bill);
             message = "Uploaded the file successfully: " + fileName;
-            return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessages(message));
+            return ResponseMessage.success(null);
         } catch (Exception e) {
             message = "Could not upload the file: " + fileName;
-            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessages(message));
+            return ResponseMessage.error(417, message, null);
         }
     }
 
     @GetMapping("/files")
-    public ResponseEntity<List<BillResponse>> getListFiles() {
+    public ResponseMessage<List<BillResponse>> getListFiles() {
         List<BillResponse> billInfo = storageService.loadAll().map(path -> {
             String filename = path.getFileName().toString();
             String url = MvcUriComponentsBuilder
@@ -127,7 +126,7 @@ public class BillController {
             return new BillResponse(filename, url);
         }).collect(Collectors.toList());
 
-        return ResponseEntity.status(HttpStatus.OK).body(billInfo);
+        return ResponseMessage.success(billInfo);
     }
 
     @GetMapping("/files/{filename:.+}")

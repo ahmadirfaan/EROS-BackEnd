@@ -50,8 +50,14 @@ public class ReimbursementController {
     public ResponseMessage<ReimbursementResponse> add(@RequestBody  FindClaimReimburse model) {
         Reimbursement reimbursement = modelMapper.map(model,Reimbursement.class);
         reimbursement.setDateOfClaimSubmission(LocalDate.now());
-        reimbursement.setStartDate(LocalDate.parse(model.getStartDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        reimbursement.setEndDate(LocalDate.parse(model.getEndDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        if(model.getStartDate() == null || model.getEndDate() == null) {
+            reimbursement.setStartDate(null);
+            reimbursement.setEndDate(null);
+        } else {
+            reimbursement.setStartDate(LocalDate.parse(model.getStartDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            reimbursement.setEndDate(LocalDate.parse(model.getEndDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        }
+
         Employee employee = employeeService.findById(model.getEmployeeId());
         reimbursement.setEmployeeId(employee);
         reimbursement = reimbursementService.save(reimbursement);
@@ -286,15 +292,5 @@ public class ReimbursementController {
         List<Reimbursement> reimbursements = reimbursementService.getStatusFinance();
         return new ResponseMessage(200, "OK", reimbursements );
     }
-
-    //filter by date,category and id employee for admin hc / employee
-    @PostMapping("/filter-claim")
-    public ResponseMessage<List<Reimbursement>> filterClaimReimburse(@RequestBody FindClaimReimburse model) throws ParseException {
-        List<Reimbursement> reimbursements = reimbursementService.filterClaimReimbursement(model.getCategoryId(), model.getEmployeeId(),model.getStartDate(), model.getEndDate(), model.getDateOfClaimSubmission(), model.getClaimFee());
-        System.out.println("test: "+reimbursements);
-        return ResponseMessage.success(reimbursements);
-    }
-
-
 
 }

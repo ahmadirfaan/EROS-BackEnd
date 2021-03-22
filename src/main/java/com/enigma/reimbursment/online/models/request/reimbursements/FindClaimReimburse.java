@@ -10,8 +10,6 @@ import java.time.LocalDate;
 
 public class FindClaimReimburse {
 
-    private String dateOfClaimSubmission;
-
     private Integer claimFee;
 
     private String employeeId;
@@ -22,13 +20,6 @@ public class FindClaimReimburse {
 
     private String endDate;
 
-    public String getDateOfClaimSubmission() {
-        return dateOfClaimSubmission;
-    }
-
-    public void setDateOfClaimSubmission(String dateOfClaimSubmission) {
-        this.dateOfClaimSubmission = dateOfClaimSubmission;
-    }
 
     public Integer getClaimFee() {
         return claimFee;
@@ -70,15 +61,4 @@ public class FindClaimReimburse {
         this.endDate = endDate;
     }
 
-    @Override
-    public String toString() {
-        return "FindClaimReimburse{" +
-                "dateOfClaimSubmission='" + dateOfClaimSubmission + '\'' +
-                ", claimFee=" + claimFee +
-                ", employeeId='" + employeeId + '\'' +
-                ", categoryId='" + categoryId + '\'' +
-                ", startDate='" + startDate + '\'' +
-                ", endDate='" + endDate + '\'' +
-                '}';
-    }
 }
