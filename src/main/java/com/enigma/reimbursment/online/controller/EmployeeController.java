@@ -112,7 +112,7 @@ public class EmployeeController {
 
     @PutMapping("/editform/{id}")
     public ResponseMessage<EmployeeResponse> editForm(
-            @PathVariable String id, @RequestBody @Valid EmployeeRequestEditForm request) throws ParseException {
+            @PathVariable String id, @RequestBody EmployeeRequestEditForm request) throws ParseException {
         Employee employee = employeeService.findById(id);
         if(employee == null) {
             throw new EntityNotFoundException();

@@ -58,7 +58,9 @@ public class BillController {
 
     @PostMapping(value="/{id}/upload/file",consumes = "multipart/form-data")
     public ResponseEntity<ResponseMessages> uploadFile(@PathVariable String id, ImageUploadRequest file) throws IOException {
-        if(Files.getFileExtension(file.getFile().getOriginalFilename()) == ".pdf"){
+        System.out.println(file.getFile().getOriginalFilename());
+        System.out.println(Files.getFileExtension(file.getFile().getOriginalFilename()));
+        if(Files.getFileExtension(file.getFile().getOriginalFilename()).equals("pdf")){
 
             Bill image = billService.filterByIdBill(id);
             if(image==null) {

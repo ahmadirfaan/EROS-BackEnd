@@ -63,11 +63,5 @@ public class ReimbursementService extends AbstractService<Reimbursement, String>
         return reimbursementRepository.getStatusFinance();
     }
 
-    //filter for claim reimbursement
-    public List<Reimbursement> filterClaimReimbursement(String categoryId, String employeeId, String startDate,
-                                                        String endDate, String dateOfClaimSubmission, Integer
-                                                                claimFee) {
-        return reimbursementRepository.filterClaimReimbursement(categoryId, employeeId, startDate,
-                endDate, dateOfClaimSubmission, claimFee);
-    }
+
 }

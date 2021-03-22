@@ -79,20 +79,23 @@ public class EmployeeContractController {
 
 
 
-
     @PutMapping("/{id}")
-    public ResponseMessage<EmployeeContractResponse> edit(@PathVariable String id, @Valid EmployeeContractRequest request)  {
-        System.out.println(request);
-        System.out.println(id);
-
+    public ResponseMessage<EmployeeContractResponse> edit(@PathVariable String id, @RequestBody EmployeeContractRequest request)  {
+        System.out.println("req "+ request);
+        System.out.println("id "+ id);
         EmployeeContract employeeContract = employeeContractService.findById(id);
         System.out.println(employeeContract);
         if(employeeContract == null) {
             throw new EntityNotFoundException();
         }
-        employeeContract = employeeContractService.save(employeeContract);
+        Employee employee = employeeService.findById(request.getEmployeeId());
+        employeeContract.setEmployeeId(employee);
+        System.out.println("employee:" +employee);
 
+        modelMapper.map(request,employeeContract);
+        employeeContract = employeeContractService.save(employeeContract);
         EmployeeContractResponse data = modelMapper.map(employeeContract,EmployeeContractResponse.class);
+        System.out.println("data :" +data);
         return ResponseMessage.success(data);
 
     }

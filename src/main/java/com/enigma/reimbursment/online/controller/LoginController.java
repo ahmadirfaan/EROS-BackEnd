@@ -72,4 +72,31 @@ public class LoginController {
         return object;
     }
 
+    @PostMapping("/hash")
+    public ResponseMessage<LoginResponse> login_hash(@RequestBody @Valid LoginRequest request) {
+        Login login = loginService.findByEmailAndPassword(request.getEmail(), request.getPassword());
+        if (login == null) {
+            return new ResponseMessage(400, "Username or password is wrong.");
+        } else {
+            LoginResponse response = modelMapper.map(login, LoginResponse.class);
+            switch (login.getRole().getId()) {
+                case 1:
+                    return new ResponseMessage(200, "Login Success", response);
+                case 2:
+                    return new ResponseMessage(200, "Login Success", response);
+                case 3:
+                    return new ResponseMessage(200, "Login Success", response);
+                case 4:
+                    Employee employee = employeeService.findByIdLogin(login.getId());
+                    if (employee.getVerifiedEmail() == null) {
+                        return new ResponseMessage(200, "Username or password is wrong.");
+                    } else if (employee.getVerifiedEmail() != null && employee.getVerifiedEmail()) {
+                        return new ResponseMessage(200, "Login Success", response);
+                    }
+                default:
+                    return new ResponseMessage(200, "Username or password is wrong.");
+            }
+        }
+    }
+
 }
