@@ -25,6 +25,13 @@ public class Grade {
     @Column(name = "meal_cost")
     private Integer mealCost;
 
+    public Grade(String id) {
+        this.id = id;
+    }
+
+    public Grade() {
+    }
+
     public String getId() {
         return id;
     }

@@ -16,6 +16,13 @@ public class GradeResponse {
 
     private Integer mealCost;
 
+    public GradeResponse(String id) {
+        this.id = id;
+    }
+
+    public GradeResponse() {
+    }
+
     public Integer getGrade() {
         return grade;
     }
