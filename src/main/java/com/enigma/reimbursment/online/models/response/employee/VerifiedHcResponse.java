@@ -1,6 +1,7 @@
-package com.enigma.reimbursment.online.models.request.employee;
+package com.enigma.reimbursment.online.models.response.employee;
 
-public class EmployeeRequestVerifiedHc {
+public class VerifiedHcResponse {
+
     private Boolean isVerifiedHc;
 
     public Boolean getVerifiedHc() {

@@ -9,6 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.when;
@@ -57,5 +59,18 @@ public class CategoryServiceTest {
                 .thenReturn(Optional.of(input));
         Category result = service.findById(input.getId());
         assertEquals(input,result);
+    }
+
+    @Test
+    void shouldFindAll() {
+        List<Category> category = new ArrayList();
+        category.add(new Category("1"));
+        category.add(new Category("2"));
+        category.add(new Category("3"));
+        when(service.findAll()).thenReturn(category);
+        List<Category> expected = service.findAll();
+        assertEquals(category,expected);
+
+
     }
 }

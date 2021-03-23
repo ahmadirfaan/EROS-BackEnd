@@ -2,7 +2,6 @@ package com.enigma.reimbursment.online.services;
 
 import com.enigma.reimbursment.online.entities.Grade;
 import com.enigma.reimbursment.online.repositories.GradeRepository;
-import org.springframework.data.domain.Example;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -13,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.BDDMockito.given;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 
@@ -71,17 +70,16 @@ public class GradeServiceTest {
         assertEquals(input,result);
     }
 
-//    @Test
-//    void shouldFindAll() {
-//        List<Grade> grades = new ArrayList();
-////        grades.add(new Grade("1"));
-////        grades.add(new Grade("2"));
-////        grades.add(new Grade("3"));
-//
-//        when(repository.findAll()).thenReturn(grades);
-//        List<Grade> expected = service.findAll();
-//        assertNotNull(null,null);
+    @Test
+    void shouldFindAll() {
+        List<Grade> grades = new ArrayList();
+        grades.add(new Grade("1"));
+        grades.add(new Grade("2"));
+        grades.add(new Grade("3"));
+        when(service.findAll()).thenReturn(grades);
+        List<Grade> expected = service.findAll();
+        assertEquals(grades,expected);
 
-//    }
+    }
 
 }

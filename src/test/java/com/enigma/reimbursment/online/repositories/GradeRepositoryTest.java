@@ -33,7 +33,7 @@ public class GradeRepositoryTest {
     }
 
     @Test
-    void testFindByid() {
+    void testFindById() {
         Optional<Grade> opGrade = repository.findById("1");
         assertTrue(opGrade.isPresent());
     }

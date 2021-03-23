@@ -29,7 +29,9 @@ public class UtilController {
     @GetMapping("/dashboard")
     public ResponseMessage<EmployeeResponseDashboard> employeeDashboards(){
         EmployeeResponseDashboard responseDashboard = employeeService.employeeDashboard();
+        responseDashboard.setCountDataDashboard((responseDashboard.getCountEmployeeActive()/ responseDashboard.getCountEmployee())*100);
         return ResponseMessage.success(responseDashboard);
+
 
 
     }

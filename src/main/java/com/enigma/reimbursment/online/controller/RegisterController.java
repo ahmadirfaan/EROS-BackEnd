@@ -71,9 +71,7 @@ public class RegisterController {
             employeeService.changeIsVerifiedEmail(token);
             return new ResponseMessage(200, "Verification token is success.");
         }
-
     }
-
 
     @PostMapping("/employee")
     public ResponseMessage<RegisterResponse> register_employee (@RequestBody @Valid RegisterEmployeeRequest model) throws MessagingException {
@@ -115,4 +113,5 @@ public class RegisterController {
 
         return stringBuilder.toString();
     }
+
 }

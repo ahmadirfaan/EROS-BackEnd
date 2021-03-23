@@ -11,6 +11,7 @@ import com.enigma.reimbursment.online.models.response.ResponseMessage;
 import com.enigma.reimbursment.online.models.response.employee.EmployeeResponseDashboard;
 import com.enigma.reimbursment.online.models.response.employee.EmployeeResponsePage;
 import com.enigma.reimbursment.online.models.response.employee.EmployeeResponse;
+import com.enigma.reimbursment.online.models.response.employee.VerifiedHcResponse;
 import com.enigma.reimbursment.online.models.response.login.LoginResponse;
 import com.enigma.reimbursment.online.services.EmployeeService;
 import com.enigma.reimbursment.online.services.GradeService;
@@ -19,6 +20,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -66,26 +68,24 @@ public class EmployeeController {
 
 
     @PutMapping("/ganti-password")
-    public ResponseMessage<LoginResponse> changePassword( @RequestBody  EmployeeRequestChangePassword request) {
+    public ResponseMessage<LoginResponse> changePassword(@RequestBody EmployeeRequestChangePassword request) {
         Login login = loginService.findById(request.getIdLogin());
 
-        if(login == null) {
+        if (login == null) {
             throw new EntityNotFoundException();
         }
-
-        modelMapper.map(request,login);
+        modelMapper.map(request, login);
 
 
         login = loginService.save(login);
-        LoginResponse data = modelMapper.map(login,LoginResponse.class);
+        LoginResponse data = modelMapper.map(login, LoginResponse.class);
 
         return ResponseMessage.success(data);
     }
 
 
-
     @PutMapping("/{id}")
-    public ResponseMessage<EmployeeResponse> edit(@PathVariable String id,@RequestBody @Valid EmployeeRequest request) throws ParseException {
+    public ResponseMessage<EmployeeResponse> edit(@PathVariable String id, @RequestBody @Valid EmployeeRequest request) throws ParseException {
 
         Employee employee = employeeService.findById(id);
         if (employee == null) {
@@ -114,7 +114,7 @@ public class EmployeeController {
     public ResponseMessage<EmployeeResponse> editForm(
             @PathVariable String id, @RequestBody EmployeeRequestEditForm request) throws ParseException {
         Employee employee = employeeService.findById(id);
-        if(employee == null) {
+        if (employee == null) {
             throw new EntityNotFoundException();
         }
         Login login = loginService.findById(employee.getLogin().getId());
@@ -129,14 +129,14 @@ public class EmployeeController {
         modelMapper.map(request, employee);
 
         employee = employeeService.save(employee);
-        System.out.println("data employee:" +employee);
-        EmployeeResponse response = modelMapper.map(employee,EmployeeResponse.class);
+        System.out.println("data employee:" + employee);
+        EmployeeResponse response = modelMapper.map(employee, EmployeeResponse.class);
         return ResponseMessage.success(response);
     }
 
     //filter by name employee
     @PostMapping("/filter-name")
-    public ResponseMessage<List<Employee>> filterByNameEmployee(@RequestBody FilterByNameEmployee request){
+    public ResponseMessage<List<Employee>> filterByNameEmployee(@RequestBody FilterByNameEmployee request) {
         List<Employee> employees = employeeService.findByNameEmployee(request.getFullname());
         return ResponseMessage.success(employees);
     }
@@ -145,12 +145,25 @@ public class EmployeeController {
     @GetMapping("/idlogin/{idLogin}")
     public ResponseMessage<EmployeeResponse> getEmployeeByIdLogin(@PathVariable String idLogin) {
         Employee employee = employeeService.findByIdLogin(idLogin);
-        if(employee == null) {
-            throw  new EntityNotFoundException();
+        if (employee == null) {
+            throw new EntityNotFoundException();
         }
         EmployeeResponse response = modelMapper.map(employee, EmployeeResponse.class);
         return ResponseMessage.success(response);
     }
 
+    //is_verified_on_Hc
+    @PutMapping("/{id}/isVerified")
+    public ResponseMessage<VerifiedHcResponse> isVerifiedHc(@PathVariable String id, @RequestBody EmployeeRequestVerifiedHc request) {
+        Employee employee = employeeService.findById(id);
+        if(employee==null) {
+            throw new EntityNotFoundException();
+        }
+        modelMapper.map(request,employee);
+        employee.setVerifiedHc(request.getVerifiedHc());
+        employee = employeeService.save(employee);
+        VerifiedHcResponse data = modelMapper.map(employee,VerifiedHcResponse.class);
+        return ResponseMessage.success(data);
+    }
 
 }

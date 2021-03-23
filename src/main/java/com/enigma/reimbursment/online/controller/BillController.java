@@ -65,7 +65,7 @@ public class BillController {
             Bill image = billService.filterByIdBill(id);
             if(image==null) {
                 String message = "";
-                String fileName = "admin-" + id + "." + Files.getFileExtension(file.getFile().getOriginalFilename());
+                String fileName = "employee-" + id + "." + Files.getFileExtension(file.getFile().getOriginalFilename());
 //            String fileName = generateVerificationToken() + "." + Files.getFileExtension(file.getFile().getOriginalFilename());
                 try {
                     storageService.save(file.getFile(), fileName);

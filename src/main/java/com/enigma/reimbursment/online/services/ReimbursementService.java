@@ -3,6 +3,8 @@ package com.enigma.reimbursment.online.services;
 import com.enigma.reimbursment.online.entities.Reimbursement;
 import com.enigma.reimbursment.online.models.response.reimbursement.ReimbursementResponse;
 import com.enigma.reimbursment.online.models.response.employee.EmployeeResponseDashboard;
+import com.enigma.reimbursment.online.repositories.EmployeeContractRepository;
+import com.enigma.reimbursment.online.repositories.EmployeeRepository;
 import com.enigma.reimbursment.online.repositories.ReimbursementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,12 @@ public class ReimbursementService extends AbstractService<Reimbursement, String>
 
     @Autowired
     ReimbursementRepository reimbursementRepository;
+
+    @Autowired
+    EmployeeRepository employeeRepository;
+
+    @Autowired
+    EmployeeContractRepository employeeContractRepository;
 
     @Autowired
     protected ReimbursementService(ReimbursementRepository repository) {
@@ -53,9 +61,13 @@ public class ReimbursementService extends AbstractService<Reimbursement, String>
 
     public EmployeeResponseDashboard responseDashboard() {
         EmployeeResponseDashboard response = new EmployeeResponseDashboard();
-        response.setCountEmployeeReimburse(reimbursementRepository.getCountEmployeeReimbursement());
+        response.setCountEmployeeReimburse(Double.valueOf(reimbursementRepository.getCountEmployeeReimbursement()));
         response.setCountEmployeeActive(response.getCountEmployee());
         response.setCountEmployee(response.getCountEmployee());
+        response.setCountEmployeeFemale(employeeRepository.getCountFemaleEmployee());
+        response.setCountEmployeeMale(employeeRepository.getCountMaleEmployee());
+        response.setCountEmployeePKWT(employeeContractRepository.getCountEmployeePKWT());
+        response.setCountEmployeeProbabition(employeeContractRepository.getCountEmployeeProbabition());
         return response;
     }
     //filter status_on_finance_true
