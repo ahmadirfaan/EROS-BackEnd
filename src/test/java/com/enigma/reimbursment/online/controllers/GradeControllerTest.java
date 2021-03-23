@@ -4,7 +4,6 @@ import com.enigma.reimbursment.online.controller.GradeController;
 import com.enigma.reimbursment.online.entities.Grade;
 import com.enigma.reimbursment.online.exceptions.EntityNotFoundException;
 import com.enigma.reimbursment.online.models.response.grade.GradeResponse;
-import com.enigma.reimbursment.online.models.validations.alphabetic.Alphabetic;
 import com.enigma.reimbursment.online.services.GradeService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -18,11 +17,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @WebMvcTest(GradeController.class)
 public class GradeControllerTest {
@@ -138,12 +137,28 @@ public class GradeControllerTest {
 
         Grade entity = new Grade();
         entity.setId(grade.getId());
-        when
+        when(service.save(any())).thenReturn(entity);
 
+        RequestBuilder request = put("/grades/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"grade\" : \"1\"}");
+        mvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.code", is(HttpStatus.OK.value())))
+                .andExpect(jsonPath("$.data.grade", is(entity.getGrade())));
     }
 
+    @Test
+    void checkResponseEntityPostERROR() throws Exception {
 
-
-
+        RequestBuilder request = post("/grades")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("asdoksokdowkokdow");
+        mvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code", is(HttpStatus.BAD_REQUEST.value())))
+                .andExpect(result -> assertNotNull(result.getResolvedException()));
+    }
 
 }

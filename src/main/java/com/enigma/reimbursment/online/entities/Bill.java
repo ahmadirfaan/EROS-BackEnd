@@ -20,6 +20,8 @@ public class Bill extends AbstractEntity<String>{
     @Column(name = "url")
     private String url;
 
+    private String user;
+
     public String getUrl() {
         return url;
     }
@@ -48,6 +50,14 @@ public class Bill extends AbstractEntity<String>{
     @Override
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public String getBillImage() {

@@ -22,4 +22,8 @@ public class BillService extends AbstractService<Bill,String>{
     public Bill filterByIdBill(String reimbursementId) {
         return billRepository.findByIdBill(reimbursementId);
     }
+
+    public Bill filterByIdBillAdmin(String reimbursementId) {
+        return billRepository.findByIdBillAdmin(reimbursementId);
+    }
 }

@@ -10,6 +10,10 @@ import java.util.List;
 
 public interface BillRepository extends JpaRepository<Bill,String> {
 
-    @Query(value = "SELECT * FROM bill WHERE id_reimbursement = :reimbursementId", nativeQuery = true)
+    @Query(value = "SELECT * FROM bill WHERE id_reimbursement = :reimbursementId AND user = 'employee'", nativeQuery = true)
     Bill findByIdBill(@Param("reimbursementId") String reimbursementId);
+
+
+    @Query(value = "SELECT * FROM bill WHERE id_reimbursement = :reimbursementId AND user = 'admin'", nativeQuery = true)
+    Bill findByIdBillAdmin(@Param("reimbursementId") String reimbursementId);
 }

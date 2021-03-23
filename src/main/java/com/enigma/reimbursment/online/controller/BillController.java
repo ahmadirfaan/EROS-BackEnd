@@ -73,6 +73,7 @@ public class BillController {
                     Reimbursement entity =  reimbursementService.findById(id);
                     bill.setReimbursementId(entity);
                     bill.setBillImage(fileName);
+                    bill.setUser("employee");
                     bill.setUrl("http://localhost:8080/files/"+ fileName);
                     billService.save(bill);
                     message = "Uploaded the file successfully: " + fileName;
@@ -97,6 +98,50 @@ public class BillController {
 
     }
 
+    @PostMapping(value="/{id}/upload/file/admin",consumes = "multipart/form-data")
+    public ResponseEntity<ResponseMessages> uploadFileAdmin(@PathVariable String id, ImageUploadRequest file) throws IOException {
+        System.out.println(file.getFile().getOriginalFilename());
+        System.out.println(Files.getFileExtension(file.getFile().getOriginalFilename()));
+        if(Files.getFileExtension(file.getFile().getOriginalFilename()).equals("pdf")){
+
+            Bill image = billService.filterByIdBillAdmin(id);
+            if(image==null) {
+                String message = "";
+                String fileName = id + "." + Files.getFileExtension(file.getFile().getOriginalFilename());
+//            String fileName = generateVerificationToken() + "." + Files.getFileExtension(file.getFile().getOriginalFilename());
+                try {
+                    storageService.save(file.getFile(), fileName);
+                    Bill bill = new Bill();
+                    Reimbursement entity =  reimbursementService.findById(id);
+                    bill.setReimbursementId(entity);
+                    bill.setBillImage(fileName);
+                    bill.setUser("admin");
+                    bill.setUrl("http://localhost:8080/files/"+ fileName);
+                    billService.save(bill);
+                    message = "Uploaded the file successfully: " + fileName;
+                    return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessages(message));
+                } catch (Exception e) {
+                    message = "Could not upload the file: " + fileName;
+                    return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessages(message));
+                }
+
+            } else{
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new ResponseMessages("IMAGE HAS BEEN UPLOADED"));
+            }
+        }
+
+        else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ResponseMessages(file.getFile().getOriginalFilename()
+                            + " format file upload is not .pdf"));
+        }
+
+
+    }
+
+
+
     @PutMapping(value="/{id}/upload/file",consumes = "multipart/form-data")
     public ResponseEntity<ResponseMessages> updateFile(@PathVariable String id, ImageUploadRequest file) throws IOException {
         Bill image = billService.filterByIdBill(id);
@@ -118,6 +163,29 @@ public class BillController {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessages(message));
         }
     }
+
+    @PutMapping(value="/{id}/upload/file/admin",consumes = "multipart/form-data")
+    public ResponseEntity<ResponseMessages> updateFileAdmin(@PathVariable String id, ImageUploadRequest file) throws IOException {
+        Bill image = billService.filterByIdBillAdmin(id);
+        billService.RemoveById(image.getId());
+        String message = "";
+        String fileName = generateVerificationToken() + "." + Files.getFileExtension(file.getFile().getOriginalFilename());
+        try {
+            Bill bill = new Bill();
+            Reimbursement entity =  reimbursementService.findById(id);
+            storageService.save(file.getFile(), fileName);
+            bill.setReimbursementId(entity);
+            bill.setBillImage(fileName);
+            bill.setUrl("http://localhost:8080/files/"+ fileName);
+            billService.save(bill);
+            message = "Uploaded the file successfully: " + fileName;
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessages(message));
+        } catch (Exception e) {
+            message = "Could not upload the file: " + fileName;
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessages(message));
+        }
+    }
+
 
     @GetMapping("/files")
     public ResponseEntity<List<BillResponse>> getListFiles() {
