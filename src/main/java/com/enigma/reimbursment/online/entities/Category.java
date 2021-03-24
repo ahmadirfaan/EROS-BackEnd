@@ -16,6 +16,13 @@ public class Category {
 
     private String categoryName;
 
+    public Category(String id) {
+        this.id = id;
+    }
+
+    public Category() {
+    }
+
     public String getId() {
         return id;
     }

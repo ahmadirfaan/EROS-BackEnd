@@ -12,6 +12,9 @@ public class BillResponse {
         return url;
     }
 
+    public BillResponse() {
+    }
+
     public BillResponse(String billImage, String url) {
         this.billImage = billImage;
         this.url = url;

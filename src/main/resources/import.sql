@@ -4,11 +4,11 @@ INSERT INTO grade (id, give_birth_cost, glasess_cost, hotel_cost, meal_cost, gra
 INSERT INTO grade (id, give_birth_cost, glasess_cost, hotel_cost, meal_cost, grade, transportation_cost) VALUES ('4', '400000', '300000', '600000', '500000', '4', '400000');
 
 
-INSERT INTO category (id, category_name) VALUES ('1', 'glasses');
-INSERT INTO category (id, category_name) VALUES ('2', 'training');
-INSERT INTO category (id, category_name) VALUES ('3', 'give_birth');
-INSERT INTO category (id, category_name) VALUES ('4', 'official_travel');
-INSERT INTO category (id, category_name) VALUES ('5', 'insurance');
+INSERT INTO category (id, category_name) VALUES ('1', 'Kacamata');
+INSERT INTO category (id, category_name) VALUES ('2', 'Pelatihan');
+INSERT INTO category (id, category_name) VALUES ('3', 'Melahirkan');
+INSERT INTO category (id, category_name) VALUES ('4', 'Perjalanan Dinas');
+INSERT INTO category (id, category_name) VALUES ('5', 'Asuransi');
 
 
 INSERT INTO role(id,created_date,role_name) VALUES (1,'2021-03-13','super_admin');
@@ -17,7 +17,7 @@ INSERT INTO role(id,created_date,role_name) VALUES (3,'2021-03-16','assistance_a
 INSERT INTO role(id,created_date,role_name) VALUES (4,'2021-03-17','employee');
 
 
-INSERT INTO login (id, created_date, email, password, id_role) VALUES ('1', '2021-12-1', 'wisa@gmail.com', 'wisa', 1);
+INSERT INTO login (id, created_date, email, password, id_role) VALUES ('1', '2021-12-1', 'wisa@gmail.com', 'd0a58ca1d013f9613b13b01e5eb7b86a9c2543effa8703a7f2d139a8663d9928', 1);
 INSERT INTO login (id, created_date, email, password, id_role) VALUES ('2', '2021-12-2', 'irfan@gmail.com', 'irfan', 2);
 INSERT INTO login (id, created_date, email, password, id_role) VALUES ('3', '2021-12-3', 'wulan@gmail.com', 'wulan', 3);
 INSERT INTO login (id, created_date, email, password, id_role) VALUES ('4', '2021-12-4', 'eka@gmail.com', 'eka', 4);

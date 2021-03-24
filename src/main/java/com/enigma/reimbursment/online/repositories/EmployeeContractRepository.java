@@ -10,4 +10,10 @@ import java.util.List;
 
 public interface EmployeeContractRepository extends JpaRepository<EmployeeContract,String> {
 
+    @Query(value = "SELECT COUNT(id) FROM employee_contract WHERE type_contract = 'PKWT' ",nativeQuery = true)
+    Integer getCountEmployeePKWT();
+
+    @Query(value = "SELECT COUNT(id) FROM employee_contract WHERE type_contract = 'PROBABITION' ",nativeQuery = true)
+    Integer getCountEmployeeProbabition();
+
     }

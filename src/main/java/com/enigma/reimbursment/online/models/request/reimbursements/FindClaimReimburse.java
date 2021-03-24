@@ -61,4 +61,17 @@ public class FindClaimReimburse {
         this.endDate = endDate;
     }
 
+<<<<<<< HEAD
+=======
+    @Override
+    public String toString() {
+        return "FindClaimReimburse{" +
+                ", claimFee=" + claimFee +
+                ", employeeId='" + employeeId + '\'' +
+                ", categoryId='" + categoryId + '\'' +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
+                '}';
+    }
+>>>>>>> 27-test
 }

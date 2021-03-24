@@ -50,19 +50,13 @@ public interface ReimbursementRepository extends JpaRepository<Reimbursement, St
     @Query(value = "SELECT COUNT(id) FROM reimbursement", nativeQuery = true)
     Integer getCountEmployeeReimbursement();
 
+
     //filter status_on_finance_true
     @Query(value = "SELECT * FROM reimbursement WHERE status_on_finance = true", nativeQuery = true)
     List<Reimbursement> getStatusFinance();
 
-    //filter by dateOfSubClaim,category and id employee
-    @Query(value = "SELECT * FROM reimbursement WHERE id_category = :categoryId AND id_employee = :employeeId AND" +
-            " date_of_claim_submission = :dateOfClaimSubmission AND start_date = :startDate AND " +
-            "end_date = :endDate AND claim_fee = :claimFee", nativeQuery = true)
-    List<Reimbursement> filterClaimReimbursement(@Param("categoryId") String categoryId,
-                                                 @Param("employeeId") String employeeId,
-                                                 @Param("startDate") String startDate,
-                                                 @Param("endDate") String endDate,
-                                                 @Param("dateOfClaimSubmission") String dateOfClaimSubmission,
-                                                 @Param("claimFee") Integer claimFee);
+    //filter status_on_finance_true and byCategoryId
+    @Query(value = "SELECT * FROM reimbursement WHERE status_on_finance = true AND id_category = :categoryId", nativeQuery = true)
+    List<Reimbursement> getStatusFinanceAndCategoryId(@Param("categoryId") String categoryId);
 
 }

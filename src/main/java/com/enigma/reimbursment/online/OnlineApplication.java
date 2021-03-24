@@ -10,10 +10,11 @@ import org.springframework.web.client.RestTemplate;
 import javax.annotation.Resource;
 
 @SpringBootApplication
-public class OnlineApplication implements CommandLineRunner {
+//public class OnlineApplication implements CommandLineRunner {
+public class OnlineApplication {
 
-	@Resource
-	FilesStorageService storageService;
+//	@Resource
+//	FilesStorageService storageService;
 
 	@Bean
 	public RestTemplate getResultTemplate() {
@@ -24,9 +25,9 @@ public class OnlineApplication implements CommandLineRunner {
 		SpringApplication.run(OnlineApplication.class, args);
 	}
 
-	@Override
-	public void run(String... args) throws Exception {
-		storageService.deleteAll();
-		storageService.init();
-	}
+//	@Override
+//	public void run(String... args) throws Exception {
+////		storageService.deleteAll();
+//		storageService.init();
+//	}
 }

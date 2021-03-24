@@ -22,10 +22,10 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
     List<Employee> findByNameEmployee(@Param("fullname") String fullname);
 
     //tambahan
-    @Modifying
-    @Transactional
-    @Query(value = "UPDATE employee SET is_verified_hc = :isVerifiedHc WHERE id = :id", nativeQuery = true)
-    Employee changeIsVerifiedHc(@Param("id") String id,@Param("isVerifiedHc") Boolean isVerifiedHc);
+//    @Modifying
+//    @Transactional
+//    @Query(value = "UPDATE employee SET is_verified_hc = :isVerifiedHc WHERE id = :employeeId", nativeQuery = true)
+//    Employee changeIsVerifiedHc(@Param("employeeId") String id,@Param("isVerifiedHc") Boolean isVerifiedHc);
 
     @Modifying
     @Transactional
@@ -40,6 +40,14 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
 
     @Query(value = "SELECT COUNT(id) FROM employee WHERE employee_status = 'ACTIVE'", nativeQuery = true)
     Integer getCountEmployeeActive();
+
+    @Query(value = "SELECT COUNT(id) FROM employee WHERE gender = 'FEMALE'", nativeQuery = true)
+    Integer getCountFemaleEmployee();
+
+    @Query(value = "SELECT COUNT(id) FROM employee WHERE gender = 'MALE'", nativeQuery = true)
+    Integer getCountMaleEmployee();
+
+
 
 
 
