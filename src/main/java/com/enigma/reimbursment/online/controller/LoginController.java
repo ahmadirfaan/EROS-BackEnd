@@ -44,7 +44,12 @@ public class LoginController {
 
     @PostMapping
     public ResponseMessage<LoginResponse> login(@RequestBody @Valid LoginRequest request) {
-        Login login = loginService.findByEmailAndPassword(request.getEmail(), request.getPassword());
+        String password = request.getPassword();
+        String encode = Hashing.sha256()
+                .hashString(password, StandardCharsets.UTF_8)
+                .toString();
+
+        Login login = loginService.findByEmailAndPassword(request.getEmail(), encode);
         if (login == null) {
             return new ResponseMessage(400, "Username or password is wrong.");
         } else {

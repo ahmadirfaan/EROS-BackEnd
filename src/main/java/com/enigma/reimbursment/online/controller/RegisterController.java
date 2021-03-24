@@ -10,12 +10,14 @@ import com.enigma.reimbursment.online.models.request.register.RegisterEmployeeRe
 import com.enigma.reimbursment.online.models.response.ResponseMessage;
 import com.enigma.reimbursment.online.models.response.register.RegisterResponse;
 import com.enigma.reimbursment.online.services.*;
+import com.google.common.hash.Hashing;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import javax.validation.Valid;
+import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
 @RequestMapping("/register")
@@ -43,6 +45,7 @@ public class RegisterController {
 
     @PostMapping("/admin")
     public ResponseMessage<RegisterResponse> register_admin (@RequestBody @Valid RegisterAdminRequest request) {
+
 
         /* Save data register to table login */
         Login login = modelMapper.map(request, Login.class);
@@ -76,6 +79,11 @@ public class RegisterController {
     @PostMapping("/employee")
     public ResponseMessage<RegisterResponse> register_employee (@RequestBody @Valid RegisterEmployeeRequest model) throws MessagingException {
 
+        String password = model.getPassword();
+        String encode = Hashing.sha256()
+                .hashString(password, StandardCharsets.UTF_8)
+                .toString();
+        model.setPassword(encode);
         /* Save data register to table login */
         if(!model.getEmail().matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")) {
             throw new NotEmailException();
