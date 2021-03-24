@@ -17,7 +17,7 @@ INSERT INTO role(id,created_date,role_name) VALUES (3,'2021-03-16','assistance_a
 INSERT INTO role(id,created_date,role_name) VALUES (4,'2021-03-17','employee');
 
 
-INSERT INTO login (id, created_date, email, password, id_role) VALUES ('1', '2021-12-1', 'wisa@gmail.com', 'wisa', 1);
+INSERT INTO login (id, created_date, email, password, id_role) VALUES ('1', '2021-12-1', 'wisa@gmail.com', 'd0a58ca1d013f9613b13b01e5eb7b86a9c2543effa8703a7f2d139a8663d9928', 1);
 INSERT INTO login (id, created_date, email, password, id_role) VALUES ('2', '2021-12-2', 'irfan@gmail.com', 'irfan', 2);
 INSERT INTO login (id, created_date, email, password, id_role) VALUES ('3', '2021-12-3', 'wulan@gmail.com', 'wulan', 3);
 INSERT INTO login (id, created_date, email, password, id_role) VALUES ('4', '2021-12-4', 'eka@gmail.com', 'eka', 4);

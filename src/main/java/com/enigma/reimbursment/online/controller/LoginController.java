@@ -8,12 +8,14 @@ import com.enigma.reimbursment.online.models.response.ResponseMessage;
 import com.enigma.reimbursment.online.models.response.login.LoginResponse;
 import com.enigma.reimbursment.online.services.EmployeeService;
 import com.enigma.reimbursment.online.services.LoginService;
+import com.google.common.hash.Hashing;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
+import java.nio.charset.StandardCharsets;
 
 
 @RequestMapping("/login")
@@ -34,8 +36,10 @@ public class LoginController {
     @PostMapping("/encode")
     public ResponseMessage<String> testEncode(@RequestBody  LoginRequest request){
         String password = request.getPassword();
-
-        return ResponseMessage.success(password);
+        String encode = Hashing.sha256()
+                .hashString(password, StandardCharsets.UTF_8)
+                .toString();
+        return ResponseMessage.success(encode);
     }
 
     @PostMapping

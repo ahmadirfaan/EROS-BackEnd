@@ -3,6 +3,7 @@ package com.enigma.reimbursment.online.controller;
 import com.enigma.reimbursment.online.entities.Bill;
 import com.enigma.reimbursment.online.entities.Reimbursement;
 import com.enigma.reimbursment.online.models.request.bill.ImageUploadRequest;
+import com.enigma.reimbursment.online.models.response.ResponseMessage;
 import com.enigma.reimbursment.online.models.response.bill.BillResponse;
 import com.enigma.reimbursment.online.services.BillService;
 import com.enigma.reimbursment.online.services.ReimbursementService;
@@ -42,20 +43,7 @@ public class BillController {
     @Autowired
     ModelMapper modelMapper;
 
-//    @PostMapping(value = "/{id}/upload",consumes = "multipart/form-data")
-//    public ResponseMessage<Bill> upload (@PathVariable String id, @Valid ImageUploadRequest model) throws IOException {
-//        Reimbursement entity =  reimbursementService.findById(id);
-//        if(entity == null){
-//            throw new EntityNotFoundException();
-//        }
-//        Bill bill = new Bill();
-//        bill.setBillImage(model.getFile().getOriginalFilename());
-//        bill.setReimbursementId(entity);
-//        bill = billService.save(bill);
-//        fileService.upload(bill, model.getFile().getInputStream());
-//        return ResponseMessage.success(bill);
-//    }
-
+    //upload employee
     @PostMapping(value="/{id}/upload/file",consumes = "multipart/form-data")
     public ResponseEntity<ResponseMessages> uploadFile(@PathVariable String id, ImageUploadRequest file) throws IOException {
         System.out.println(file.getFile().getOriginalFilename());
@@ -94,12 +82,11 @@ public class BillController {
                     .body(new ResponseMessages(file.getFile().getOriginalFilename()
                             + " format file upload is not .pdf"));
         }
-
-
     }
 
+    //upload admin
     @PostMapping(value="/{id}/upload/file/admin",consumes = "multipart/form-data")
-    public ResponseEntity<ResponseMessages> uploadFileAdmin(@PathVariable String id, ImageUploadRequest file) throws IOException {
+    public ResponseMessage<BillResponse> uploadFileAdmin(@PathVariable String id, ImageUploadRequest file) throws IOException {
         System.out.println(file.getFile().getOriginalFilename());
         System.out.println(Files.getFileExtension(file.getFile().getOriginalFilename()));
         if(Files.getFileExtension(file.getFile().getOriginalFilename()).equals("pdf")){
@@ -119,27 +106,25 @@ public class BillController {
                     bill.setUrl("http://localhost:8080/files/"+ fileName);
                     billService.save(bill);
                     message = "Uploaded the file successfully: " + fileName;
-                    return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessages(message));
+                    BillResponse response = new BillResponse();
+                    response.setUrl(bill.getUrl());
+                    response.setBillImage(bill.getBillImage());
+                    return new ResponseMessage(200, message, response);
                 } catch (Exception e) {
                     message = "Could not upload the file: " + fileName;
-                    return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessages(message));
+                    return new ResponseMessage(400, "Bad Request", message);
                 }
 
             } else{
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                        .body(new ResponseMessages("IMAGE HAS BEEN UPLOADED"));
+                return new ResponseMessage(417,"File has been uploaded", null);
             }
         }
 
         else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new ResponseMessages(file.getFile().getOriginalFilename()
-                            + " format file upload is not .pdf"));
+            String message = "Format is not PDF";
+            return new ResponseMessage(400, "Bad Request", message);
         }
-
-
     }
-
 
 
     @PutMapping(value="/{id}/upload/file",consumes = "multipart/form-data")
@@ -209,18 +194,14 @@ public class BillController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
-
-
-//    @GetMapping("/{id}/preview")
-//    public void  preview (@PathVariable String id, HttpServletResponse response)throws IOException {
-//        Bill entity = billService.findById(id);
-//        if(entity == null) {
-//            throw new EntityNotFoundException();
-//        }
-//        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "filename=\"" +entity.getId() + "\"");
-//        fileService.download(entity,response.getOutputStream());
-//    }
-
+    @GetMapping("/{id}/file")
+    public ResponseMessage findFileByIdReimburse(@PathVariable String id) {
+        Bill bill = billService.filterByIdBillAdmin(id);
+        if (bill == null) {
+            return new ResponseMessage(404, "File not found");
+        }
+        return new ResponseMessage(200, "OK", bill);
+    }
 
     protected String generateVerificationToken() {
         String characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";

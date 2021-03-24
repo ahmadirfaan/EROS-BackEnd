@@ -47,6 +47,13 @@ public class EmployeeContract extends AbstractEntity <String> {
     @Column(name = "placement")
     private String placement;
 
+    public EmployeeContract(String id) {
+        this.id = id;
+    }
+
+    public EmployeeContract() {
+    }
+
     public String getId() {
         return id;
     }

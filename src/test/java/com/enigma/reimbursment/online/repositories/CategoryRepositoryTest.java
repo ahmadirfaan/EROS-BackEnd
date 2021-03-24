@@ -52,8 +52,8 @@ public class CategoryRepositoryTest {
         update.setCategoryName("admin");
 
         Category result = repository.findById(category.getId()).get();
-        assertThat(result.getId()).isEqualTo(category.getId());
-        assertThat(result.getCategoryName()).isEqualTo(category.getCategoryName());
+        assertThat(result.getId()).isEqualTo(update.getId());
+        assertThat(result.getCategoryName()).isEqualTo(update.getCategoryName());
 
     }
 
