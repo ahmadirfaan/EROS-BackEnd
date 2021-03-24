@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,13 +45,14 @@ public class EmployeeContractController {
 
         EmployeeContract employeeContract = modelMapper.map(request,EmployeeContract.class);
 
-        employeeContract.setTypeContract(TypeOfContract.getTypeOfContract(request.getTypeContract()));
-        employeeContract.setBenefitRegistrationStatus(StatusRegistrationBenefit
-                .getStatusRegistrationBenefit(request.getBenefitRegistrationStatus()));
-//        employeeContract.setStartDateContract(new SimpleDateFormat("yyyy-MM-dd")
-//                .parse(request.getStartDateContract()));
-//        employeeContract.setEndDateContract(new SimpleDateFormat("yyyy-MM-dd")
-//                .parse(request.getEndDateContract()));
+//        employeeContract.setTypeContract(TypeOfContract.getTypeOfContract(request.getTypeContract()));
+//        employeeContract.setBenefitRegistrationStatus(StatusRegistrationBenefit
+//                .getStatusRegistrationBenefit(request.getBenefitRegistrationStatus()));
+        employeeContract.setStartDateContract(LocalDate.parse(request.getStartDateContract(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        employeeContract.setEndDateContract(LocalDate.parse(request.getEndDateContract(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        employeeContract.setDateOfAcceptancePermanentEmployee(LocalDate.parse(request.getDateOfAcceptancePermanentEmployee(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        employeeContract.setDateOfResignation(LocalDate.parse(request.getDateOfResignation(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+
         Employee employee = employeeService.findById(request.getEmployeeId());
         employeeContract.setEmployeeId(employee);
 
@@ -76,9 +79,9 @@ public class EmployeeContractController {
 
 
 
-    //belom bisa
+
     @PutMapping("/{id}")
-    public ResponseMessage<EmployeeContractResponse> edit(@PathVariable String id, @Valid EmployeeContractRequest request) throws ParseException {
+    public ResponseMessage<EmployeeContractResponse> edit(@PathVariable String id, @Valid EmployeeContractRequest request)  {
         System.out.println(request);
         System.out.println(id);
 
@@ -87,20 +90,6 @@ public class EmployeeContractController {
         if(employeeContract == null) {
             throw new EntityNotFoundException();
         }
-
-        Employee employee = employeeService.findById(employeeContract.getEmployeeId().getId());
-        System.out.println(employee);
-        employeeContract.setEmployeeId(employee);
-
-//        employeeContract.setBenefitRegistrationStatus(StatusRegistrationBenefit.getStatusRegistrationBenefit(request.getBenefitRegistrationStatus()));
-//        employeeContract.setTypeContract(TypeOfContract.getTypeOfContract(request.getTypeContract()));
-//        employeeContract.setEndedContract(request.getEndedContract());
-//        employeeContract.setPlacement(request.getPlacement());
-
-        System.out.println(request.getTypeContract().toString());
-
-        modelMapper.map(request,employeeContract);
-
         employeeContract = employeeContractService.save(employeeContract);
 
         EmployeeContractResponse data = modelMapper.map(employeeContract,EmployeeContractResponse.class);

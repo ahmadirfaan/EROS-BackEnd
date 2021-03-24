@@ -65,4 +65,14 @@ public class Bill extends AbstractEntity<String>{
     public void setReimbursementId(Reimbursement reimbursementBillId) {
         this.reimbursementId = reimbursementBillId;
     }
+
+    @Override
+    public String toString() {
+        return "Bill{" +
+                "id='" + id + '\'' +
+                ", billImage='" + billImage + '\'' +
+                ", url='" + url + '\'' +
+                ", reimbursementId=" + reimbursementId +
+                '}';
+    }
 }

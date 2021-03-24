@@ -1,7 +1,7 @@
 package com.enigma.reimbursment.online.exceptions;
 
+
 import com.enigma.reimbursment.online.models.response.ResponseMessage;
-import com.enigma.reimbursment.online.uploadFile.ResponseMessages;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class FileUploadExceptionAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(MaxUploadSizeExceededException.class)
-    public ResponseEntity<ResponseMessages> handleMaxSizeException(MaxUploadSizeExceededException exc) {
-        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessages("File too large!"));
+    public ResponseMessage handleMaxSizeException(MaxUploadSizeExceededException exc) {
+        return ResponseMessage.error(417,"File too large!", null);
     }
 }

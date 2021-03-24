@@ -27,10 +27,10 @@ public class GradeController {
     @PostMapping
     public ResponseMessage<GradeResponse> add(@RequestBody @Valid GradeRequest model) {
         Grade entity = modelMapper.map(model, Grade.class);
-        entity = gradeService.save(entity);
+            entity = gradeService.save(entity);
+            GradeResponse data = modelMapper.map(entity,GradeResponse.class);
+            return ResponseMessage.success(data);
 
-        GradeResponse data = modelMapper.map(entity,GradeResponse.class);
-        return ResponseMessage.success(data);
     }
 
     @PutMapping("/{id}")
@@ -66,7 +66,7 @@ public class GradeController {
         return ResponseMessage.success(data);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseMessage<GradeResponse> removeById(@PathVariable  String id) {
         Grade entity = gradeService.RemoveById(id);
         if(entity == null) {
@@ -75,5 +75,6 @@ public class GradeController {
         GradeResponse data = modelMapper.map(entity,GradeResponse.class);
         return ResponseMessage.success(data);
     }
+
 
 }

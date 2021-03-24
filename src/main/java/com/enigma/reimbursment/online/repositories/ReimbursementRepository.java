@@ -20,8 +20,8 @@ public interface ReimbursementRepository extends JpaRepository<Reimbursement, St
 
     //filter by date
     @Query(value = "SELECT * FROM reimbursement WHERE date_of_claim_submission  BETWEEN :startDate AND :endDate", nativeQuery = true)
-    List<Reimbursement> filterByDateOfClaim( @Param("startDate") String startDate,
-                                             @Param("endDate") String endDate);
+    List<Reimbursement> filterByDateOfClaim(@Param("startDate") String startDate,
+                                            @Param("endDate") String endDate);
 
     //filter by id employee
     @Query(value = "SELECT * FROM reimbursement WHERE id_employee = :employeeId", nativeQuery = true)
@@ -35,9 +35,9 @@ public interface ReimbursementRepository extends JpaRepository<Reimbursement, St
                                                           @Param("endDate") String endDate);
 
     //filter by date(start-end) and id employee
-    @Query(value = "SELECT * FROM reimbursement WHERE id_employee = :employeeId AND date_of_claim_submission BETWEEN :startDate AND :endDate",nativeQuery = true)
+    @Query(value = "SELECT * FROM reimbursement WHERE id_employee = :employeeId AND date_of_claim_submission BETWEEN :startDate AND :endDate", nativeQuery = true)
     List<Reimbursement> filterByDateAndIdEmployee(@Param("employeeId") String employeeId,
-                                                  @Param("startDate")String startDate,
+                                                  @Param("startDate") String startDate,
                                                   @Param("endDate") String endDate);
 
     //filter status on adminHc(status_onFinance,on hc,reject,success)
@@ -47,6 +47,22 @@ public interface ReimbursementRepository extends JpaRepository<Reimbursement, St
                                               @Param("statusSuccess") Boolean statusSuccess,
                                               @Param("statusOnFinance") Boolean statusOnFinance);
 
-    @Query(value = "SELECT COUNT(id) FROM reimbursement",nativeQuery = true )
+    @Query(value = "SELECT COUNT(id) FROM reimbursement", nativeQuery = true)
     Integer getCountEmployeeReimbursement();
+
+    //filter status_on_finance_true
+    @Query(value = "SELECT * FROM reimbursement WHERE status_on_finance = true", nativeQuery = true)
+    List<Reimbursement> getStatusFinance();
+
+    //filter by dateOfSubClaim,category and id employee
+    @Query(value = "SELECT * FROM reimbursement WHERE id_category = :categoryId AND id_employee = :employeeId AND" +
+            " date_of_claim_submission = :dateOfClaimSubmission AND start_date = :startDate AND " +
+            "end_date = :endDate AND claim_fee = :claimFee", nativeQuery = true)
+    List<Reimbursement> filterClaimReimbursement(@Param("categoryId") String categoryId,
+                                                 @Param("employeeId") String employeeId,
+                                                 @Param("startDate") String startDate,
+                                                 @Param("endDate") String endDate,
+                                                 @Param("dateOfClaimSubmission") String dateOfClaimSubmission,
+                                                 @Param("claimFee") Integer claimFee);
+
 }

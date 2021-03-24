@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,8 +47,17 @@ public class ReimbursementController {
     private ModelMapper modelMapper;
 
     @PostMapping
-    public ResponseMessage<ReimbursementResponse> add(@RequestBody  ReimbursementRequest model) throws ParseException {
+    public ResponseMessage<ReimbursementResponse> add(@RequestBody  FindClaimReimburse model) {
         Reimbursement reimbursement = modelMapper.map(model,Reimbursement.class);
+        reimbursement.setDateOfClaimSubmission(LocalDate.now());
+        if(model.getStartDate() == null || model.getEndDate() == null) {
+            reimbursement.setStartDate(null);
+            reimbursement.setEndDate(null);
+        } else {
+            reimbursement.setStartDate(LocalDate.parse(model.getStartDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            reimbursement.setEndDate(LocalDate.parse(model.getEndDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        }
+
         Employee employee = employeeService.findById(model.getEmployeeId());
         reimbursement.setEmployeeId(employee);
         reimbursement = reimbursementService.save(reimbursement);
@@ -69,14 +80,14 @@ public class ReimbursementController {
                 e -> modelMapper.map(e, ReimbursementResponse.class))
                 .collect(Collectors.toList());
         if(reimbursements.isEmpty()){
-            return ResponseMessage.error(200,"Data Tidak Ditmeukan", null);
+            return ResponseMessage.error(200,"Data Tidak Ditemukan", null);
         }
         System.out.println(reimbursements);
         return ResponseMessage.success(reimbursementResponses);
     }
 
 
-    //filter by id category and id employee for employee
+    //filter by id category for admin
     @PostMapping("/filter-category")
     public ResponseMessage<List<Reimbursement>> filterCategory(@RequestBody FindCategoryRequest model) {
         System.out.println(model);
@@ -89,7 +100,7 @@ public class ReimbursementController {
     }
 
 
-    //filter by id employee for admin
+    //filter by id employee for admin hc
     @PostMapping("/filter-employee-admin")
     public ResponseMessage<List<Reimbursement>> filterIdEmployee(@RequestBody FindEmployeeRequest request){
         List<Reimbursement> reimbursements = reimbursementService.filterByIdEmployee(request.getEmployeeId());
@@ -120,7 +131,7 @@ public class ReimbursementController {
     }
 
 
-    //filter by date,category and id employee
+    //filter by date,category and id employee for admin hc / employee
     @PostMapping("/filter-date-category-employee")
     public ResponseMessage<List<Reimbursement>> filterByDateCategoryAndEmployee(@RequestBody FindDateCategoryAndIdEmployee model) throws ParseException {
         List<Reimbursement> reimbursements = reimbursementService.filterByDateCategoryAndIdEmployee(model.getCategoryId(), model.getEmployeeId(),model.getStartDate(), model.getEndDate() );
@@ -129,7 +140,7 @@ public class ReimbursementController {
     }
 
 
-//    //filter-date-employee
+//    //filter-date-employee for admin hc/employee
     @PostMapping("/filter-date-employee")
     public ResponseMessage<List<Reimbursement>> filterByDateIdEmployee(@RequestBody FindDateAndIdEmployee request) throws ParseException {
         Reimbursement reimbursement = new Reimbursement();
@@ -141,12 +152,17 @@ public class ReimbursementController {
 
 
 
+    //edit reimburse for admin hc
     @PutMapping("/{id}")
     public ResponseMessage<ReimbursementResponse> edit(@PathVariable String id, @RequestBody ReimbursementRequest model) {
         Reimbursement entity = reimbursementService.findById(id);
         if(entity == null) {
             throw new EntityNotFoundException();
         }
+        entity.setDateOfClaimSubmission(LocalDate.parse(model.getDateOfClaimSubmission(),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        entity.setDisbursementDate(LocalDate.parse(model.getDisbursementDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        entity.setStartDate(LocalDate.parse(model.getStartDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        entity.setEndDate(LocalDate.parse(model.getEndDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 
         Employee employee = employeeService.findById(model.getEmployeeId());
         entity.setEmployeeId(employee);
@@ -230,10 +246,12 @@ public class ReimbursementController {
     public ResponseMessage<ReimburseEmployeeResponse> editEmployee
             (@PathVariable String id, @RequestBody RequestModelEmployee model) throws ParseException {
         Reimbursement entity = reimbursementService.findById(id);
-
         if(entity == null) {
             throw new EntityNotFoundException();
         }
+        entity.setDateOfClaimSubmission(LocalDate.parse(model.getDateOfClaimSubmission(),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+
+
         Employee employee = employeeService.findById(entity.getEmployeeId().getId());
         entity.setEmployeeId(employee);
 
@@ -248,13 +266,13 @@ public class ReimbursementController {
     }
 
 
-    //untuk finance
+    //edit reimburse untuk finance
     @PutMapping("/{id}/finance")
     public ResponseMessage<FinanceResponse> editFinance(@PathVariable String id, @RequestBody ReimbursementModelFinance model) throws ParseException {
         Reimbursement entity = reimbursementService.findById(id);
-        if(entity == null) {
-            throw new EntityNotFoundException();
-        }
+        entity.setDisbursementDate(LocalDate.parse(model.getDisbursementDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+
+
         Employee employee = employeeService.findById(entity.getEmployeeId().getId());
         entity.setEmployeeId(employee);
         modelMapper.map(model,entity);
@@ -267,6 +285,12 @@ public class ReimbursementController {
 
         FinanceResponse data = modelMapper.map(entity,FinanceResponse.class);
         return ResponseMessage.success(data);
+    }
+
+    @GetMapping("/filter-status-finance")
+    public ResponseMessage<List<Reimbursement>> getStatusFinance() {
+        List<Reimbursement> reimbursements = reimbursementService.getStatusFinance();
+        return new ResponseMessage(200, "OK", reimbursements );
     }
 
 }

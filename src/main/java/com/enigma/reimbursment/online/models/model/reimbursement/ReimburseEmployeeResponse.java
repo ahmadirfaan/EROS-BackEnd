@@ -1,22 +1,25 @@
 package com.enigma.reimbursment.online.models.model.reimbursement;
 
+import com.enigma.reimbursment.online.models.response.category.CategoryResponse;
+import com.enigma.reimbursment.online.models.response.employee.EmployeeResponse;
+
 import java.util.Date;
 
 public class ReimburseEmployeeResponse {
 
-    private String employeeId;
+    private EmployeeResponse employeeId;
 
     private Date dateOfClaimSubmission;
 
-    private String categoryId;
+    private CategoryResponse categoryId;
 
     private Integer claimFee;
 
-    public String getEmployeeId() {
+    public EmployeeResponse getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(String employeeId) {
+    public void setEmployeeId(EmployeeResponse employeeId) {
         this.employeeId = employeeId;
     }
 
@@ -28,11 +31,11 @@ public class ReimburseEmployeeResponse {
         this.dateOfClaimSubmission = dateOfClaimSubmission;
     }
 
-    public String getCategoryId() {
+    public CategoryResponse getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(String categoryId) {
+    public void setCategoryId(CategoryResponse categoryId) {
         this.categoryId = categoryId;
     }
 
