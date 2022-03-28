@@ -11,6 +11,6 @@ public class DirectionConverter implements Converter<String, Direction> {
     public Direction convert(String source) {
         return Direction
                 .fromOptionalString(source.toUpperCase())
-                .orElseThrow();
+                .orElseThrow(null);
     }
 }

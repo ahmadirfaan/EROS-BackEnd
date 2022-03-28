@@ -1,12 +1,6 @@
 package com.enigma.reimbursment.online.models.request.reimbursements;
 
-import com.enigma.reimbursment.online.entities.Category;
-import com.enigma.reimbursment.online.entities.Employee;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import java.time.LocalDate;
 
 public class FindClaimReimburse {
 
@@ -61,8 +55,7 @@ public class FindClaimReimburse {
         this.endDate = endDate;
     }
 
-<<<<<<< HEAD
-=======
+
     @Override
     public String toString() {
         return "FindClaimReimburse{" +
@@ -73,5 +66,4 @@ public class FindClaimReimburse {
                 ", endDate='" + endDate + '\'' +
                 '}';
     }
->>>>>>> 27-test
 }

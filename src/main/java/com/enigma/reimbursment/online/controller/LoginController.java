@@ -12,7 +12,6 @@ import com.google.common.hash.Hashing;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
 import java.nio.charset.StandardCharsets;
@@ -30,8 +29,6 @@ public class LoginController {
     @Autowired
     private ModelMapper modelMapper;
 
-    @Autowired
-    private RestTemplate restTemplate;
 
     @PostMapping("/encode")
     public ResponseMessage<String> testEncode(@RequestBody  LoginRequest request){
@@ -74,12 +71,6 @@ public class LoginController {
         }
     }
 
-    @GetMapping("/test")
-    public Object test() {
-        String url = "https://jsonplaceholder.typicode.com/posts/1";
-        Object object = restTemplate.getForObject(url, Object.class);
-        return object;
-    }
 
     @PostMapping("/hash")
     public ResponseMessage<LoginResponse> login_hash(@RequestBody @Valid LoginRequest request) {
